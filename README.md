@@ -29,7 +29,16 @@ My personal Neovim configuration, modular and optimized for multiple languages:
 - Built-in **LSP setup** using Neovim 0.11+ `vim.lsp.enable`.
 - **Keymaps and menus** for window management, Git, and more.
 - **Diagnostics** with virtual lines and navigation.
-- Plugins configured: Harpoon, Lualine, Telescope, UndoTree, WhichKey, Yazi.
+- Plugins configured:
+  - [rose-pine](https://github.com/rose-pine/neovim)
+  - [harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2)
+  - [lazygit](https://github.com/kdheepak/lazygit.nvim)
+  - [lualine](https://github.com/nvim-lualine/lualine.nvim)
+  - [neogen](https://github.com/danymat/neogen)
+  - [telescope](https://github.com/nvim-telescope/telescope.nvim)
+  - [undotree](https://github.com/mbbill/undotree)
+  - [which-key](https://github.com/folke/which-key.nvim)
+  - [yazi](https://github.com/mikavilpas/yazi.nvim)
 
 ## Folder Structure
 
