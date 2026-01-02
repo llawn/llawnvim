@@ -16,13 +16,11 @@
 -- Structure of the `llawn` folder:
 --   lua/llawn/
 --     ├─ config/    → LSP, keymaps, menus, autocmds, options
---     └─ plugins/   → plugin configurations (Harpoon, Lualine, Telescope, etc.)
+--     └─ plugins/   → plugin configurations
 --
 -- Note:
 --   - Uses Lazy as the package manager
 --   - All LSP configurations use Neovim 0.11+ `vim.lsp.enable` API
---   - To load the configuration, simply run:
---         require("llawn")
 --
 -- ============================================================================
 require("llawn")

@@ -28,7 +28,6 @@ My personal Neovim configuration, modular and optimized for multiple languages:
 - **Lazy** plugin manager for fast startup.
 - Built-in **LSP setup** using Neovim 0.11+ `vim.lsp.enable`.
 - **Keymaps and menus** for window management, Git, and more.
-- **Diagnostics** with virtual lines and navigation.
 - Plugins configured:
   - [rose-pine](https://github.com/rose-pine/neovim)
   - [harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2)
@@ -45,11 +44,10 @@ My personal Neovim configuration, modular and optimized for multiple languages:
 ```
 lua/llawn/
 ├─ config/    → LSP setups, keymaps, menus, autocmds, options
-└─ plugins/   → Plugin configurations (Harpoon, Lualine, Telescope, etc.)
+└─ plugins/   → Plugin configurations
 ```
 
-- `.config/nvim/lsp/` contains individual server configs
-  (`clangd.lua`, `ty.lua`, etc.)
+- `.config/nvim/after/lsp/` contains individual server configs
 - `.config/nvim/lua/llawn/config/`:
   - centralizes LSP enable calls
   - keymaps
@@ -72,34 +70,6 @@ git clone git@github.com:llawn/nvimconfig.git
 ```
 
 3. Open Neovim and enjoy your fully configured setup.
-
-## Usage
-
-* **Load the configuration**:
-
-```lua
-require("llawn")
-```
-
-* **LSP keymaps**:
-
-  * `K` → Hover
-  * `gd` → Go to definition
-  * `gi` → Go to implementation
-  * `<leader>ca` → Code actions
-  * `[d` / `]d` → Previous/Next diagnostic
-  * `<leader>d` → Open diagnostic list
-
-* **Completion**:
-
-  * `<C-Space>` → Trigger completion
-  * `<CR>` → Confirm selection
-  * `<Tab>` / `<S-Tab>` → Navigate items and snippets
-
-* **Menus**:
-
-  * `<C-w>` → Window menu
-  * `<C-g>` → Git menu
 
 ---
 
