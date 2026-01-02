@@ -1,48 +1,59 @@
--- Relative and absolute line numbers combined
+---@brief Core Neovim editor options
+---
+---
+
+-- Line numbering
 vim.opt.number = true
 vim.opt.relativenumber = true
 
--- Cursorline
+-- Highligh the current cursor line
 vim.opt.cursorline = true
 
--- Show whitespace characters
-vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+-- Display whitespace characters
+vim.opt.list = false
+vim.opt.listchars = {
+  tab = "▸ ",
+  trail = "•",
+  extends = "⟩",
+  precedes = "⟨",
+  nbsp = "␣",
+  eol = "↲",
+  space = "·",
+}
 
 -- Preview substitutions
+-- :%s/foo/bar/g
 vim.opt.inccommand = 'split'
 
--- Text wrapping
+-- Line wrapping and indentation
 vim.opt.wrap = true
 vim.opt.breakindent = true
-
--- Tabstops
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
 
--- Window splitting
+-- Window split behaviour
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
--- Save undo history
+-- Persistent undo history (undotree)
 vim.opt.undofile = true
 
--- Set the default border for all floating windows
+-- Default border style for floating windows
 vim.opt.winborder = 'rounded'
 
--- See dotfiles and dotdir
+-- Show dotfiles and dot-directories in completion
 vim.opt.wildignore:append(".*")
 
--- Search settings
+-- Incremental search
 vim.opt.incsearch = true
 
--- Color and UI settings
+-- UI and Color related options
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 7
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
-vim.opt.colorcolumn = "79"
+vim.opt.colorcolumn = "80"
 
