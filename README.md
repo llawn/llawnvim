@@ -29,31 +29,53 @@ My personal Neovim configuration, modular and optimized for multiple languages:
 - Built-in **LSP setup** using Neovim 0.11+ `vim.lsp.enable`.
 - **Keymaps and menus** for window management, Git, and more.
 - Plugins configured:
-  - [rose-pine](https://github.com/rose-pine/neovim)
-  - [harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2)
-  - [lazygit](https://github.com/kdheepak/lazygit.nvim)
-  - [lualine](https://github.com/nvim-lualine/lualine.nvim)
-  - [neogen](https://github.com/danymat/neogen)
-  - [telescope](https://github.com/nvim-telescope/telescope.nvim)
-  - [undotree](https://github.com/mbbill/undotree)
-  - [which-key](https://github.com/folke/which-key.nvim)
-  - [yazi](https://github.com/mikavilpas/yazi.nvim)
+
+| Plugin | Description | Version |
+|--------|-------------|---------|
+| [rose-pine](https://github.com/rose-pine/neovim) | Color scheme | cf2a288 |
+| [ccc](https://github.com/uga-rosa/ccc.nvim) | Color picker and highlighter | 9d1a256 |
+| [harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2) | File navigation | 87b1a35 |
+| [lazygit](https://github.com/kdheepak/lazygit.nvim) | Git integration | a04ad0d |
+| [lualine](https://github.com/nvim-lualine/lualine.nvim) | Status line | 47f91c4 |
+| [neogen](https://github.com/danymat/neogen) | Documentation generation | d7f9461 |
+| [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | Completion engine | 85bbfad |
+| [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp) | LSP completion integration | cbc7b02 |
+| [telescope](https://github.com/nvim-telescope/telescope.nvim) | Fuzzy finder | 3333a52 |
+| [undotree](https://github.com/mbbill/undotree) | Undo tree | 178d19e |
+| [which-key](https://github.com/folke/which-key.nvim) | Key binding hints | 3aab214 |
+| [yazi](https://github.com/mikavilpas/yazi.nvim) | File manager | ba8aa93 |
 
 ## Folder Structure
 
 ```
 lua/llawn/
-├─ config/    → LSP setups, keymaps, menus, autocmds, options
-└─ plugins/   → Plugin configurations
+├─ config/
+│  ├─ autocmd.lua    → Autocommands
+│  ├─ globals.lua    → Global variables
+│  ├─ init.lua       → Initialization
+│  ├─ keymaps.lua    → Key mappings
+│  ├─ lsp.lua        → LSP configuration
+│  ├─ menu.lua       → Menus
+│  └─ options.lua    → Options
+└─ plugins/
+   ├─ lsp/
+   │  └─ cmp-nvim-lsp.lua → LSP completion integration
+   ├─ ccc.lua        → Color picker
+   ├─ colors.lua     → Theme configuration
+   ├─ harpoon.lua    → File navigation
+   ├─ lazygit.lua    → Git integration
+   ├─ lualine.lua    → Status line
+   ├─ neogen.lua     → Documentation generation
+   ├─ nvim-cmp.lua   → Completion engine
+   ├─ telescope.lua  → Fuzzy finder
+   ├─ undotree.lua   → Undo tree
+   ├─ which-key.lua  → Key binding hints
+   └─ yazi.lua       → File manager
 ```
 
-- `.config/nvim/after/lsp/` contains individual server configs
-- `.config/nvim/lua/llawn/config/`:
-  - centralizes LSP enable calls
-  - keymaps
-  - options
-  - ...
-- `.config/nvim/lua/llawn/plugins/` holds plugin setups.
+- `.config/nvim/after/lsp/` contains individual server configs (e.g., `flutter_ls.lua` for Dart/Flutter)
+- `.config/nvim/lua/llawn/config/` centralizes configurations for LSP, keymaps, options, etc.
+- `.config/nvim/lua/llawn/plugins/` holds all plugin setups.
 
 ## Installation
 
