@@ -1,4 +1,4 @@
----@brief Provides UI menus in Neovim.
+--- @brief Provides UI menus in Neovim.
 ---
 
 local M = {}

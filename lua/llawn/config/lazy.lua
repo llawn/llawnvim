@@ -1,4 +1,4 @@
----@brief Bootstrap and configure lazy.nvim plugin manager.
+--- @brief Bootstrap and configure lazy.nvim plugin manager.
 ---
 --- This is based on the official installation instructions
 --- from https://lazy.folke.io/installation.

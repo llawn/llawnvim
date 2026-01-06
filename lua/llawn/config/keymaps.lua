@@ -1,4 +1,4 @@
----@brief
+--- @brief
 ---
 --- Key Mappings
 --- Defines general keybindings used across the Neovim configuration
