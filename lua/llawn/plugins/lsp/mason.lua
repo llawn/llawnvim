@@ -1,5 +1,6 @@
 --- @brief Mason LSP configuration
 --- configures mason-lspconfig to automatically install some LSP
+---
 
 return {
   {
