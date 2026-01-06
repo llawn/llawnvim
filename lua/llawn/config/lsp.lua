@@ -111,7 +111,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- INLAY HINTS
 -- ============================================================================
 
-vim.lsp.inlay_hint.enable(false)
+vim.lsp.inlay_hint.enable(true)
 
 -- ============================================================================
 -- DIAGNOSTIC UI CONFIGURATION
