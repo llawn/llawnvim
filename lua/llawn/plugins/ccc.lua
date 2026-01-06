@@ -1,5 +1,6 @@
 --- @brief Color picker and highlighter plugin configuration for Neovim
 --- Provides color preview, manipulation, and highlighting features
+---
 
 return {
     "uga-rosa/ccc.nvim",
