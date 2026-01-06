@@ -63,7 +63,7 @@ lua/llawn/
 └─ plugins/
    ├─ lsp/
    │  ├─ cmp-nvim-lsp.lua → LSP completion integration
-   │  └─ mason.lua → Mason LSP manager
+   │  └─ mason.lua        → Mason LSP manager
    ├─ ccc.lua        → Color picker
    ├─ colors.lua     → Theme configuration
    ├─ harpoon.lua    → File navigation
