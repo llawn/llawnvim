@@ -99,5 +99,11 @@ git clone git@github.com:llawn/nvimconfig.git
 
 ---
 
+This configuration draws inspiration from:
+
+- [ThePrimeagen's init.lua](https://github.com/ThePrimeagen/init.lua)
+- [Josean Martinez's dev-environment-files](https://github.com/josean-dev/dev-environment-files)
+- [TJ DeVries' config.nvim](https://github.com/tjdevries/config.nvim)
+
 This configuration is continuously updated and modular, making it easy to
 expand with new languages or plugins.
