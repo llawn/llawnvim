@@ -1,5 +1,5 @@
 site_name: LLawn Neovim Configuration
 site_dir: site
-theme: readthedocs
+theme: material
 nav:
   - Home: index.md
