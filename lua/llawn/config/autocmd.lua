@@ -1,4 +1,4 @@
----@brief
+--- @brief
 ---
 --- Defines automatic actions triggered by Neovim events
 --- 

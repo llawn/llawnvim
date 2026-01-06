@@ -1,5 +1,4 @@
----@brief Core Neovim editor options
----
+--- @brief Core Neovim editor options
 ---
 
 -- Line numbering

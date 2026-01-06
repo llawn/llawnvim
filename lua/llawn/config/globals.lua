@@ -1,4 +1,4 @@
----@brief
+--- @brief
 ---
 --- Global Variables
 --- Defines global Vim variables used across the Neovim configuration
