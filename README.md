@@ -11,6 +11,7 @@
 ![GitHub License](https://img.shields.io/github/license/llawn/nvimconfig)
 ![GitHub repo size](https://img.shields.io/github/repo-size/llawn/nvimconfig)
 ![GitHub Tag](https://img.shields.io/github/v/tag/llawn/nvimconfig)
+![Neovim Version](https://img.shields.io/badge/Neovim-0.11+-57A143)
 
 # LLawn Neovim Configuration
 
