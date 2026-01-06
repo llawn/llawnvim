@@ -77,7 +77,7 @@ lua/llawn/
    └─ yazi.lua       → File manager
 ```
 
-- `.config/nvim/after/lsp/` contains individual server configs (e.g., `flutter_ls.lua` for Dart/Flutter)
+- `.config/nvim/after/lsp/` contains individual server configs for fine-tuning LSP behavior. For example, `flutter_ls.lua` customizes the Flutter Language Server by setting the command to use the Flutter SDK's analysis server, enabling Flutter-specific features like outline views and closing labels, and configuring completion and analysis options.
 - `.config/nvim/lua/llawn/config/` centralizes configurations for LSP, keymaps, options, etc.
 - `.config/nvim/lua/llawn/plugins/` holds all plugin setups.
 
