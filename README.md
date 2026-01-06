@@ -26,6 +26,7 @@ My personal Neovim configuration, modular and optimized for multiple languages:
 ## Features
 
 - **Lazy** plugin manager for fast startup.
+- **Mason** for automatic LSP server installation.
 - Built-in **LSP setup** using Neovim 0.11+ `vim.lsp.enable`.
 - **Keymaps and menus** for window management, Git, and more.
 - Plugins configured:
@@ -40,6 +41,8 @@ My personal Neovim configuration, modular and optimized for multiple languages:
 | [neogen](https://github.com/danymat/neogen) | Documentation generation | d7f9461 |
 | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | Completion engine | 85bbfad |
 | [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp) | LSP completion integration | cbc7b02 |
+| [mason](https://github.com/williamboman/mason.nvim) | LSP server manager | 57e5a8a |
+| [mason-lspconfig](https://github.com/williamboman/mason-lspconfig.nvim) | Mason LSP bridge | 4cfe411 |
 | [telescope](https://github.com/nvim-telescope/telescope.nvim) | Fuzzy finder | 3333a52 |
 | [undotree](https://github.com/mbbill/undotree) | Undo tree | 178d19e |
 | [which-key](https://github.com/folke/which-key.nvim) | Key binding hints | 3aab214 |
@@ -59,7 +62,8 @@ lua/llawn/
 │  └─ options.lua    → Options
 └─ plugins/
    ├─ lsp/
-   │  └─ cmp-nvim-lsp.lua → LSP completion integration
+   │  ├─ cmp-nvim-lsp.lua → LSP completion integration
+   │  └─ mason.lua → Mason LSP manager
    ├─ ccc.lua        → Color picker
    ├─ colors.lua     → Theme configuration
    ├─ harpoon.lua    → File navigation
