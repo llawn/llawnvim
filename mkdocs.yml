@@ -1,5 +1,31 @@
 site_name: LLawn Neovim Configuration
 site_dir: site
-theme: material
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: lime
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
 nav:
   - Home: index.md
+  - Features: features.md
+  - Plugins: plugins.md
+  - LSP Configurations: lsp.md
+  - Keymaps: keymaps.md
+  - Installation: installation.md
+  - Folder Structure: structure.md
