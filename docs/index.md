@@ -12,6 +12,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/llawn/nvimconfig)
 ![GitHub Tag](https://img.shields.io/github/v/tag/llawn/nvimconfig)
 ![Neovim Version](https://img.shields.io/badge/Neovim-0.11+-57A143)
+[![MkDocs](https://img.shields.io/badge/docs-mkdocs-blue)](https://llawn.github.io/nvimconfig/)
 
 # LLawn Neovim Configuration
 
@@ -151,6 +152,10 @@ git clone git@github.com:llawn/nvimconfig.git
 ```
 
 3. Open Neovim and enjoy your fully configured setup.
+
+## Documentation
+
+Full documentation is available at [https://llawn.github.io/nvimconfig/](https://llawn.github.io/nvimconfig/)
 
 ---
 
