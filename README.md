@@ -48,6 +48,60 @@ My personal Neovim configuration, modular and optimized for multiple languages:
 | [which-key](https://github.com/folke/which-key.nvim) | Key binding hints | 3aab214 |
 | [yazi](https://github.com/mikavilpas/yazi.nvim) | File manager | ba8aa93 |
 
+## Keymaps
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `<C-w>` | n | Window Popup Menu |
+| `<C-g>` | n | Git Popup Menu |
+| `<C-l>` | n | Toggle list characters |
+| `j` | n,x | Navigate visual line down |
+| `k` | n,x | Navigate visual line up |
+| `<Down>` | n,x | Navigate visual line down |
+| `<Up>` | n,x | Navigate visual line up |
+| `<Down>` | i | Navigate visual line down |
+| `<Up>` | i | Navigate visual line up |
+| `<leader>bb` | n | Switch to alternate buffer |
+| `<leader>bn` | n | Next buffer |
+| `<leader>bp` | n | Previous buffer |
+| `<C-q>` | n | Visual block mode |
+| `<A-k>` | n,i,v | Move line up |
+| `<A-j>` | n,i,v | Move line down |
+| `<leader>x` | n | Open file explorer |
+| `<leader>q` | n | Quit Neovim |
+| `<leader>w` | n | Save file |
+| `<leader>s` | n | Source current file |
+| `<leader>lx` | n | Execute current line (Lua) |
+| `<leader>lx` | v | Execute selection (Lua) |
+| `<C-c>` | x | Copy to system clipboard |
+| `<C-x>` | x | Cut to system clipboard |
+| `<C-v>` | n,i,x | Paste from system clipboard |
+| `<C-a>` | n | Select all |
+| `<C-z>` | n | Undo |
+| `<C-y>` | n | Redo |
+| `<C-s>` | n,i,v | Save file |
+| `<leader>lg` | n | LazyGit |
+| `<c-x>` | t | Quit LazyGit to Yazi |
+| `<leader>-` | n,v | Open Yazi at current file |
+| `<leader>cw` | n | Open Yazi in cwd |
+| `<c-up>` | n | Resume last Yazi session |
+| `<c-l>` | t | Open LazyGit from Yazi |
+| `<leader>nf` | n | Generate function docstring |
+| `<leader>nt` | n | Generate type/class docstring |
+| `<leader>u` | n | Toggle UndoTree |
+| `<leader>tf` | n | Telescope find files |
+| `<leader>tg` | n | Telescope git files |
+| `<leader>tb` | n | Telescope buffers |
+| `<leader>th` | n | Telescope help tags |
+| `<leader>tw` | n | Telescope find word |
+| `<leader>a` | n | Add file to Harpoon list |
+| `<C-e>` | n | Toggle Harpoon quick menu |
+| `<C-1>` | n | Select Harpoon file 1 |
+| `<C-2>` | n | Select Harpoon file 2 |
+| `<C-3>` | n | Select Harpoon file 3 |
+| `<leader>cc` | n | Color picker |
+| `<leader>ct` | n | Toggle color highlighter |
+
 ## Folder Structure
 
 ```
