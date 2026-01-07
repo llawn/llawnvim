@@ -20,14 +20,34 @@ return {
     "rafamadriz/friendly-snippets", -- useful snippets
     "onsails/lspkind.nvim", -- vs-code like pictograms
   },
-   config = function()
-     -- Require necessary modules
-     local cmp = require("cmp")
-     local luasnip = require("luasnip")
-     local lspkind = require("lspkind")
+    config = function()
+      -- Require necessary modules
+      local cmp = require("cmp")
+      local luasnip = require("luasnip")
+      local lspkind = require("lspkind")
+      local colors = require("llawn.config.hex_colors")
 
-     -- Load VSCode-style snippets from installed plugins
-     require("luasnip.loaders.from_vscode").lazy_load()
+       -- Register custom colors completion source
+       cmp.register_source("colors", {
+         keyword_pattern = [[\k\+]],
+         complete = function(self, params, callback)
+           local items = {}
+           local input = params.option.keyword or ""
+           for name, hex in pairs(colors) do
+             if name:lower():sub(1, #input) == input:lower() then
+               table.insert(items, {
+                 label = name,
+                 insertText = hex:lower(),
+                 kind = cmp.lsp.CompletionItemKind.Color,
+               })
+             end
+           end
+           callback(items)
+         end,
+       })
+
+      -- Load VSCode-style snippets from installed plugins
+      require("luasnip.loaders.from_vscode").lazy_load()
 
      -- Configure nvim-cmp completion engine
      cmp.setup({
@@ -45,13 +65,14 @@ return {
         ["<C-e>"] = cmp.mapping.abort(), -- close completion window
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
       }),
-      -- sources for autocompletion
-      sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "luasnip" }, -- snippets
-        { name = "buffer" }, -- text within current buffer
-        { name = "path" }, -- file system paths
-      }),
+       -- sources for autocompletion
+       sources = cmp.config.sources({
+         { name = "nvim_lsp" },
+         { name = "luasnip" }, -- snippets
+         { name = "colors" }, -- standard hex colors
+         { name = "buffer" }, -- text within current buffer
+         { name = "path" }, -- file system paths
+       }),
 
       -- configure lspkind for vs-code like pictograms in completion menu
       formatting = {
