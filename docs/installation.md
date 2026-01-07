@@ -31,7 +31,7 @@ This guide provides step-by-step instructions for installing and setting up the 
 
 2. Clone the configuration
    ```bash
-   git clone https://github.com/llawn/nvimconfig.git ~/.config/nvim
+   git clone https://github.com/llawn/llawnvim.git ~/.config/nvim
    ```
 
 3. Start Neovim (plugins will install automatically)
@@ -198,7 +198,7 @@ If you encounter issues:
 
 1. **Check this documentation**
 2. **Run health checks**: `:checkhealth`
-3. **Search existing issues**: [GitHub Issues](https://github.com/llawn/nvimconfig/issues)
+3. **Search existing issues**: [GitHub Issues](https://github.com/llawn/llawnvim/issues)
 4. **Create an issue**: Provide Neovim version, OS, and error messages
 
 The configuration is designed to be robust and should work out of the box. 

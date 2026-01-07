@@ -19,11 +19,11 @@ icon: material/home
     ╚══════╝╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
 ```
 
-[![GitHub License](https://img.shields.io/github/license/llawn/nvimconfig)](https://github.com/llawn/nvimconfig/blob/main/LICENSE)
-[![GitHub repo size](https://img.shields.io/github/repo-size/llawn/nvimconfig)](https://github.com/llawn/nvimconfig)
-[![GitHub Tag](https://img.shields.io/github/v/tag/llawn/nvimconfig)](https://github.com/llawn/nvimconfig/releases)
+[![GitHub License](https://img.shields.io/github/license/llawn/llawnvim)](https://github.com/llawn/llawnvim/blob/main/LICENSE)
+[![GitHub repo size](https://img.shields.io/github/repo-size/llawn/llawnvim)](https://github.com/llawn/llawnvim)
+[![GitHub Tag](https://img.shields.io/github/v/tag/llawn/llawnvim)](https://github.com/llawn/llawnvim/releases)
 [![Neovim Version](https://img.shields.io/badge/Neovim-0.11+-57A143)](https://neovim.io/)
-[![MkDocs](https://img.shields.io/badge/docs-mkdocs-blue)](https://llawn.github.io/nvimconfig/)
+[![MkDocs](https://img.shields.io/badge/docs-mkdocs-blue)](https://llawn.github.io/llawnvim/)
 
 A modular, feature-rich Neovim configuration optimized for multiple programming languages including C/C++, Flutter/Dart, Fortran, Go, Lua, and Python.
 
@@ -31,7 +31,7 @@ A modular, feature-rich Neovim configuration optimized for multiple programming 
 
 1. **Clone the repository:**
    ```bash
-   git clone git@github.com:llawn/nvimconfig.git ~/.config/nvim
+   git clone git@github.com:llawn/llawnvim.git ~/.config/nvim
    ```
 
 2. **Install plugins:**
@@ -78,4 +78,4 @@ This configuration draws inspiration from the Neovim community:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/llawn/nvimconfig/blob/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/llawn/llawnvim/blob/main/LICENSE) file for details.
