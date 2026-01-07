@@ -118,7 +118,7 @@ vim.keymap.set("n", "<leader>w", vim.cmd.w, opts)
 -- ============================================================================
 
 opts.desc = "Pick colors"
-vim.keymap.set("n", "<leader>tc", ":HexColor<CR>", opts)
+vim.keymap.set("n", "<leader>tc", ":HexColors<CR>", opts)
 
 -- ============================================================================
 -- Lua Utilities

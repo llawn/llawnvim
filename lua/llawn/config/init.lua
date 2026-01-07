@@ -7,5 +7,5 @@ require("llawn.config.options")
 
 -- post lazy
 require("llawn.config.menu")
-require("llawn.config.hex_colors")
+require("llawn.plugins.local.hex_colors")
 

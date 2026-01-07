@@ -1,4 +1,4 @@
-local colors = require('llawn.config.colors')
+local colors = require('llawn.plugins.local.colors')
 
 local telescope = require('telescope')
 local pickers = require('telescope.pickers')

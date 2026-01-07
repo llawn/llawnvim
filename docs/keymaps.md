@@ -182,8 +182,9 @@ This page provides a comprehensive reference of all key mappings in the LLawn Ne
 ### Color Tools
 | Key | Mode | Description |
 |-----|------|-------------|
-| `<leader>cc` | n | Open color picker |
+| `<leader>cc` | n | Open color picker (CCC) |
 | `<leader>ct` | n | Toggle color highlighter |
+| `<leader>tc` | n | Open custom color picker |
 
 ### Undo Management
 
