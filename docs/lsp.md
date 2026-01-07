@@ -66,6 +66,7 @@ The following servers are automatically installed via Mason:
 **Location**: `after/lsp/flutter_ls.lua`
 
 **Features**:
+
 - **Custom Command**: Uses Flutter SDK's analysis server
 - **Environment**: Requires `FLUTTER_ROOT` environment variable
 - **Enhanced Features**: Outline views, closing labels, Flutter-specific analysis
@@ -97,6 +98,7 @@ The following servers are automatically installed via Mason:
 ```
 
 **Setup Requirements**:
+
 1. Install Flutter SDK
 2. Set `FLUTTER_ROOT` environment variable
 3. Ensure Dart analysis server is available
@@ -109,6 +111,7 @@ The following servers are automatically installed via Mason:
 - **File Operations**: Automatic file operations handling
 
 ### Diagnostics
+
 - **Signs**: Custom diagnostic signs in sign column
 - **Virtual Text**: Inline error/warning messages
 - **Severity Levels**: Error, warning, hint, info

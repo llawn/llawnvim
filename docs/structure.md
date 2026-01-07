@@ -34,7 +34,9 @@ This page explains the organization and purpose of each directory and file in th
 ### init.lua
 
 **Location**: `~/.config/nvim/init.lua`
+
 **Purpose**: Main Neovim entry point that loads the llawn module
+
 **Contents**:
 
 - ASCII art banner
@@ -44,7 +46,9 @@ This page explains the organization and purpose of each directory and file in th
 ### lua/llawn/init.lua
 
 **Location**: `~/.config/nvim/lua/llawn/init.lua`
+
 **Purpose**: Module initialization file
+
 **Contents**:
 
 - Loads the main configuration module
@@ -57,6 +61,7 @@ This directory contains the core Neovim configuration, organized by functionalit
 ### autocmd.lua
 
 **Purpose**: Autocommands for various Neovim events
+
 **Features**:
 - File type specific settings
 - Buffer management
@@ -66,6 +71,7 @@ This directory contains the core Neovim configuration, organized by functionalit
 ### globals.lua
 
 **Purpose**: Global variables and constants
+
 **Contents**:
 - Configuration constants
 - Global settings
@@ -74,6 +80,7 @@ This directory contains the core Neovim configuration, organized by functionalit
 ### init.lua
 
 **Purpose**: Configuration initialization and loading
+
 **Contents**:
 - Loads all config modules in correct order
 - Post-lazy loading setup
@@ -104,6 +111,7 @@ This directory contains the core Neovim configuration, organized by functionalit
 ### menu.lua
 
 **Purpose**: Interactive popup menus
+
 **Menus**:
 
 - **Window Menu**: Split management, navigation
@@ -113,6 +121,7 @@ This directory contains the core Neovim configuration, organized by functionalit
 ### options.lua
 
 **Purpose**: Core Neovim editor options
+
 **Categories**:
 
 - **Line numbering**: Relative + absolute
@@ -129,6 +138,7 @@ Each plugin has its own configuration file for modularity.
 #### cmp-nvim-lsp.lua
 
 **Purpose**: LSP completion integration for nvim-cmp
+
 **Dependencies**:
 
 - `nvim-lsp-file-operations`
@@ -142,6 +152,7 @@ Each plugin has its own configuration file for modularity.
 #### mason.lua
 
 **Purpose**: LSP server management
+
 **Configuration**:
 
 - Auto-installation list
@@ -153,6 +164,7 @@ Each plugin has its own configuration file for modularity.
 #### ccc.lua
 
 **Purpose**: Color picker and highlighter
+
 **Features**:
 
 - Color manipulation
@@ -161,6 +173,7 @@ Each plugin has its own configuration file for modularity.
 #### colors.lua
 
 **Purpose**: Theme configuration (Rose Pine)
+
 **Features**:
 
 - Moon variant setup
@@ -171,6 +184,7 @@ Each plugin has its own configuration file for modularity.
 #### harpoon.lua
 
 **Purpose**: Quick file navigation
+
 **Features**:
 
 - Persistent file marks
@@ -179,6 +193,7 @@ Each plugin has its own configuration file for modularity.
 #### lazygit.lua
 
 **Purpose**: Git integration
+
 **Features**:
 
 - Floating window
@@ -188,6 +203,7 @@ Each plugin has its own configuration file for modularity.
 #### lualine.lua
 
 **Purpose**: Status line enhancement
+
 **Features**:
 
 - LSP status display
@@ -198,6 +214,7 @@ Each plugin has its own configuration file for modularity.
 #### neogen.lua
 
 **Purpose**: Documentation generation
+
 **Dependencies**:
 - `nvim-treesitter`
 - `LuaSnip`
@@ -205,6 +222,7 @@ Each plugin has its own configuration file for modularity.
 #### nvim-cmp.lua
 
 **Purpose**: Code completion engine
+
 **Features**:
 
 - Multiple completion sources
@@ -213,6 +231,7 @@ Each plugin has its own configuration file for modularity.
 
 #### telescope.lua
 **Purpose**: Fuzzy finder and search
+
 **Features**:
 
 - File/buffer search
@@ -222,6 +241,7 @@ Each plugin has its own configuration file for modularity.
 #### undotree.lua
 
 **Purpose**: Visual undo history
+
 **Features**:
 
 - Branch visualization
@@ -230,6 +250,7 @@ Each plugin has its own configuration file for modularity.
 #### which-key.lua
 
 **Purpose**: Key binding hints
+
 **Features**:
 
 - Interactive help
@@ -239,6 +260,7 @@ Each plugin has its own configuration file for modularity.
 #### yazi.lua
 
 **Purpose**: File manager integration
+
 **Features**:
 - Floating window
 - Directory replacement
@@ -249,6 +271,7 @@ Each plugin has its own configuration file for modularity.
 ### flutter_ls.lua
 
 **Purpose**: Custom Flutter/Dart LSP configuration
+
 **Features**:
 - Custom command using analysis server
 - Enhanced Flutter features
@@ -264,6 +287,7 @@ Each plugin has its own configuration file for modularity.
 4. **Documentation**: Update relevant `.md` files
 
 ### Customization
+
 - **Keymaps**: Modify `keymaps.lua`
 - **Options**: Edit `options.lua`
 - **Theme**: Adjust `colors.lua`
