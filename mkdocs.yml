@@ -24,7 +24,6 @@ theme:
 nav:
   - Home: index.md
   - Features: features.md
-  - Plugins: plugins.md
   - LSP Configurations: lsp.md
   - Keymaps: keymaps.md
   - Installation: installation.md
