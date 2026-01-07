@@ -8,11 +8,11 @@
 ```
 ---
 
-![GitHub License](https://img.shields.io/github/license/llawn/nvimconfig)
-![GitHub repo size](https://img.shields.io/github/repo-size/llawn/nvimconfig)
-![GitHub Tag](https://img.shields.io/github/v/tag/llawn/nvimconfig)
+![GitHub License](https://img.shields.io/github/license/llawn/llawnvim)
+![GitHub repo size](https://img.shields.io/github/repo-size/llawn/llawnvim)
+![GitHub Tag](https://img.shields.io/github/v/tag/llawn/llawnvim)
 ![Neovim Version](https://img.shields.io/badge/Neovim-0.11+-57A143)
-[![MkDocs](https://img.shields.io/badge/docs-mkdocs-blue)](https://llawn.github.io/nvimconfig/)
+[![MkDocs](https://img.shields.io/badge/docs-mkdocs-blue)](https://llawn.github.io/llawnvim/)
 
 # LLawn Neovim Configuration
 
@@ -142,7 +142,7 @@ lua/llawn/
 1. Clone this repository:
 
 ```bash
-git clone git@github.com:llawn/nvimconfig.git
+git clone git@github.com:llawn/llawnvim.git
 ```
 
 2. Install plugins using Lazy:
@@ -155,7 +155,7 @@ git clone git@github.com:llawn/nvimconfig.git
 
 ## Documentation
 
-Full documentation is available at [https://llawn.github.io/nvimconfig/](https://llawn.github.io/nvimconfig/)
+Full documentation is available at [https://llawn.github.io/llawnvim/](https://llawn.github.io/llawnvim/)
 
 ---
 
