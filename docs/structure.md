@@ -266,6 +266,29 @@ Each plugin has its own configuration file for modularity.
 - Directory replacement
 - Terminal integration
 
+### Local Plugins (local/)
+
+Custom local plugins not managed by Lazy.
+
+#### colors.lua
+
+**Purpose**: Color database with names and hex values
+
+**Contents**:
+- Comprehensive color palette (500+ colors)
+- Name-to-hex mapping for easy lookup
+
+#### hex_colors.lua
+
+**Purpose**: Custom color picker using Telescope
+
+**Features**:
+- Fuzzy search by color name
+- Hex code proximity matching
+- Visual swatches and contrast previews
+- Integration with nvim-cmp for color completion
+- `:HexColors` command for interactive selection
+
 ## LSP Customizations (after/lsp/)
 
 ### flutter_ls.lua

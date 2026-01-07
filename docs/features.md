@@ -97,7 +97,7 @@ Comprehensive LSP support for multiple languages with native Neovim 0.11+ integr
 ### Productivity
 
 - **Which-Key**: Interactive key binding hints
-- **Color Tools**: Color picker and highlighter (CCC)
+- **Color Tools**: Color picker (HexColors), highlighter (CCC), and completion
 
 ### LSP Management
 
@@ -229,7 +229,7 @@ The modular structure makes it simple to add new features:
 - **New Languages**: Add LSP servers to the servers table
 - **Custom Keymaps**: Extend the keymaps.lua file
 - **Plugin Addition**: Add to the plugins directory
-- **Theme Customization**: Modify colors.lua
+- **Theme Customization**: Modify `lua/llawn/plugins/colors.lua`
 
 ### Configuration Philosophy
 
