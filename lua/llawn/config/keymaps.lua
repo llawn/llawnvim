@@ -114,11 +114,13 @@ opts.desc = "Save file"
 vim.keymap.set("n", "<leader>w", vim.cmd.w, opts)
 
 -- ============================================================================
--- Telescope
+-- Color Picker
 -- ============================================================================
 
 opts.desc = "Pick colors"
 vim.keymap.set("n", "<leader>tc", ":HexColors<CR>", opts)
+opts.desc = "Pick colors 2D"
+vim.keymap.set("n", "<leader>cc", ":ColorPick2D<CR>", opts)
 
 -- ============================================================================
 -- Lua Utilities

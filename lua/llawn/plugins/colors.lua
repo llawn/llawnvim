@@ -3,10 +3,10 @@
 ---
 
 local colors = {
-  nontext = "#9ccfd8",
-  whitespace = "#eb6f92",
-  specialkey = "#f6c177",
-  endofbuffer = "#6e6a86"
+  nontext = "#9eb9d4", -- powder blue
+  whitespace = "#ed7a9b", -- petal rouge
+  specialkey = "#e9d66b", -- straw gold
+  endofbuffer = "#708090", -- slate grey
 }
 
 -- Function to set up a color scheme with custom highlights
