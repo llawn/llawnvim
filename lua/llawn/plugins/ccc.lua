@@ -15,7 +15,6 @@ return {
         })
 
         -- Keybindings for color picker
-        vim.keymap.set("n", "<leader>cc", "<cmd>CccPick<cr>", { desc = "Color picker" })
         vim.keymap.set("n", "<leader>ct", "<cmd>CccHighlighterToggle<cr>", { desc = "Toggle color highlighter" })
     end
 }
