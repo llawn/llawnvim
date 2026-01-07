@@ -29,23 +29,23 @@ expand with new languages or plugins.
 
 ## Documentation
 
-    Full documentation is available at [https://llawn.github.io/llawnvim/](https://llawn.github.io/llawnvim/)
+Full documentation is available at [https://llawn.github.io/llawnvim/](https://llawn.github.io/llawnvim/)
 
 ## Installation
 
-    1. Clone this repository:
+1. Clone this repository:
 
-    ```bash
-    git clone git@github.com:llawn/llawnvim.git
-    ```
+```bash
+git clone git@github.com:llawn/llawnvim.git
+```
 
-    2. Install plugins using Lazy:
+2. Install plugins using Lazy:
 
-    ```vim
-    :Lazy sync
-    ```
+```vim
+:Lazy sync
+```
 
-    3. Open Neovim and enjoy your fully configured setup.
+3. Open Neovim and enjoy your fully configured setup.
 
 ## Features
 
