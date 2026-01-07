@@ -1,0 +1,20 @@
+/* Custom CSS to make documentation wider */
+.md-grid {
+    max-width: 90% !important;
+}
+
+.md-content {
+    max-width: 90%;
+}
+
+.md-content__inner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media screen and (min-width: 76.1875em) {
+    .md-content {
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+}
