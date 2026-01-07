@@ -1,3 +1,13 @@
+---
+
+title: LLawn Neovim Configuration
+
+description: A modular, feature-rich Neovim configuration optimized for multiple programming languages
+
+icon: material/home
+
+---
+
 # LLawn Neovim Configuration
 
 ```markdown
@@ -17,7 +27,7 @@
 
 A modular, feature-rich Neovim configuration optimized for multiple programming languages including C/C++, Flutter/Dart, Fortran, Go, Lua, and Python.
 
-## 🚀 Quick Start
+## Quick Start
 
 1. **Clone the repository:**
    ```bash
@@ -29,9 +39,9 @@ A modular, feature-rich Neovim configuration optimized for multiple programming 
    :Lazy sync
    ```
 
-3. **Start coding!** 🎉
+3. **Start coding!**
 
-## ✨ Key Features
+## Key Features
 
 - **Modern LSP Setup**: Built-in LSP configuration using Neovim 0.11+ features
 - **Plugin Management**: Lazy-loaded plugins for optimal performance
@@ -40,38 +50,25 @@ A modular, feature-rich Neovim configuration optimized for multiple programming 
 - **Beautiful UI**: Rose Pine theme with custom highlights
 - **Productive Tools**: File navigation, git integration, fuzzy finding, and more
 
-## 📚 Documentation
+## Documentation
 
 This documentation provides comprehensive guides for:
 
-- [Features](features.md) - Detailed feature overview
-- [Plugins](plugins.md) - Plugin configurations and usage
+- [Features](features.md) - Detailed feature overview and plugin ecosystem
 - [LSP Configurations](lsp.md) - Language server setup details
 - [Keymaps](keymaps.md) - Complete key binding reference
 - [Installation](installation.md) - Step-by-step setup guide
 - [Folder Structure](structure.md) - Codebase organization
 
-## 🎯 Supported Languages
-
-| Language | LSP Server | Features |
-|----------|------------|----------|
-| C/C++ | clangd | Full language support, diagnostics |
-| Flutter/Dart | flutter_ls | Hot reload, outline views, widgets |
-| Fortran | fortls | Modern Fortran support |
-| Go | gopls | Google's official Go language server |
-| Lua | lua_ls | Lua language support with Neovim API |
-| Python | ty + ruff | Type checking and linting |
-
-## 🏗️ Architecture
+## Architecture
 
 This configuration follows a modular structure with separate concerns:
 
 - **Core Configuration**: Editor options, keymaps, and LSP setup
 - **Plugin Management**: Lazy-loaded plugins with dependency management
 - **Language Support**: Dedicated LSP configurations per language
-- **UI/UX**: Theme, status line, and interface customizations
 
-## 🤝 Contributing
+## Contributing
 
 This configuration draws inspiration from the Neovim community:
 
@@ -79,6 +76,6 @@ This configuration draws inspiration from the Neovim community:
 - [Josean Martinez's dev-environment-files](https://github.com/josean-dev-environment-files)
 - [TJ DeVries' config.nvim](https://github.com/tjdevries/config.nvim)
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/llawn/nvimconfig/blob/main/LICENSE) file for details.
