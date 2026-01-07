@@ -16,14 +16,36 @@
 
 # LLawn Neovim Configuration
 
-My personal Neovim configuration, modular and optimized for multiple languages:
+My personal Neovim configuration, modular and optimized for multiple languages
 
-- C / C++ (clangd)
-- Flutter / Dart (flutter_ls)
-- Fortran (fortls)
-- Go (gopls)
-- Lua (lua_ls)
-- Python (ty, ruff)
+This configuration draws inspiration from:
+
+- [ThePrimeagen's init.lua](https://github.com/ThePrimeagen/init.lua)
+- [Josean Martinez's dev-environment-files](https://github.com/josean-dev/dev-environment-files)
+- [TJ DeVries' config.nvim](https://github.com/tjdevries/config.nvim)
+
+This configuration is continuously updated and modular, making it easy to
+expand with new languages or plugins.
+
+## Documentation
+
+    Full documentation is available at [https://llawn.github.io/llawnvim/](https://llawn.github.io/llawnvim/)
+
+## Installation
+
+    1. Clone this repository:
+
+    ```bash
+    git clone git@github.com:llawn/llawnvim.git
+    ```
+
+    2. Install plugins using Lazy:
+
+    ```vim
+    :Lazy sync
+    ```
+
+    3. Open Neovim and enjoy your fully configured setup.
 
 ## Features
 
@@ -50,120 +72,25 @@ My personal Neovim configuration, modular and optimized for multiple languages:
 | [which-key](https://github.com/folke/which-key.nvim) | Key binding hints | 3aab214 |
 | [yazi](https://github.com/mikavilpas/yazi.nvim) | File manager | ba8aa93 |
 
+[More features](https://llawn.github.io/llawnvim/features/)
+
+## Languages
+
+[LSP configurations](https://llawn.github.io/llawnvim/lsp/)
+
+| Language | LSP Server |
+|----------|------------|
+| C / C++ | clangd |
+| Flutter / Dart | flutter_ls |
+| Fortran | fortls |
+| Go | gopls |
+| Lua | lua_ls |
+| Python | ty, ruff |
+
 ## Keymaps
 
-| Key | Mode | Description |
-|-----|------|-------------|
-| `<C-w>` | n | Window Popup Menu |
-| `<C-g>` | n | Git Popup Menu |
-| `<C-l>` | n | Toggle list characters |
-| `j` | n,x | Navigate visual line down |
-| `k` | n,x | Navigate visual line up |
-| `<Down>` | n,x | Navigate visual line down |
-| `<Up>` | n,x | Navigate visual line up |
-| `<Down>` | i | Navigate visual line down |
-| `<Up>` | i | Navigate visual line up |
-| `<leader>bb` | n | Switch to alternate buffer |
-| `<leader>bn` | n | Next buffer |
-| `<leader>bp` | n | Previous buffer |
-| `<C-q>` | n | Visual block mode |
-| `<A-k>` | n,i,v | Move line up |
-| `<A-j>` | n,i,v | Move line down |
-| `<leader>x` | n | Open file explorer |
-| `<leader>q` | n | Quit Neovim |
-| `<leader>w` | n | Save file |
-| `<leader>s` | n | Source current file |
-| `<leader>lx` | n | Execute current line (Lua) |
-| `<leader>lx` | v | Execute selection (Lua) |
-| `<C-c>` | x | Copy to system clipboard |
-| `<C-x>` | x | Cut to system clipboard |
-| `<C-v>` | n,i,x | Paste from system clipboard |
-| `<C-a>` | n | Select all |
-| `<C-z>` | n | Undo |
-| `<C-y>` | n | Redo |
-| `<C-s>` | n,i,v | Save file |
-| `<leader>lg` | n | LazyGit |
-| `<c-x>` | t | Quit LazyGit to Yazi |
-| `<leader>-` | n,v | Open Yazi at current file |
-| `<leader>cw` | n | Open Yazi in cwd |
-| `<c-up>` | n | Resume last Yazi session |
-| `<c-l>` | t | Open LazyGit from Yazi |
-| `<leader>nf` | n | Generate function docstring |
-| `<leader>nt` | n | Generate type/class docstring |
-| `<leader>u` | n | Toggle UndoTree |
-| `<leader>tf` | n | Telescope find files |
-| `<leader>tg` | n | Telescope git files |
-| `<leader>tb` | n | Telescope buffers |
-| `<leader>th` | n | Telescope help tags |
-| `<leader>tw` | n | Telescope find word |
-| `<leader>a` | n | Add file to Harpoon list |
-| `<C-e>` | n | Toggle Harpoon quick menu |
-| `<C-1>` | n | Select Harpoon file 1 |
-| `<C-2>` | n | Select Harpoon file 2 |
-| `<C-3>` | n | Select Harpoon file 3 |
-| `<leader>cc` | n | Color picker |
-| `<leader>ct` | n | Toggle color highlighter |
+[Full keymaps documentation](https://llawn.github.io/llawnvim/keymaps/)
 
 ## Folder Structure
 
-```
-lua/llawn/
-├─ config/
-│  ├─ autocmd.lua    → Autocommands
-│  ├─ globals.lua    → Global variables
-│  ├─ init.lua       → Initialization
-│  ├─ keymaps.lua    → Key mappings
-│  ├─ lsp.lua        → LSP configuration
-│  ├─ menu.lua       → Menus
-│  └─ options.lua    → Options
-└─ plugins/
-   ├─ lsp/
-   │  ├─ cmp-nvim-lsp.lua → LSP completion integration
-   │  └─ mason.lua        → Mason LSP manager
-   ├─ ccc.lua        → Color picker
-   ├─ colors.lua     → Theme configuration
-   ├─ harpoon.lua    → File navigation
-   ├─ lazygit.lua    → Git integration
-   ├─ lualine.lua    → Status line
-   ├─ neogen.lua     → Documentation generation
-   ├─ nvim-cmp.lua   → Completion engine
-   ├─ telescope.lua  → Fuzzy finder
-   ├─ undotree.lua   → Undo tree
-   ├─ which-key.lua  → Key binding hints
-   └─ yazi.lua       → File manager
-```
-
-- `.config/nvim/after/lsp/` contains individual server configs for fine-tuning LSP behavior. For example, `flutter_ls.lua` customizes the Flutter Language Server by setting the command to use the Flutter SDK's analysis server, enabling Flutter-specific features like outline views and closing labels, and configuring completion and analysis options.
-- `.config/nvim/lua/llawn/config/` centralizes configurations for LSP, keymaps, options, etc.
-- `.config/nvim/lua/llawn/plugins/` holds all plugin setups.
-
-## Installation
-
-1. Clone this repository:
-
-```bash
-git clone git@github.com:llawn/llawnvim.git
-```
-
-2. Install plugins using Lazy:
-
-```vim
-:Lazy sync
-```
-
-3. Open Neovim and enjoy your fully configured setup.
-
-## Documentation
-
-Full documentation is available at [https://llawn.github.io/llawnvim/](https://llawn.github.io/llawnvim/)
-
----
-
-This configuration draws inspiration from:
-
-- [ThePrimeagen's init.lua](https://github.com/ThePrimeagen/init.lua)
-- [Josean Martinez's dev-environment-files](https://github.com/josean-dev/dev-environment-files)
-- [TJ DeVries' config.nvim](https://github.com/tjdevries/config.nvim)
-
-This configuration is continuously updated and modular, making it easy to
-expand with new languages or plugins.
+[Full folder structure documentation](https://llawn.github.io/llawnvim/structure/)
