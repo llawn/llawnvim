@@ -38,7 +38,14 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 -- Persistent undo history (undotree)
-vim.opt.undofile = true
+if vim.fn.has("persistent_undo") == 1 then
+    local target_path = vim.fn.expand("~/.undodir", 1)
+    if vim.fn.isdirectory(target_path) == 0 then
+        vim.fn.mkdir(target_path, "p", 0700)
+    end
+    vim.opt.undodir = target_path
+    vim.opt.undofile = true
+end
 
 -- Default border style for floating windows
 vim.opt.winborder = 'rounded'
