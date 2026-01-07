@@ -17,6 +17,10 @@ local menu = require("llawn.config.menu")
 opts.desc = "Window Popup Menu"
 vim.keymap.set("n", "<C-w>", menu.window.menu, opts)
 
+opts.desc = "Disabled (overlaps with window menu)"
+vim.keymap.set("n", "<C-w>d", "<nop>", opts)
+vim.keymap.set("n", "<C-w><C-D>", "<nop>", opts)
+
 opts.desc = "Git Popup Menu"
 vim.keymap.set("n", "<C-g>", menu.git.menu, opts)
 
