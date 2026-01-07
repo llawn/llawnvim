@@ -31,3 +31,27 @@ vim.api.nvim_create_user_command("CleanUndo", function()
     vim.notify("Undodir does not exist.", vim.log.levels.WARN)
   end
 end, { desc = "Clean all persistent undo files" })
+
+-- ============================================================================
+-- Clean Log Files on Exit
+-- ============================================================================
+
+vim.api.nvim_create_autocmd("VimLeave", {
+  desc = "Clean Neovim log files on exit to prevent them from growing too large",
+  group = vim.api.nvim_create_augroup("clean-logs-on-exit", { clear = true }),
+  callback = function()
+    local log_dir = vim.fn.expand("~/.local/state/nvim")
+    -- Delete all .log files
+    local log_files = vim.fn.glob(log_dir .. "/*.log", false, true)
+    for _, path in ipairs(log_files) do
+      if vim.fn.filereadable(path) == 1 then
+        vim.fn.delete(path)
+      end
+    end
+    -- Also delete the "log" file if it exists
+    local general_log = log_dir .. "/log"
+    if vim.fn.filereadable(general_log) == 1 then
+      vim.fn.delete(general_log)
+    end
+  end,
+})
