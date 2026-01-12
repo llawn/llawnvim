@@ -80,32 +80,31 @@ git clone git@github.com:llawn/llawnvim.git
 
 [More features](https://llawn.github.io/llawnvim/features/)
 
-## Languages
+## Language Server Protocol
 
 [LSP configurations](https://llawn.github.io/llawnvim/lsp/)
 
 | Language | LSP Server |
 |----------|------------|
-| C / C++ | clangd |
-| Flutter / Dart | flutter_ls |
-| Fortran | fortls |
-| Go | gopls |
-| Lua | lua_ls |
-| Python | ty, ruff |
+| C/C++ | [clangd](https://clangd.llvm.org) |
+| Flutter/Dart | flutter_ls |
+| Fortran | [fortls](https://github.com/gnikit/fortls) |
+| Go | [gopls](https://pkg.go.dev/golang.org/x/tools/gopls) |
+| Lua | [lua_ls](https://github.com/LuaLS/lua-language-server) |
+| Python | [ty](https://github.com/astral-sh/ty/) + ruff(https://github.com/astral-sh/ruff/) |
+
 
 ## Treesitter Parsers
 
 The following parsers are automatically installed and configured:
 
-| Parser | Revision |
-|--------|----------|
-| lua | db16e76 |
-| vim | 11b688a |
-| vimdoc | 2694c3d |
-| query | 930202c |
-| json | 46aa487 |
-| markdown | 4132852 |
-| markdown_inline | 4132852 |
+| Language | Treesitter Parser |
+|----------|-------------------|
+| lua      | [lua](https://github.com/tree-sitter-grammars/tree-sitter-lua) |
+| vim      | [vim](https://github.com/tree-sitter-grammars/tree-sitter-vim), [vimdoc](https://github.com/neovim/tree-sitter-vimdoc) |
+| markdown | [markdown](https://github.com/tree-sitter-grammars/tree-sitter-markdown), [markdown_inline](https://github.com/tree-sitter-grammars/tree-sitter-markdown) |
+| json     | [json](https://github.com/tree-sitter/tree-sitter-json) |
+| tree-sitter query | [query](https://github.com/tree-sitter-grammars/tree-sitter-query) |
 
 ## Keymaps
 
