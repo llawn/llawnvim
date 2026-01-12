@@ -25,7 +25,7 @@ return {
       local cmp = require("cmp")
       local luasnip = require("luasnip")
       local lspkind = require("lspkind")
-      local colors = require("llawn.plugins.local.hex_colors")
+      local colors = require("llawn.plugins.local.telescope_color_picker")
 
        -- Register custom colors completion source
        cmp.register_source("colors", {
