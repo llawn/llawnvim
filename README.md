@@ -91,7 +91,7 @@ git clone git@github.com:llawn/llawnvim.git
 | Fortran | [fortls](https://github.com/gnikit/fortls) |
 | Go | [gopls](https://pkg.go.dev/golang.org/x/tools/gopls) |
 | Lua | [lua_ls](https://github.com/LuaLS/lua-language-server) |
-| Python | [ty](https://github.com/astral-sh/ty/) + ruff(https://github.com/astral-sh/ruff/) |
+| Python | [ty](https://github.com/astral-sh/ty/) + [ruff](https://github.com/astral-sh/ruff/) |
 
 
 ## Treesitter Parsers
