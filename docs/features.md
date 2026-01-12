@@ -55,6 +55,7 @@ Comprehensive LSP support for multiple languages with native Neovim 0.11+ integr
 - **Clipboard Integration**: System clipboard support
 - **Undo Tree**: Visual undo history management
 - **List Characters**: Toggle visibility of whitespace and tabs
+- **Automatic Pair Closing**: Lexima for auto-closing brackets, quotes, and customizable pairs
 
 ## Development Tools
 
@@ -218,6 +219,12 @@ Visual undo history with tree view and persistent storage.
 **Repository**: [folke/which-key.nvim](https://github.com/folke/which-key.nvim)
 
 Interactive key binding hints with popup display and grouping.
+
+#### Lexima
+
+**Repository**: [cohama/lexima.vim](https://github.com/cohama/lexima.vim)
+
+Auto close parentheses and repeat by dot dot dot... Provides automatic closing of pairs such as (), {}, "", and customizable rules for any context.
 
 ## Customization
 

@@ -75,6 +75,7 @@ git clone git@github.com:llawn/llawnvim.git
 | [treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Syntax highlighting | 42fc28b |
 | [undotree](https://github.com/mbbill/undotree) | Undo tree | 178d19e |
 | [which-key](https://github.com/folke/which-key.nvim) | Key binding hints | 3aab214 |
+| [lexima](https://github.com/cohama/lexima.vim) | Auto close parentheses | ab621e4 |
 | [yazi](https://github.com/mikavilpas/yazi.nvim) | File manager | 4a8bd32 |
 | [alpha](https://github.com/goolord/alpha-nvim) | Dashboard | 3979b01 |
 
