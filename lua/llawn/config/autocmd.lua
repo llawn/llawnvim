@@ -55,3 +55,17 @@ vim.api.nvim_create_autocmd("VimLeave", {
     end
   end,
 })
+
+-- ============================================================================
+-- Alpha Dashboard on Startup
+-- ============================================================================
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  desc = "Show alpha dashboard when starting Neovim without arguments",
+  group = vim.api.nvim_create_augroup("alpha-dashboard", { clear = true }),
+  callback = function()
+    if vim.fn.argc() == 0 and vim.fn.line2byte("$") == -1 then
+      require("alpha").start()
+    end
+  end,
+})
