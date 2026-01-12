@@ -50,14 +50,16 @@ end
 
 The following servers are automatically installed via Mason:
 
-| Language | Server | Description |
-|----------|--------|-------------|
-| **C/C++** | clangd | LLVM-based C/C++ language server |
-| **Fortran** | fortls | Fortran language server |
-| **Go** | gopls | Google's official Go language server |
-| **Lua** | lua_ls | Lua language server with Neovim API |
-| **Python** | ty | Python type checker |
-| **Python** | ruff | Fast Python linter |
+!!! info "Supported Languages"
+
+    | Language | LSP Server |
+    |----------|------------|
+    | C/C++ | [clangd](https://clangd.llvm.org) |
+    | Flutter/Dart | flutter_ls |
+    | Fortran | [fortls](https://github.com/gnikit/fortls) |
+    | Go | [gopls](https://pkg.go.dev/golang.org/x/tools/gopls) |
+    | Lua | [lua_ls](https://github.com/LuaLS/lua-language-server) |
+    | Python | [ty](https://github.com/astral-sh/ty/) + ruff(https://github.com/astral-sh/ruff/) |
 
 ## Language-Specific Configurations
 
@@ -138,10 +140,11 @@ The following servers are automatically installed via Mason:
 ### Diagnostic Signs
 
 Custom signs for different diagnostic levels:
-- **Error**: `` (nf-fa-times_circle)
-- **Warning**: `` (nf-fa-exclamation_triangle)
-- **Hint**: `󰠠` (nf-cod-lightbulb)
-- **Info**: `` (nf-fa-info_circle)
+
+- **Error**: ``(nf-fa-times_circle)
+- **Warning**: ``(nf-fa-exclamation_triangle)
+- **Hint**: `󰠠`(nf-cod-lightbulb)
+- **Info**: ``(nf-fa-info_circle)
 
 ### Inlay Hints
 
@@ -163,12 +166,6 @@ vim.lsp.inlay_hint.enable(true)
 
 - **Log Access**: LSP logs available for troubleshooting
 - **Client Inspection**: Query active LSP clients and their capabilities
-
-## Performance
-
-### Lazy Loading
-
-LSP-related plugins load on buffer read for optimal startup time.
 
 ### Efficient Configuration
 
@@ -218,7 +215,6 @@ For servers requiring special setup, create files in `after/lsp/` following the 
 
 1. **Server Not Starting**: Check Mason installation status
 2. **No Completion**: Verify cmp-nvim-lsp capabilities setup
-3. **Flutter Issues**: Ensure `FLUTTER_ROOT` is set correctly
 4. **Performance**: Check for conflicting LSP configurations
 
 ### Diagnostic Commands

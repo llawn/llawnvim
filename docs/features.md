@@ -10,37 +10,11 @@ icon: material/star
 
 # Features
 
-This page provides a comprehensive overview of the key features and capabilities of the LLawn Neovim configuration.
-
-## Core Architecture
-
-### Modular Configuration
-
-The configuration is organized into logical modules for easy maintenance and extension:
-
-- **Configuration Layer**: Editor options, keymaps, LSP setup, and UI preferences
-- **Plugin Layer**: Plugin specifications and configurations
-- **Language Layer**: LSP server configurations and language-specific settings
-
-### Lazy Loading
-
-All plugins are lazy-loaded for optimal startup performance.
-The Lazy plugin manager handles dependencies and updates automatically.
+This page provides a comprehensive overview of the key features and capabilities of the Llawn Neovim configuration.
 
 ## Language Server Protocol (LSP)
 
 Comprehensive LSP support for multiple languages with native Neovim 0.11+ integration. See [LSP Configurations](lsp.md) for detailed setup and configuration.
-
-!!! info "Supported Languages"
-
-    | Language | LSP Server | Features |
-    |----------|------------|----------|
-    | C/C++ | clangd | Full language support, diagnostics |
-    | Flutter/Dart | flutter_ls | Hot reload, outline views, widgets |
-    | Fortran | fortls | Modern Fortran support |
-    | Go | gopls | Google's official Go language server |
-    | Lua | lua_ls | Lua language support with Neovim API |
-    | Python | ty + ruff | Type checking and linting |
 
 ## User Interface
 
@@ -52,14 +26,12 @@ Comprehensive LSP support for multiple languages with native Neovim 0.11+ integr
 
 ### Status Line
 
-- **Lualine**: Informative status line with git integration
+- **Lualine**: Informative status line with git, lsp, treesitter integration
 - **Mode Indicators**: Clear visual feedback for current mode
 - **File Information**: Encoding, file type, and position
 
-### Window Management
+### Menus
 
-- **Popup Menus**: Intuitive window, git, and treesitter operation menus
-- **Custom Borders**: Rounded borders for floating windows
 - **Alpha Dashboard**: Clean startup screen with quick access to common actions
 
 ## Keymaps and Navigation
@@ -82,21 +54,11 @@ Comprehensive LSP support for multiple languages with native Neovim 0.11+ integr
 - **Line Movement**: Alt+j/k to move lines up/down
 - **Clipboard Integration**: System clipboard support
 - **Undo Tree**: Visual undo history management
+- **List Characters**: Toggle visibility of whitespace and tabs
 
 ## Development Tools
 
 ### Code Generation
-
-- **Neogen**: Generate documentation strings for functions and classes
-- **Completion**: Intelligent code completion with LSP integration
-
-### Git Integration
-
-- **LazyGit**: Terminal-based git interface
-- **Git Signs**: Inline git status indicators
-- **Telescope Git**: Git file and status browsing
-
-### Productivity
 
 - **Neogen**: Generate documentation strings for functions and classes
 - **Completion**: Intelligent code completion with LSP integration
@@ -116,7 +78,6 @@ Comprehensive LSP support for multiple languages with native Neovim 0.11+ integr
 
 - **Mason**: Automatic LSP server installation
 - **Mason-LSPConfig**: Bridge between Mason and nvim-lspconfig
-- **List Characters**: Toggle visibility of whitespace and tabs
 
 ## Configuration Options
 
@@ -143,7 +104,8 @@ Comprehensive LSP support for multiple languages with native Neovim 0.11+ integr
 
 ## Plugin Ecosystem
 
-The configuration includes carefully selected plugins that enhance productivity without bloat. All plugins are lazy-loaded for optimal startup performance.
+The configuration includes carefully selected plugins that enhance productivity without bloat.
+All plugins are lazy-loaded for optimal startup performance.
 
 ### Plugin Manager
 
@@ -171,7 +133,8 @@ A fast and fully customizable greeter for Neovim with quick access to recent fil
 
 **Repository**: [nvim-lualine/lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
 
-Blazing fast status line with git integration, LSP status, file information, and mode indicators.
+Blazing fast status line with git, LSP and treesitter integration,
+file information, and mode indicators.
 
 ### Language Server Protocol (LSP)
 
@@ -203,21 +166,22 @@ Quick file marking and navigation with persistent lists.
 
 **Repository**: [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 
-Advanced syntax highlighting, code navigation, and structural editing with tree-sitter parsers. Includes a comprehensive menu for parser management and automatic installation for configured languages.
+Advanced syntax highlighting, code navigation, and structural editing with tree-sitter parsers.
+Comprehensive menu for parser management and automatic installation for configured languages.
 
 ##### Supported Parsers
 
 The following parsers are automatically installed:
 
-| Parser | Revision |
-|--------|----------|
-| lua | db16e76 |
-| vim | 11b688a |
-| vimdoc | 2694c3d |
-| query | 930202c |
-| json | 46aa487 |
-| markdown | 4132852 |
-| markdown_inline | 4132852 |
+!!! info "Supported Languages"
+
+    | Language | Treesitter Parser |
+    |----------|-------------------|
+    | lua      | [lua](https://github.com/tree-sitter-grammars/tree-sitter-lua) |
+    | vim      | [vim](https://github.com/tree-sitter-grammars/tree-sitter-vim), [vimdoc](https://github.com/neovim/tree-sitter-vimdoc) |
+    | markdown | [markdown](https://github.com/tree-sitter-grammars/tree-sitter-markdown), [markdown_inline](https://github.com/tree-sitter-grammars/tree-sitter-markdown) |
+    | json     | [json](https://github.com/tree-sitter/tree-sitter-json) |
+    | tree-sitter query | [query](https://github.com/tree-sitter-grammars/tree-sitter-query) |
 
 ### File Management
 
@@ -242,8 +206,6 @@ Terminal UI for git commands with full workflow support.
 **Repository**: [danymat/neogen](https://github.com/danymat/neogen)
 
 Documentation generation for functions and classes across multiple languages.
-
-
 
 #### UndoTree
 

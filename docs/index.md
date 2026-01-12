@@ -64,7 +64,7 @@ This documentation provides comprehensive guides for:
 
 This configuration follows a modular structure with separate concerns:
 
-- **Core Configuration**: Editor options, keymaps, and LSP setup
+- **Configuration Configuration**: Editor options, keymaps, LSP setup, UI preferences
 - **Plugin Management**: Lazy-loaded plugins with dependency management
 - **Language Support**: Dedicated LSP configurations per language
 

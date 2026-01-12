@@ -16,6 +16,8 @@ This page explains the organization and purpose of each directory and file in th
 
 ```
 ~/.config/nvim/
+├── .github/               # GitHub Actions workflows
+├── .gitignore             # Git ignore file
 ├── init.lua               # Main entry point
 ├── lua/
 │   └── llawn/             # Main configuration module
@@ -116,6 +118,7 @@ This directory contains the core Neovim configuration, organized by functionalit
 
 - **Window Menu**: Split management, navigation
 - **Git Menu**: Status, commit, push, log, diff
+- **Tree-sitter Menu**: Install, update, uninstall tree-sitter parsers
 - UI selection with `vim.ui.select`
 
 ### options.lua
@@ -128,6 +131,16 @@ This directory contains the core Neovim configuration, organized by functionalit
 - **Display**: List chars, wrapping, indentation
 - **UI**: Colors, scroll, sign column
 - **File handling**: Undo, backups, encoding
+
+### lazy.lua
+
+**Purpose**: Lazy plugin manager configuration
+
+**Contents**:
+
+- Plugin specifications
+- Lazy loading setup
+- Plugin dependencies
 
 ## Plugin Layer (lua/llawn/plugins/)
 
@@ -171,6 +184,24 @@ Each plugin has its own configuration file for modularity.
 - Transparent background
 - Custom highlight groups
 - Invisible character styling
+
+#### alpha.lua
+
+**Purpose**: Startup dashboard
+
+**Features**:
+
+- Custom dashboard layout
+- Quick access to recent files
+
+#### treesitter.lua
+
+**Purpose**: Tree-sitter syntax highlighting
+
+**Features**:
+
+- Parser installation
+- Highlighting configuration
 
 #### harpoon.lua
 
@@ -221,6 +252,7 @@ Each plugin has its own configuration file for modularity.
 - Smart selection
 
 #### telescope.lua
+
 **Purpose**: Fuzzy finder and search
 
 **Features**:
@@ -268,6 +300,10 @@ Custom local plugins not managed by Lazy.
 **Contents**:
 - Comprehensive color palette (500+ colors)
 - Name-to-hex mapping for easy lookup
+
+#### colors_utils.lua
+
+**Purpose**: Color utility functions
 
 #### telescope_color_picker.lua
 

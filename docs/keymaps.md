@@ -296,13 +296,15 @@ This page provides a comprehensive reference of all key mappings in the LLawn Ne
 
 ### Leader Key (`<leader>`)
 
-The leader key is set to ` ` (whitespace) by default. All `<leader>` mappings use this prefix.
+The leader key is set to ` ` (whitespace) by default.
+All `<leader>` mappings use this prefix.
 
 ### Control Key Combinations
 
 - `<C-w>`: Window operations
 - `<C-g>`: Git operations
-- `<C-l>`: UI toggles
+- `<C-t>`: Tree-sitter operations
+- `<C-l>`: UI toggles listchars
 - `<C-q>`: Visual block mode
 - `<C-c/x/v>`: System clipboard
 - `<C-a/z/y>`: File operations
