@@ -88,10 +88,10 @@ git clone git@github.com:llawn/llawnvim.git
 |----------|------------|
 | C/C++ | [clangd](https://clangd.llvm.org) |
 | Flutter/Dart | flutter_ls |
-| Fortran | [fortls](https://github.com/gnikit/fortls) |
-| Go | [gopls](https://pkg.go.dev/golang.org/x/tools/gopls) |
-| Lua | [lua_ls](https://github.com/LuaLS/lua-language-server) |
-| Python | [ty](https://github.com/astral-sh/ty/) + [ruff](https://github.com/astral-sh/ruff/) |
+| Fortran | [fortls](https://fortls.fortran-lang.org) |
+| Go | [gopls](https://go.dev/gopls/) |
+| Lua | [lua_ls](https://luals.github.io/) |
+| Python | [ty](https://docs.astral.sh/ty/) + [ruff](https://docs.astral.sh/ruff/) |
 
 
 ## Treesitter Parsers
