@@ -161,15 +161,6 @@ Each plugin has its own configuration file for modularity.
 
 ### Core Plugins
 
-#### ccc.lua
-
-**Purpose**: Color picker and highlighter
-
-**Features**:
-
-- Color manipulation
-- Auto-enable highlighter
-
 #### colors.lua
 
 **Purpose**: Theme configuration (Rose Pine)
@@ -278,7 +269,7 @@ Custom local plugins not managed by Lazy.
 - Comprehensive color palette (500+ colors)
 - Name-to-hex mapping for easy lookup
 
-#### hex_colors.lua
+#### telescope_color_picker.lua
 
 **Purpose**: Custom color picker using Telescope
 
@@ -288,6 +279,16 @@ Custom local plugins not managed by Lazy.
 - Visual swatches and contrast previews
 - Integration with nvim-cmp for color completion
 - `:HexColors` command for interactive selection
+
+#### grid_color_picker.lua
+
+**Purpose**: 2D grid color picker with HSL sorting
+
+**Features**:
+- Grid display sorted by HSL for perceptual uniformity
+- Hover info for color names and hex codes
+- Enter key to insert selected color
+- `:ColorPick2D` command for interactive selection
 
 ## LSP Customizations (after/lsp/)
 

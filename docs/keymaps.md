@@ -24,6 +24,7 @@ This page provides a comprehensive reference of all key mappings in the LLawn Ne
 |-----|------|-------------|
 | `<C-w>` | n | Window popup menu (split, move, close) |
 | `<C-g>` | n | Git popup menu (status, commit, push, log, diff) |
+| `<C-t>` | n | Treesitter popup menu (parser management) |
 
 ### Window Operations
 
@@ -41,11 +42,11 @@ This page provides a comprehensive reference of all key mappings in the LLawn Ne
 
 | Key | Mode | Description |
 |-----|------|-------------|
-| `<C-g>1` | n | Git Satus |
+| `<C-g>1` | n | Git Status |
 | `<C-g>2` | n | Git Commit |
 | `<C-g>3` | n | Git Push |
 | `<C-g>4` | n | Git Log |
-| `<C-g>4` | n | Git Diff |
+| `<C-g>5` | n | Git Diff |
 
 ## Editing
 
@@ -163,6 +164,90 @@ This page provides a comprehensive reference of all key mappings in the LLawn Ne
 | `K` | n | Show documentation on hover |
 | `<leader>rs` | n | Restart LSP |
 
+## Treesitter
+
+### Syntax Tree Inspection
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `<C-t>` | n | Treesitter parser management menu |
+| `<leader>tp` | n | Open treesitter playground (InspectTree) |
+| `<leader>tl` | n | Toggle treesitter highlight for buffer |
+
+### Text Objects
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `af` | v | Select around function |
+| `if` | v | Select inner function |
+| `ac` | v | Select around class |
+| `ic` | v | Select inner class |
+| `al` | v | Select around loop |
+| `il` | v | Select inner loop |
+| `aa` | v | Select around parameter |
+| `ia` | v | Select inner parameter |
+| `ab` | v | Select around block |
+| `ib` | v | Select inner block |
+| `ai` | v | Select around conditional |
+| `ii` | v | Select inner conditional |
+| `as` | v | Select around statement |
+| `is` | v | Select inner statement |
+| `am` | v | Select around call |
+| `im` | v | Select inner call |
+
+### Movement
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `]f` | n | Next function start |
+| `]c` | n | Next class start |
+| `]l` | n | Next loop start |
+| `]a` | n | Next parameter start |
+| `]b` | n | Next block start |
+| `]i` | n | Next conditional start |
+| `]s` | n | Next statement start |
+| `]m` | n | Next call start |
+| `]F` | n | Next function end |
+| `]C` | n | Next class end |
+| `]L` | n | Next loop end |
+| `]A` | n | Next parameter end |
+| `]B` | n | Next block end |
+| `]I` | n | Next conditional end |
+| `]S` | n | Next statement end |
+| `]M` | n | Next call end |
+| `[f` | n | Previous function start |
+| `[c` | n | Previous class start |
+| `[l` | n | Previous loop start |
+| `[a` | n | Previous parameter start |
+| `[b` | n | Previous block start |
+| `[i` | n | Previous conditional start |
+| `[s` | n | Previous statement start |
+| `[m` | n | Previous call start |
+| `[F` | n | Previous function end |
+| `[C` | n | Previous class end |
+| `[L` | n | Previous loop end |
+| `[A` | n | Previous parameter end |
+| `[B` | n | Previous block end |
+| `[I` | n | Previous conditional end |
+| `[S` | n | Previous statement end |
+| `[M` | n | Previous call end |
+
+### Incremental Selection
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `gnn` | n | Start incremental selection |
+| `grn` | n,v | Increment selection to next node |
+| `grc` | n,v | Increment selection to next scope |
+| `grm` | n,v | Decrement selection to previous node |
+
+### Swap
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `<leader>sp` | n | Swap next parameter |
+| `<leader>sP` | n | Swap previous parameter |
+
 ## Development Tools
 
 ### Git Integration
@@ -182,9 +267,8 @@ This page provides a comprehensive reference of all key mappings in the LLawn Ne
 ### Color Tools
 | Key | Mode | Description |
 |-----|------|-------------|
-| `<leader>cc` | n | Open color picker (CCC) |
-| `<leader>ct` | n | Toggle color highlighter |
-| `<leader>tc` | n | Open custom color picker |
+| `<leader>cc` | n | Open 2D grid color picker |
+| `<leader>tc` | n | Open Telescope color picker |
 
 ### Undo Management
 

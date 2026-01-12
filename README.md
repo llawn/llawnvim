@@ -24,6 +24,10 @@ This configuration draws inspiration from:
 - [Josean Martinez's dev-environment-files](https://github.com/josean-dev/dev-environment-files)
 - [TJ DeVries' config.nvim](https://github.com/tjdevries/config.nvim)
 
+## Local Plugins
+
+- **Color Pickers**: Custom Telescope-based hex color picker (`:HexColors`) and 2D grid color picker (`:ColorPick2D`)
+
 This configuration is continuously updated and modular, making it easy to
 expand with new languages or plugins.
 
@@ -52,25 +56,27 @@ git clone git@github.com:llawn/llawnvim.git
 - **Lazy** plugin manager for fast startup.
 - **Mason** for automatic LSP server installation.
 - Built-in **LSP setup** using Neovim 0.11+ `vim.lsp.enable`.
-- **Keymaps and menus** for window management, Git, and more.
+- **Keymaps and menus** for window management, Git, Treesitter, and more.
+- **Alpha dashboard** for a clean startup screen.
 - Plugins configured:
 
 | Plugin | Description | Version |
 |--------|-------------|---------|
 | [rose-pine](https://github.com/rose-pine/neovim) | Color scheme | cf2a288 |
-| [ccc](https://github.com/uga-rosa/ccc.nvim) | Color picker and highlighter | 9d1a256 |
 | [harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2) | File navigation | 87b1a35 |
 | [lazygit](https://github.com/kdheepak/lazygit.nvim) | Git integration | a04ad0d |
 | [lualine](https://github.com/nvim-lualine/lualine.nvim) | Status line | 47f91c4 |
-| [neogen](https://github.com/danymat/neogen) | Documentation generation | d7f9461 |
+| [neogen](https://github.com/danymat/neogen) | Documentation generation | 23e7e9f |
 | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | Completion engine | 85bbfad |
 | [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp) | LSP completion integration | cbc7b02 |
-| [mason](https://github.com/williamboman/mason.nvim) | LSP server manager | 57e5a8a |
-| [mason-lspconfig](https://github.com/williamboman/mason-lspconfig.nvim) | Mason LSP bridge | 4cfe411 |
-| [telescope](https://github.com/nvim-telescope/telescope.nvim) | Fuzzy finder | 3333a52 |
+| [mason](https://github.com/williamboman/mason.nvim) | LSP server manager | 44d1e90 |
+| [mason-lspconfig](https://github.com/williamboman/mason-lspconfig.nvim) | Mason LSP bridge | fe66109 |
+| [telescope](https://github.com/nvim-telescope/telescope.nvim) | Fuzzy finder | a8c2223 |
+| [treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Syntax highlighting | 42fc28b |
 | [undotree](https://github.com/mbbill/undotree) | Undo tree | 178d19e |
 | [which-key](https://github.com/folke/which-key.nvim) | Key binding hints | 3aab214 |
-| [yazi](https://github.com/mikavilpas/yazi.nvim) | File manager | ba8aa93 |
+| [yazi](https://github.com/mikavilpas/yazi.nvim) | File manager | 4a8bd32 |
+| [alpha](https://github.com/goolord/alpha-nvim) | Dashboard | 3979b01 |
 
 [More features](https://llawn.github.io/llawnvim/features/)
 
@@ -86,6 +92,20 @@ git clone git@github.com:llawn/llawnvim.git
 | Go | gopls |
 | Lua | lua_ls |
 | Python | ty, ruff |
+
+## Treesitter Parsers
+
+The following parsers are automatically installed and configured:
+
+| Parser | Revision |
+|--------|----------|
+| lua | db16e76 |
+| vim | 11b688a |
+| vimdoc | 2694c3d |
+| query | 930202c |
+| json | 46aa487 |
+| markdown | 4132852 |
+| markdown_inline | 4132852 |
 
 ## Keymaps
 

@@ -58,8 +58,9 @@ Comprehensive LSP support for multiple languages with native Neovim 0.11+ integr
 
 ### Window Management
 
-- **Popup Menus**: Intuitive window and git operation menus
+- **Popup Menus**: Intuitive window, git, and treesitter operation menus
 - **Custom Borders**: Rounded borders for floating windows
+- **Alpha Dashboard**: Clean startup screen with quick access to common actions
 
 ## Keymaps and Navigation
 
@@ -67,6 +68,7 @@ Comprehensive LSP support for multiple languages with native Neovim 0.11+ integr
 
 - **Window Menu** (`<C-w>`): Split windows, navigate, and close
 - **Git Menu** (`<C-g>`): Status, commit, push, log, and diff operations
+- **Treesitter Menu** (`<C-t>`): Parser installation, updates, and management
 
 ### File Navigation
 
@@ -96,8 +98,19 @@ Comprehensive LSP support for multiple languages with native Neovim 0.11+ integr
 
 ### Productivity
 
+- **Neogen**: Generate documentation strings for functions and classes
+- **Completion**: Intelligent code completion with LSP integration
+
+### Git Integration
+
+- **LazyGit**: Terminal-based git interface
+- **Git Signs**: Inline git status indicators
+- **Telescope Git**: Git file and status browsing
+
+### Productivity
+
 - **Which-Key**: Interactive key binding hints
-- **Color Tools**: Color picker (HexColors), highlighter (CCC), and completion
+- **Color Tools**: Color pickers (HexColors, ColorPick2D) and completion
 
 ### LSP Management
 
@@ -148,6 +161,12 @@ The modern plugin manager for Neovim that provides lazy loading, dependency mana
 
 A beautiful, warm dark theme with moon variant, transparent background, and custom highlights for invisible characters.
 
+#### Alpha Dashboard
+
+**Repository**: [goolord/alpha-nvim](https://github.com/goolord/alpha-nvim)
+
+A fast and fully customizable greeter for Neovim with quick access to recent files, commands, and settings.
+
 #### Lualine Status Line
 
 **Repository**: [nvim-lualine/lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
@@ -178,6 +197,28 @@ Highly extendable fuzzy finder for files, live grep, buffers, and help.
 
 Quick file marking and navigation with persistent lists.
 
+### Syntax & Parsing
+
+#### Treesitter
+
+**Repository**: [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+
+Advanced syntax highlighting, code navigation, and structural editing with tree-sitter parsers. Includes a comprehensive menu for parser management and automatic installation for configured languages.
+
+##### Supported Parsers
+
+The following parsers are automatically installed:
+
+| Parser | Revision |
+|--------|----------|
+| lua | db16e76 |
+| vim | 11b688a |
+| vimdoc | 2694c3d |
+| query | 930202c |
+| json | 46aa487 |
+| markdown | 4132852 |
+| markdown_inline | 4132852 |
+
 ### File Management
 
 #### Yazi File Manager
@@ -202,11 +243,7 @@ Terminal UI for git commands with full workflow support.
 
 Documentation generation for functions and classes across multiple languages.
 
-#### CCC (Color Picker)
 
-**Repository**: [uga-rosa/ccc.nvim](https://github.com/uga-rosa/ccc.nvim)
-
-Color manipulation tools with picker and highlighter for multiple formats.
 
 #### UndoTree
 
