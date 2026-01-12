@@ -20,6 +20,18 @@ return {
       return " " .. table.concat(names, ", ")
     end
 
+    -- Custom function to display active treesitter parsers and highlight status
+    local function treesitter_status()
+      local buf = vim.api.nvim_get_current_buf()
+      local parser = vim.treesitter.get_parser(buf)
+      if not parser then
+        return " no ts"
+      end
+      local lang = parser:lang()
+      local highlights_active = vim.treesitter.highlighter.active[buf] ~= nil
+      return " " .. lang .. " " .. (highlights_active and "ON" or "OFF")
+    end
+
     require('lualine').setup {
       options = {
         icons_enabled = true,
@@ -46,7 +58,8 @@ return {
         lualine_b = {'branch', 'diff', 'diagnostics'},
         lualine_c = {
           'filename',
-          { lsp_status, icon = '', color = { fg = '#ffffff', gui = 'bold' } }  -- <-- LSP status
+          { lsp_status, icon = '', color = { fg = '#ffffff', gui = 'bold' } },
+          { treesitter_status, icon = '', color = { fg = '#ffffff', gui = 'bold' } }
         },
         lualine_x = {'encoding', 'fileformat', 'filetype'},
         lualine_y = {'progress'},

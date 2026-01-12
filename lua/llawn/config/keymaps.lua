@@ -24,6 +24,9 @@ vim.keymap.set("n", "<C-w><C-D>", "<nop>", opts)
 opts.desc = "Git Popup Menu"
 vim.keymap.set("n", "<C-g>", menu.git.menu, opts)
 
+opts.desc = "Treesitter Popup Menu"
+vim.keymap.set("n", "<C-t>", menu.treesitter.menu, opts)
+
 -- ============================================================================
 -- UI Toggles
 -- ============================================================================
@@ -132,6 +135,22 @@ opts.desc = "Execute current line (Lua)"
 vim.keymap.set("n", "<leader>lx", "<Cmd>:.lua<CR>", opts)
 opts.desc = "Execute selection (Lua)"
 vim.keymap.set("v", "<leader>lx", "<Cmd>:lua<CR>", opts)
+
+-- ============================================================================
+-- Treesitter
+-- ============================================================================
+
+vim.keymap.set("n", "<leader>tp", ":InspectTree<CR>", opts)
+
+-- Toggle treesitter highlight for buffer with feedback
+local function toggle_treesitter_highlight()
+  local current = vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()]
+  vim.cmd("TSBufToggle highlight")
+  local new_state = vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()]
+  print("Treesitter highlight " .. (new_state and "ON" or "OFF"))
+end
+opts.desc = "Toggle treesitter highlight for buffer"
+vim.keymap.set("n", "<leader>tl", toggle_treesitter_highlight, opts)
 
 -- ============================================================================
 -- System / Classic Keybindings
