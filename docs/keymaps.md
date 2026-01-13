@@ -25,6 +25,7 @@ This page provides a comprehensive reference of all key mappings in the LLawn Ne
 | `<C-w>` | n | Window popup menu (split, move, close) |
 | `<C-g>` | n | Git popup menu (status, commit, push, log, diff) |
 | `<C-t>` | n | Treesitter popup menu (parser management) |
+| `<A-m>` | n | Mason popup menu (server management) |
 
 ### Window Operations
 
@@ -248,6 +249,17 @@ This page provides a comprehensive reference of all key mappings in the LLawn Ne
 | `<leader>sp` | n | Swap next parameter |
 | `<leader>sP` | n | Swap previous parameter |
 
+## Mason
+
+### LSP Server Management
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `<A-m>` | n | Open Mason telescope menu for server management |
+| `I` | i | Install selected server (in Mason menu) |
+| `X` | i | Uninstall selected server (in Mason menu) |
+| `U` | i | Update selected server (in Mason menu) |
+
 ## Development Tools
 
 ### Git Integration
@@ -269,6 +281,7 @@ This page provides a comprehensive reference of all key mappings in the LLawn Ne
 |-----|------|-------------|
 | `<leader>cc` | n | Open 2D grid color picker |
 | `<leader>tc` | n | Open Telescope color picker |
+| `<leader>ct` | n | Toggle color highlights |
 
 ### Undo Management
 

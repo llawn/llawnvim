@@ -41,6 +41,7 @@ Comprehensive LSP support for multiple languages with native Neovim 0.11+ integr
 - **Window Menu** (`<C-w>`): Split windows, navigate, and close
 - **Git Menu** (`<C-g>`): Status, commit, push, log, and diff operations
 - **Treesitter Menu** (`<C-t>`): Parser installation, updates, and management
+- **Mason Menu** (`<A-m>`): LSP server installation, updates, and management
 
 ### File Navigation
 
@@ -73,11 +74,12 @@ Comprehensive LSP support for multiple languages with native Neovim 0.11+ integr
 ### Productivity
 
 - **Which-Key**: Interactive key binding hints
-- **Color Tools**: Color pickers (HexColors, ColorPick2D) and completion
+- **Color Tools**: Color pickers (HexColors, ColorPick2D), completion, and highlighting with virtual hints for hex codes (# and 0x)
 
 ### LSP Management
 
 - **Mason**: Automatic LSP server installation
+- **Mason Lockfile**: Version locking for installed LSP servers (mason-lock.json)
 - **Mason-LSPConfig**: Bridge between Mason and nvim-lspconfig
 
 ## Configuration Options
@@ -169,6 +171,7 @@ Quick file marking and navigation with persistent lists.
 
 Advanced syntax highlighting, code navigation, and structural editing with tree-sitter parsers.
 Comprehensive menu for parser management and automatic installation for configured languages.
+Version locking for installed parsers (treesitter-lock.json).
 
 ##### Supported Parsers
 
