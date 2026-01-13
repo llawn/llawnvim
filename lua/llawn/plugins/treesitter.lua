@@ -1,3 +1,43 @@
+local function save_treesitter_lock()
+
+  local parsers = require('nvim-treesitter.parsers')
+  local configs = parsers.get_parser_configs()
+  local utils = require('nvim-treesitter.utils')
+  local ts_configs = require('nvim-treesitter.configs')
+
+  local function get_installed_revision(lang)
+    local parser_info_dir = ts_configs.get_parser_info_dir()
+    if not parser_info_dir then
+      return nil
+    end
+    local lang_file = utils.join_path(parser_info_dir, lang .. ".revision")
+    if vim.fn.filereadable(lang_file) == 1 then
+      return vim.fn.readfile(lang_file)[1]
+    end
+  end
+
+  local data = {}
+  for name, _ in pairs(configs) do
+    if parsers.has_parser(name) then
+      local commit = get_installed_revision(name) or 'unknown'
+      table.insert(data, {
+        name = name,
+        commit = commit,
+      })
+    end
+  end
+
+  table.sort(data, function(a, b) return a.name < b.name end)
+  local json_lines = {"["}
+  for i, entry in ipairs(data) do
+    local entry_str = vim.fn.json_encode(entry)
+    table.insert(json_lines, "  " .. entry_str .. (i < #data and "," or ""))
+  end
+  table.insert(json_lines, "]")
+  local path = vim.fn.stdpath('config') .. '/treesitter-lock.json'
+  vim.fn.writefile(json_lines, path)
+end
+
 return {
   'nvim-treesitter/nvim-treesitter',
   lazy = false,
@@ -104,12 +144,23 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = 'gnn',
+           init_selection = 'gnn',
           node_incremental = 'grn',
           scope_incremental = 'grc',
           node_decremental = 'grm',
         },
       },
+    })
+
+    -- Save lock on TSUpdate
+    vim.api.nvim_create_autocmd('User', {
+      pattern = { 'TSUpdate', 'TSInstall', 'TSUninstall' },
+      callback = save_treesitter_lock,
+    })
+
+    -- Save on VimEnter
+    vim.api.nvim_create_autocmd('VimEnter', {
+      callback = save_treesitter_lock,
     })
 
     -- Auto-install parser if not available

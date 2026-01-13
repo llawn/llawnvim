@@ -1,0 +1,10 @@
+[
+  {"name": "clangd", "version": "21.1.8"},
+  {"name": "fortls", "version": "3.2.2"},
+  {"name": "gopls", "version": "v0.21.0"},
+  {"name": "lua-language-server", "version": "3.16.4"},
+  {"name": "markdown-oxide", "version": "v0.25.10"},
+  {"name": "ruff", "version": "0.14.11"},
+  {"name": "ty", "version": "0.0.11"},
+  {"name": "yaml-language-server", "version": "1.19.2"}
+]
