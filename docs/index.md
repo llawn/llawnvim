@@ -19,10 +19,10 @@ icon: material/home
     ╚══════╝╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
 ```
 
-[![GitHub License](https://img.shields.io/github/license/llawn/llawnvim)](https://github.com/llawn/llawnvim/blob/main/LICENSE)
-[![GitHub repo size](https://img.shields.io/github/repo-size/llawn/llawnvim)](https://github.com/llawn/llawnvim)
-[![GitHub Tag](https://img.shields.io/github/v/tag/llawn/llawnvim)](https://github.com/llawn/llawnvim/releases)
-[![Neovim Version](https://img.shields.io/badge/Neovim-0.11+-57A143)](https://neovim.io/)
+![GitHub License](https://img.shields.io/github/license/llawn/llawnvim)
+![GitHub repo size](https://img.shields.io/github/repo-size/llawn/llawnvim)
+![GitHub Tag](https://img.shields.io/github/v/tag/llawn/llawnvim)
+![Neovim Version](https://img.shields.io/badge/Neovim-0.11+-57A143)
 [![MkDocs](https://img.shields.io/badge/docs-mkdocs-blue)](https://llawn.github.io/llawnvim/)
 
 A modular, feature-rich Neovim configuration optimized for multiple programming languages including C/C++, Flutter/Dart, Fortran, Go, Lua, and Python.
