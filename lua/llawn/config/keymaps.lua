@@ -27,6 +27,9 @@ vim.keymap.set("n", "<C-g>", menu.git.menu, opts)
 opts.desc = "Treesitter Popup Menu"
 vim.keymap.set("n", "<C-t>", menu.treesitter.menu, opts)
 
+opts.desc = "Mason Popup Menu"
+vim.keymap.set("n", "<A-m>", menu.mason.menu, opts)
+
 -- ============================================================================
 -- UI Toggles
 -- ============================================================================
