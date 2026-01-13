@@ -175,6 +175,14 @@ This page provides a comprehensive reference of all key mappings in the LLawn Ne
 | `<leader>tp` | n | Open treesitter playground (InspectTree) |
 | `<leader>tl` | n | Toggle treesitter highlight for buffer |
 
+### Parser Management
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `I` | i | Install selected parser (in Treesitter menu) |
+| `X` | i | Uninstall selected parser (in Treesitter menu) |
+| `U` | i | Update selected parser (in Treesitter menu) |
+
 ### Text Objects
 
 | Key | Mode | Description |

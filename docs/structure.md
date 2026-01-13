@@ -26,6 +26,8 @@ This page explains the organization and purpose of each directory and file in th
 ├── docs/                  # Documentation (MkDocs)
 ├── mkdocs.yml             # MkDocs configuration
 ├── lazy-lock.json         # Plugin lock file
+├── mason-lock.json        # Mason LSP server lock file
+├── treesitter-lock.json   # Treesitter parser lock file
 ├── LICENSE                # License file
 ├── Makefile               # Build automation
 └── README.md              # Project README
@@ -119,6 +121,7 @@ This directory contains the core Neovim configuration, organized by functionalit
 - **Window Menu**: Split management, navigation
 - **Git Menu**: Status, commit, push, log, diff
 - **Tree-sitter Menu**: Install, update, uninstall tree-sitter parsers
+- **Mason Menu**: Install, update, uninstall LSP servers
 - UI selection with `vim.ui.select`
 
 ### options.lua
@@ -300,6 +303,15 @@ Custom local plugins not managed by Lazy.
 **Contents**:
 - Comprehensive color palette (500+ colors)
 - Name-to-hex mapping for easy lookup
+
+#### colors_highlighter.lua
+
+**Purpose**: Color highlighter for hex codes with virtual hints
+
+**Features**:
+- Highlights # and 0x hex codes with background colors
+- Shows virtual text hints for closest named colors
+- Toggle functionality
 
 #### colors_utils.lua
 
