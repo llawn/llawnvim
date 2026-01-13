@@ -14,16 +14,24 @@ function M.int_to_rgb(int)
 end
 
 --- Converts a hex color string to RGB components.
---- @param hex string: The hex color (e.g., "#FF0000" or "#F00")
+--- @param hex string: The hex color (e.g., "#FF0000", "#F00", "0xFF0000", "0x00ff00")
 --- @return number|nil r, number|nil g, number|nil b: The red, green, and blue components (0-255), or nil if invalid
 function M.hex_to_rgb(hex)
   if not hex then return nil end
   hex = hex:lower()
-  if #hex == 4 and hex:match("^#%x%x%x$") then
+  -- Handle 0x prefixed hex (e.g., 0x00ff00)
+  if hex:match("^0x%x+$") then
+    local int = tonumber(hex, 16)
+    if int then
+      return M.int_to_rgb(int)
+    end
+  -- Handle # prefixed hex (3 digit)
+  elseif #hex == 4 and hex:match("^#%x%x%x$") then
     local r = tonumber(hex:sub(2,2), 16) * 17
     local g = tonumber(hex:sub(3,3), 16) * 17
     local b = tonumber(hex:sub(4,4), 16) * 17
     return r, g, b
+  -- Handle # prefixed hex (6 digit)
   elseif #hex == 7 and hex:match("^#%x%x%x%x%x%x$") then
     local r = tonumber(hex:sub(2,3), 16)
     local g = tonumber(hex:sub(4,5), 16)

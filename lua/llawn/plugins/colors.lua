@@ -3,10 +3,10 @@
 ---
 
 local colors = {
-  nontext = "#9eb9d4", -- powder blue
-  whitespace = "#ed7a9b", -- petal rouge
-  specialkey = "#e9d66b", -- straw gold
-  endofbuffer = "#708090", -- slate grey
+  nontext = "#9eb9d4",
+  whitespace = "#ed7a9b",
+  specialkey = "#e9d66b",
+  endofbuffer = "#708090",
 }
 
 -- Function to set up a color scheme with custom highlights
@@ -39,10 +39,14 @@ return {
         },
       })
 
-      -- Apply the custom colors and highlights
-      ColorMyPencils();
-    end
-  },
+       -- Apply the custom colors and highlights
+       ColorMyPencils();
+
+       -- Setup color highlighter
+       local highlighter = require('llawn.plugins.local.colors_highlighter')
+       highlighter.setup()
+      end
+    },
 
 }
 
