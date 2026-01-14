@@ -1,6 +1,16 @@
 # Changelog
 
-## [1.3.6] - 2026-01-14\n\n### Details of Changes\n\n```\n    commit 563f990 docs: update changelogs
+## [1.3.6] - 2026-01-14\n\n### Details of Changes\n\n```\n    commit 70b76ed fix: correct next tag calculation in changelog script
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:17:03 2026 +0100
+    
+    
+     CHANGELOG.md          |  68 ++++-
+     docs/changelog.md     | 778 +++++++++++++++++++++++++++++++++++++++++++++++++-
+     generate_changelog.sh |  98 ++-----
+     3 files changed, 863 insertions(+), 81 deletions(-)
+    
+    commit 563f990 docs: update changelogs
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 18:13:33 2026 +0100
     

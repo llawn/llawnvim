@@ -27,7 +27,10 @@ generate_entry() {
     local version="$2"
     local date="$3"
     local commits=$(git log --pretty=format:"- %s" $range)
-    echo "## [$version] - $date\n\n$commits\n"
+    local temp=$(mktemp)
+    printf "## [%s] - %s\n\n%s\n\n" "$version" "$date" "$commits" > "$temp"
+    cat "$temp"
+    rm "$temp"
 }
 
 for TAG in $TAGS; do
@@ -54,13 +57,17 @@ DOCS_ENTRY="## [$NEXT_TAG] - $DATE\n\n### Details of Changes\n\n\`\`\`\n$DETAILE
 DOCS_BODY="$DOCS_ENTRY$DOCS_BODY"
 
 # Write CHANGELOG.md
-echo "$CHANGELOG_HEADER
+cat > CHANGELOG.md <<EOF
+$CHANGELOG_HEADER
 
-$CHANGELOG_BODY" > CHANGELOG.md
+$CHANGELOG_BODY
+EOF
 
 # Write docs/changelog.md
-echo "$DOCS_HEADER
+cat > docs/changelog.md <<EOF
+$DOCS_HEADER
 
-$DOCS_BODY" > docs/changelog.md
+$DOCS_BODY
+EOF
 
 echo "Generated full changelogs"
