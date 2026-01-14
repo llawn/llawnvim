@@ -12,23 +12,26 @@ local opts = { noremap = true, silent = true }
 -- Popup Menus
 -- ============================================================================
 
-local menu = require("llawn.config.menu")
+-- Lazy require for menu to avoid circular dependency
+local function get_menu()
+  return require("llawn.config.menu")
+end
 
 opts.desc = "Window Popup Menu"
-vim.keymap.set("n", "<C-w>", menu.window.menu, opts)
+vim.keymap.set("n", "<C-w>", function() get_menu().window.menu() end, opts)
 
 opts.desc = "Disabled (overlaps with window menu)"
 vim.keymap.set("n", "<C-w>d", "<nop>", opts)
 vim.keymap.set("n", "<C-w><C-D>", "<nop>", opts)
 
 opts.desc = "Git Popup Menu"
-vim.keymap.set("n", "<C-g>", menu.git.menu, opts)
+vim.keymap.set("n", "<C-g>", function() get_menu().git.menu() end, opts)
 
 opts.desc = "Treesitter Popup Menu"
-vim.keymap.set("n", "<C-t>", menu.treesitter.menu, opts)
+vim.keymap.set("n", "<C-t>", function() get_menu().treesitter.menu() end, opts)
 
 opts.desc = "Mason Popup Menu"
-vim.keymap.set("n", "<A-m>", menu.mason.menu, opts)
+vim.keymap.set("n", "<A-m>", function() get_menu().mason.menu() end, opts)
 
 -- ============================================================================
 -- UI Toggles
@@ -111,9 +114,8 @@ end
 opts.desc = "Open file explorer"
 vim.keymap.set("n", "<leader>x", open_file_explorer, opts)
 
--- Quit Neovim
 opts.desc = "Quit Neovim"
-vim.keymap.set("n", "<leader>q", vim.cmd.q, opts)
+vim.keymap.set("n", "<leader>q", function() get_menu().quit.smart_quit() end, opts)
 
 -- Save file
 opts.desc = "Save file"
