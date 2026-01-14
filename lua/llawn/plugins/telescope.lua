@@ -30,5 +30,11 @@ return {
       end,
       { desc = 'Telescope find word' }
     )
+
+    -- Keymap for unsaved files
+    vim.keymap.set('n', '<leader>tu', require('llawn.config.menu').unsaved.menu, { desc = 'Telescope unsaved files' })
+
+    -- Keymap for swap files
+    vim.keymap.set('n', '<leader>ts', require('llawn.config.menu').swapfiles.menu, { desc = 'Telescope swap files' })
   end
 }

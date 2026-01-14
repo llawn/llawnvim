@@ -1,5 +1,6 @@
 [
   {"name": "c", "commit": "2a265d69a4caf57108a73ad2ed1e6922dd2f998c"},
+  {"name": "gitignore", "commit": "f4685bf11ac466dd278449bcfe5fd014e94aa504"},
   {"name": "json", "commit": "46aa487b3ade14b7b05ef92507fdaa3915a662a3"},
   {"name": "lua", "commit": "db16e76558122e834ee214c8dc755b4a3edc82a9"},
   {"name": "make", "commit": "a4b9187417d6be349ee5fd4b6e77b4172c6827dd"},

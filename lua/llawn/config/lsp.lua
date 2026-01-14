@@ -76,6 +76,27 @@ vim.api.nvim_create_autocmd("LspAttach", {
     opts.desc = "Show buffer diagnostics"
     keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 
+     opts.desc = "Copy buffer diagnostics to clipboard"
+     local function copy_diagnostics()
+       local bufnr = vim.api.nvim_get_current_buf()
+       local diagnostics = vim.diagnostic.get(bufnr)
+       if #diagnostics == 0 then
+         print("No diagnostics to copy")
+         return
+       end
+       local lines = {}
+       for _, diag in ipairs(diagnostics) do
+         local severity_name = vim.diagnostic.severity[diag.severity] or tostring(diag.severity)
+         local line_content = vim.api.nvim_buf_get_lines(bufnr, diag.lnum, diag.lnum + 1, false)[1] or ""
+         local marker = string.rep(" ", diag.col) .. "^"
+         local full_diag = string.format("[%s] %s: %s (line %d)\n%s\n%s", severity_name, diag.source or "LSP", diag.message, diag.lnum + 1, line_content, marker)
+         table.insert(lines, full_diag)
+       end
+       vim.fn.setreg('+', table.concat(lines, '\n\n'))
+       print("Copied " .. #diagnostics .. " diagnostics to clipboard")
+     end
+    keymap.set("n", "<leader>cd", copy_diagnostics, opts)
+
     opts.desc = "Show line diagnostics"
     keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
 
