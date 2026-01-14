@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- update documentation
+- update changelogs
 - update changelogs
 - remove undeveloped llawn-ai plugin and update MkDocs color palette
 - remove test note

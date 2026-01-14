@@ -14,6 +14,27 @@
 ### Details of Changes
 
 ```
+    commit 6b76109 docs: update documentation
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 19:12:36 2026 +0100
+    
+    
+     docs/features.md     |  34 +++++++++++++----
+     docs/keymaps.md      | 102 +++++++++++++++++++++++++++++++++++++++------------
+     docs/structure.md    |  75 ++++++++++++++++++++++---------------
+     mkdocs.yml           |  44 +++++++++++-----------
+     treesitter-lock.json |   1 +
+     5 files changed, 174 insertions(+), 82 deletions(-)
+    
+    commit 55399d1 docs: update changelogs
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:47:25 2026 +0100
+    
+    
+     CHANGELOG.md      |  3 ++-
+     docs/changelog.md | 11 ++++++++++-
+     2 files changed, 12 insertions(+), 2 deletions(-)
+    
     commit e39c8d1 docs: update changelogs
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 18:45:57 2026 +0100
