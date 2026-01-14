@@ -124,6 +124,68 @@ This directory contains the core Neovim configuration, organized by functionalit
 - **Mason Menu**: Install, update, uninstall LSP servers
 - UI selection with `vim.ui.select`
 
+### Menu Sub-modules
+
+#### quit.lua
+
+**Purpose**: Quit operations with smart handling of unsaved buffers
+
+**Features**:
+- Smart quit logic (checks for unsaved buffers)
+- Quit menu with options for force quit, save all, or unsaved menu
+
+#### unsaved.lua
+
+**Purpose**: Interactive handling of unsaved buffers
+
+**Features**:
+- Telescope picker for unsaved files
+- Diff preview of changes
+- Individual or bulk save/discard operations
+
+#### swapfiles.lua
+
+**Purpose**: Swap file management
+
+**Features**:
+- Detection and listing of swap files
+- Recovery options for conflicted files
+- Cleanup of stale swap files
+
+#### window.lua
+
+**Purpose**: Window management menu
+
+**Features**:
+- Split creation (horizontal/vertical)
+- Window navigation
+- Window closing
+
+#### git.lua
+
+**Purpose**: Advanced git operations menu
+
+**Features**:
+- Async commit log loading
+- Browser integration for commits
+- Floating commit views
+
+#### treesitter.lua
+
+**Purpose**: Tree-sitter parser management menu
+
+**Features**:
+- Install/update/uninstall parsers
+- Parser status checking
+
+#### mason.lua
+
+**Purpose**: LSP server management menu
+
+**Features**:
+- Install/update/uninstall LSP servers
+- Server status and configuration
+
 ### options.lua
 
 **Purpose**: Core Neovim editor options

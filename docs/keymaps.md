@@ -80,7 +80,28 @@ This page provides a comprehensive reference of all key mappings in the LLawn Ne
 |-----|------|-------------|
 | `<C-s>` | n,i,v | Save current file |
 | `<leader>w` | n | Save current file |
-| `<leader>q` | n | Quit Neovim |
+| `<leader>q` | n | Smart quit (opens quit menu if unsaved buffers exist) |
+
+### Quit Operations
+
+The quit system provides intelligent handling of unsaved files:
+
+- **Smart Quit**: If no unsaved buffers, quits immediately; otherwise opens quit menu
+- **Quit Menu Options**:
+  - Unsaved Menu: Interactive handling of unsaved buffers with diff preview
+  - Force Quit: Quit without saving
+  - Save All and Quit: Save all modified buffers and quit
+
+#### Unsaved Buffers Menu
+
+When unsaved buffers exist, a Telescope picker shows:
+
+- **u**: Save selected file
+- **d**: Discard changes for selected file
+- **U**: Save all files
+- **D**: Discard all changes
+
+Each entry shows a diff preview of unsaved changes.
 
 ## File Management
 
