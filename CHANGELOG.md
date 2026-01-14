@@ -5,146 +5,276 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-01-14
+
+### Documentation
+
+- update changelogs
+
+
+
 ## [1.4.0] - 2026-01-14
 
+### Documentation
 
-- docs: update changelogs
+- update changelogs
+
+
 
 ## [1.3.9] - 2026-01-14
 
-- docs: update changelogs
+### Documentation
+
+- update changelogs
+
+
 
 ## [1.3.8] - 2026-01-14
 
-- docs: update changelogs
+### Documentation
+
+- update changelogs
+
+
 
 ## [1.3.7] - 2026-01-14
 
-- fix: remove empty [Unreleased] section after tag push
-- docs: update changelogs
+### Fixed
+
+- remove empty [Unreleased] section after tag push
+
+### Documentation
+
+- update changelogs
+
+
 
 ## [1.3.6] - 2026-01-14
 
-- docs: add changelog link to documentation index
-- style: add 2 blank lines between changelog sections
-- fix: use echo -e to properly write newlines in changelogs
-- feat: use 'Unreleased' section for pending commits without tags
-- fix: use temp file in generate_entry to preserve trailing newlines
-- fix: correct next tag calculation in changelog script
-- docs: update changelogs
+### Added
+
+- use 'Unreleased' section for pending commits without tags
+
+### Fixed
+
+- use echo -e to properly write newlines in changelogs
+- use temp file in generate_entry to preserve trailing newlines
+- correct next tag calculation in changelog script
+
+### Documentation
+
+- add changelog link to documentation index
+- update changelogs
+
+### Style
+
+- add 2 blank lines between changelog sections
+
+
 
 ## [1.3.5] - 2026-01-14
 
-- feat: categorize commits in changelog by type (feat, fix, docs, etc.)
-- docs: update changelogs
+### Added
+
+- categorize commits in changelog by type (feat, fix, docs, etc.)
+
+### Documentation
+
+- update changelogs
+
+
 
 ## [1.3.4] - 2026-01-14
 
-- feat: update script to generate full changelogs from the beginning
+### Added
+
+- update script to generate full changelogs from the beginning
+
+
 
 ## [1.3.3] - 2026-01-14
 
-- feat: update changelog script to generate docs/changelog.md automatically
+### Added
+
+- update changelog script to generate docs/changelog.md automatically
+
+
 
 ## [1.3.2] - 2026-01-14
 
-- docs: add detailed changelog in docs/ and automation script
+### Documentation
+
+- add detailed changelog in docs/ and automation script
+
+
 
 ## [1.3.1] - 2026-01-14
 
-- docs: add changelog for version 1.3.0
+### Documentation
+
+- add changelog for version 1.3.0
+
+
 
 ## [1.3.0] - 2026-01-14
 
-- feat: update LSP, menu, and plugin configurations
-- refactor: reorganize quit logic for better modularity
-- feat: add menu system for various Neovim features
-- fix: fix treesitter when lang has no parsers available
+### Added
+
+- update LSP, menu, and plugin configurations
+- add menu system for various Neovim features
+
+### Fixed
+
+- fix treesitter when lang has no parsers available
+
+### Refactored
+
+- reorganize quit logic for better modularity
+
+
 
 ## [1.2.2] - 2026-01-13
 
-- docs: update menu keymaps and folder structure
-- docs: update docs to account for mason menu, lockfiles and new color highlighter
-- docs: update some badges
-- feat: add "lockfiles" for Mason and Treesitter
-- feat: highlights colors handle # and 0x with virtual hint
-- feat: add a mason telescope menu
+### Added
+
+- add "lockfiles" for Mason and Treesitter
+- highlights colors handle # and 0x with virtual hint
+- add a mason telescope menu
+
+### Documentation
+
+- update menu keymaps and folder structure
+- update docs to account for mason menu, lockfiles and new color highlighter
+- update some badges
+
+
 
 ## [1.2.1] - 2026-01-12
 
-- feat: add lexima for brackets
-- feat: custom config to ignore hover for ruff
+### Added
+
+- add lexima for brackets
+- custom config to ignore hover for ruff
+
+
 
 ## [1.2.0] - 2026-01-12
 
-- fix: Update links in lsp.md
-- fix: Update links in README.md for lsp
-- fix: markdown links for ruff
-- docs: links in README.md
-- docs: udapte docs, small improvements
-- docs: update documentation for treesitter and alpha and new local colors plugins
-- feat: add alpha to the plugins
-- chore: change name of my custom color picker plugin and remove ccc
-- feat: add treesitter with a better menu
-- feat: alpha on startup
-- feat: custom color picker plugin
+### Added
+
+- add alpha to the plugins
+- add treesitter with a better menu
+- alpha on startup
+- custom color picker plugin
+- add color picker functionality for hex colors
+
+### Fixed
+
+- Update links in lsp.md
+- Update links in README.md for lsp
+- markdown links for ruff
+- fix indentation in README.md
+
+### Documentation
+
+- links in README.md
+- udapte docs, small improvements
+- update documentation for treesitter and alpha and new local colors plugins
+
+### Chore
+
+- change name of my custom color picker plugin and remove ccc
+
+
 - refactor(colors): reorganize color picker files to plugins/local directory and update documentation
-- feat: add color picker functionality for hex colors
-- fix: fix indentation in README.md
 - Add links for missing sections and convert Languages section to table format
 - Update workflow to deploy MkDocs only on tag pushes
 - Rename repository to llawnvim and update documentation links
 
+
+
 ## [1.1.0] - 2026-01-07
 
-- docs: fix admonitton support
-- docs: simplify documentation
-- fix: keymaps overlaps with window menu
-- feat: clean log files on exit
-- feat: undo files in an undodir directory
-- feat: first documentation
-- feat: use mkdocs-material
-- feat: documentation automation with a makefile
-- feat: documentation with mkdocs
-- docs: add a badge in readme for neovim
+### Added
+
+- clean log files on exit
+- undo files in an undodir directory
+- first documentation
+- use mkdocs-material
+- documentation automation with a makefile
+- documentation with mkdocs
+
+### Fixed
+
+- keymaps overlaps with window menu
+
+### Documentation
+
+- fix admonitton support
+- simplify documentation
+- add a badge in readme for neovim
+
+
 
 ## [1.0.0] - 2026-01-06
 
-- docs: add custom keymaps desc
-- docs: add inspiration links
-- docs: update desc for after/lsp dir
-- style: update readme table
-- docs: update init to not make info redundant with README
-- docs: forget Mason in readme plugins
-- docs: update readme with better plugins information and new repo structure
-- feat: nvim-cmp support lsp configuration
-- docs: docs for telescope
-- docs: doc for undotree
-- style: style for which-key
-- feat: yazi open in full window and can open lazygit
-- style: fix style for neogen
-- feat: lualine support LSP
-- feat: lazygit now open in fullscreen and can open yazi directly
-- style: fix style for harpoon
-- feat: plugins for hexcolor picker and highlighter
-- style: fixing style in header
-- style: missing space before @brief
+### Added
+
+- nvim-cmp support lsp configuration
+- yazi open in full window and can open lazygit
+- lualine support LSP
+- lazygit now open in fullscreen and can open yazi directly
+- plugins for hexcolor picker and highlighter
+- update all my config files
+- better readme description
+
+### Fixed
+
+- Update README.md
+- try fixing again ascii character
+- ascii rendering in markdown
+
+### Documentation
+
+- add custom keymaps desc
+- add inspiration links
+- update desc for after/lsp dir
+- update init to not make info redundant with README
+- forget Mason in readme plugins
+- update readme with better plugins information and new repo structure
+- docs for telescope
+- doc for undotree
+- add readme plugins links in README.md
+
+### Style
+
+- update readme table
+- style for which-key
+- fix style for neogen
+- fix style for harpoon
+- fixing style in header
+- missing space before @brief
+- Update lsp.lua with some section style
+
+
 - enabling hints in lsp
 - move lsp to after dir
-- style: Update lsp.lua with some section style
-- feat: update all my config files
-- docs: add readme plugins links in README.md
-- fix: Update README.md
-- fix: try fixing again ascii character
-- fix: ascii rendering in markdown
-- feat: better readme description
+
+
 
 ## [0.1.0] - 2025-11-06
 
-- docs: add license and tags for readme
-- docs: add a readme
-- feat: add lsp
-- feat: add plugins
-- feat: nvim custom configuration
+### Added
+
+- add lsp
+- add plugins
+- nvim custom configuration
+
+### Documentation
+
+- add license and tags for readme
+- add a readme
+
+
 
 
