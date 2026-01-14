@@ -7,32 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-01-14
 
+- fix: use echo -e to properly write newlines in changelogs
 - feat: use 'Unreleased' section for pending commits without tags
 - fix: use temp file in generate_entry to preserve trailing newlines
 - fix: correct next tag calculation in changelog script
 - docs: update changelogs
+
 ## [1.3.5] - 2026-01-14
 
 - feat: categorize commits in changelog by type (feat, fix, docs, etc.)
 - docs: update changelogs
+
 ## [1.3.4] - 2026-01-14
 
 - feat: update script to generate full changelogs from the beginning
+
 ## [1.3.3] - 2026-01-14
 
 - feat: update changelog script to generate docs/changelog.md automatically
+
 ## [1.3.2] - 2026-01-14
 
 - docs: add detailed changelog in docs/ and automation script
+
 ## [1.3.1] - 2026-01-14
 
 - docs: add changelog for version 1.3.0
+
 ## [1.3.0] - 2026-01-14
 
 - feat: update LSP, menu, and plugin configurations
 - refactor: reorganize quit logic for better modularity
 - feat: add menu system for various Neovim features
 - fix: fix treesitter when lang has no parsers available
+
 ## [1.2.2] - 2026-01-13
 
 - docs: update menu keymaps and folder structure
@@ -41,10 +49,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: add "lockfiles" for Mason and Treesitter
 - feat: highlights colors handle # and 0x with virtual hint
 - feat: add a mason telescope menu
+
 ## [1.2.1] - 2026-01-12
 
 - feat: add lexima for brackets
 - feat: custom config to ignore hover for ruff
+
 ## [1.2.0] - 2026-01-12
 
 - fix: Update links in lsp.md
@@ -64,6 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add links for missing sections and convert Languages section to table format
 - Update workflow to deploy MkDocs only on tag pushes
 - Rename repository to llawnvim and update documentation links
+
 ## [1.1.0] - 2026-01-07
 
 - docs: fix admonitton support
@@ -76,6 +87,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: documentation automation with a makefile
 - feat: documentation with mkdocs
 - docs: add a badge in readme for neovim
+
 ## [1.0.0] - 2026-01-06
 
 - docs: add custom keymaps desc
@@ -106,6 +118,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix: try fixing again ascii character
 - fix: ascii rendering in markdown
 - feat: better readme description
+
 ## [0.1.0] - 2025-11-06
 
 - docs: add license and tags for readme
@@ -113,4 +126,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: add lsp
 - feat: add plugins
 - feat: nvim custom configuration
+
 

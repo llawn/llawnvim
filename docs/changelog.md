@@ -5,6 +5,16 @@
 ### Details of Changes
 
 ```
+    commit 8027d25 fix: use echo -e to properly write newlines in changelogs
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:22:28 2026 +0100
+    
+    
+     CHANGELOG.md          |  38 +++++++++----
+     docs/changelog.md     | 155 +++++++++++++++++++++++++++++++++++++++++++++-----
+     generate_changelog.sh |  26 +++------
+     3 files changed, 176 insertions(+), 43 deletions(-)
+    
     commit 0ffe5b9 feat: use 'Unreleased' section for pending commits without tags
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 18:20:43 2026 +0100
@@ -46,6 +56,7 @@
 ```
 
 
+
 ## [1.3.5] - 2026-01-14
 
 ### Details of Changes
@@ -70,6 +81,7 @@
 ```
 
 
+
 ## [1.3.4] - 2026-01-14
 
 ### Details of Changes
@@ -85,6 +97,7 @@
 ```
 
 
+
 ## [1.3.3] - 2026-01-14
 
 ### Details of Changes
@@ -98,6 +111,7 @@
      generate_changelog.sh | 6 ++++++
      1 file changed, 6 insertions(+)
 ```
+
 
 
 ## [1.3.2] - 2026-01-14
@@ -116,6 +130,7 @@
 ```
 
 
+
 ## [1.3.1] - 2026-01-14
 
 ### Details of Changes
@@ -129,6 +144,7 @@
      CHANGELOG.md | 22 ++++++++++++++++++++++
      1 file changed, 22 insertions(+)
 ```
+
 
 
 ## [1.3.0] - 2026-01-14
@@ -203,6 +219,7 @@
 ```
 
 
+
 ## [1.2.2] - 2026-01-13
 
 ### Details of Changes
@@ -268,6 +285,7 @@
 ```
 
 
+
 ## [1.2.1] - 2026-01-12
 
 ### Details of Changes
@@ -292,6 +310,7 @@
      lazy-lock.json     |  1 +
      2 files changed, 19 insertions(+)
 ```
+
 
 
 ## [1.2.0] - 2026-01-12
@@ -478,6 +497,7 @@
 ```
 
 
+
 ## [1.1.0] - 2026-01-07
 
 ### Details of Changes
@@ -590,6 +610,7 @@
      README.md | 1 +
      1 file changed, 1 insertion(+)
 ```
+
 
 
 ## [1.0.0] - 2026-01-06
@@ -859,6 +880,7 @@
 ```
 
 
+
 ## [0.1.0] - 2025-11-06
 
 ### Details of Changes
@@ -921,6 +943,7 @@
      lua/llawn/init.lua           |  6 ++++++
      8 files changed, 180 insertions(+)
 ```
+
 
 
 
