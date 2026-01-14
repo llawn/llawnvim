@@ -1,6 +1,6 @@
 # Changelog
 
-## [v1.4.2] - 2026-01-14
+## [1.4.2] - 2026-01-14
 
 ### Details of Changes
 
@@ -14,6 +14,15 @@
 ### Details of Changes
 
 ```
+    commit e39c8d1 docs: update changelogs
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:45:57 2026 +0100
+    
+    
+     CHANGELOG.md      | 12 +++++++++++-
+     docs/changelog.md | 39 ++++++++++++++++++++++++++++++++++++++-
+     2 files changed, 49 insertions(+), 2 deletions(-)
+    
     commit 721aa3a docs: remove undeveloped llawn-ai plugin and update MkDocs color palette
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 18:45:30 2026 +0100
