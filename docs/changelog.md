@@ -5,7 +5,14 @@
 ### Details of Changes
 
 ```
-
+    commit 4e62e97 docs: update changelogs
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 19:15:02 2026 +0100
+    
+    
+     CHANGELOG.md      |  2 ++
+     docs/changelog.md | 21 +++++++++++++++++++++
+     2 files changed, 23 insertions(+)
 ```
 
 
