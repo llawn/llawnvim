@@ -112,18 +112,6 @@ This directory contains the core Neovim configuration, organized by functionalit
 - Diagnostic configuration
 - Inlay hints setup
 
-### menu.lua
-
-**Purpose**: Interactive popup menus
-
-**Menus**:
-
-- **Window Menu**: Split management, navigation
-- **Git Menu**: Status, commit, push, log, diff
-- **Tree-sitter Menu**: Install, update, uninstall tree-sitter parsers
-- **Mason Menu**: Install, update, uninstall LSP servers
-- UI selection with `vim.ui.select`
-
 ### Menu Sub-modules
 
 #### quit.lua
@@ -131,60 +119,89 @@ This directory contains the core Neovim configuration, organized by functionalit
 **Purpose**: Quit operations with smart handling of unsaved buffers
 
 **Features**:
+
 - Smart quit logic (checks for unsaved buffers)
-- Quit menu with options for force quit, save all, or unsaved menu
+- Quit menu with options:
+
+  - **Unsaved Menu**: Interactive handling of unsaved buffers with diff preview
+  - **Force Quit**: Quit without saving (`:qa!`)
+  - **Save All and Quit**: Save all modified buffers and quit (`:wa` then `:qa`)
 
 #### unsaved.lua
 
 **Purpose**: Interactive handling of unsaved buffers
 
 **Features**:
-- Telescope picker for unsaved files
-- Diff preview of changes
-- Individual or bulk save/discard operations
+
+- Telescope picker listing unsaved buffers
+- Diff preview showing changes vs saved file
+- Keybindings for operations:
+
+  - `u`: Save selected file
+  - `d`: Discard changes for selected file
+  - `U`: Save all files
+  - `D`: Discard all changes
 
 #### swapfiles.lua
 
 **Purpose**: Swap file management
 
 **Features**:
-- Detection and listing of swap files
-- Recovery options for conflicted files
-- Cleanup of stale swap files
+
+- Detection and listing of swap files for closed buffers
+- Diff preview between saved file and swap content
+- Recovery and cleanup options:
+  - `r`: Recover selected file
+  - `x`: Delete selected swap file
+  - `X`: Delete all swap files
 
 #### window.lua
 
 **Purpose**: Window management menu
 
 **Features**:
-- Split creation (horizontal/vertical)
-- Window navigation
-- Window closing
+
+- **Horizontal Split**: Create horizontal window split
+- **Vertical Split**: Create vertical window split
+- **Move Left/Right/Up/Down**: Navigate to adjacent windows
+- **Close Window**: Close current window
 
 #### git.lua
 
 **Purpose**: Advanced git operations menu
 
 **Features**:
-- Async commit log loading
-- Browser integration for commits
-- Floating commit views
+
+- **Log**: Interactive git log with fuzzy search and filtering by author, message, hash, type
+- **Diff Menu**: Choose unstaged or staged diff with file-by-file preview
+- Async commit data loading
+- Browser integration for GitHub/GitLab commits
+- Floating windows for full commit diffs
+- Syntax highlighting for commit types (feat, fix, docs, etc.)
 
 #### treesitter.lua
 
 **Purpose**: Tree-sitter parser management menu
 
 **Features**:
-- Install/update/uninstall parsers
-- Parser status checking
+
+- **Install/Update/Uninstall**: Manage parser lifecycle with status indicators
+- Parser status checking (installed, outdated, not installed)
+- Repository URL opening for parsers
+- Categorized display: up-to-date, outdated, not installed
+- Automatic refresh after operations
 
 #### mason.lua
 
 **Purpose**: LSP server management menu
 
 **Features**:
-- Install/update/uninstall LSP servers
-- Server status and configuration
+
+- **Category Selection**: All, LSP, DAP, Linters, Formatters, Other
+- Install/update/uninstall servers with status indicators (✓ installed, ⚠ outdated, ✗ not installed)
+- Package information preview (description, homepage, languages, categories)
+- Asynchronous operations with automatic refresh
+- Version comparison for outdated packages
 
 ### options.lua
 

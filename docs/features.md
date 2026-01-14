@@ -32,16 +32,36 @@ Comprehensive LSP support for multiple languages with native Neovim 0.11+ integr
 
 ### Menus
 
-- **Alpha Dashboard**: Clean startup screen with quick access to common actions
+All menus use Telescope for interactive selection with previews and keybindings for quick actions.
 
-## Keymaps and Navigation
+- **Window Menu** (`<C-w>`): Interactive window management
+    
+    - Horizontal/vertical splits
+    - Navigation between windows
+    - Window closing
 
-### Popup Menus
+- **Git Menu** (`<C-g>`): Advanced git operations
 
-- **Window Menu** (`<C-w>`): Split windows, navigate, and close
-- **Git Menu** (`<C-g>`): Status, commit, push, log, and diff operations
-- **Treesitter Menu** (`<C-t>`): Parser installation, updates, and management
-- **Mason Menu** (`<A-m>`): LSP server installation, updates, and management
+    - **Log**: Fuzzy-searchable commit history with filtering (author, type, message)
+    - **Diff**: File-by-file diff preview for staged/unstaged changes
+    - Browser integration for commits on GitHub/GitLab
+
+- **Treesitter Menu** (`<C-t>`): Parser lifecycle management
+
+    - Install/update/uninstall parsers with status indicators
+    - Repository URL access
+    - Categorized view (up-to-date, outdated, not installed)
+
+- **Mason Menu** (`<A-m>`): LSP and tool server management
+
+    - Category filtering (LSP, DAP, Linters, Formatters, Other)
+    - Package information previews
+    - Version status and update management
+
+Additional utility menus accessed via quit operations or keybindings:
+
+- **Unsaved Buffers Menu**: Interactive save/discard for modified files with diff previews
+- **Swap Files Menu**: Recovery and cleanup of swap files for closed buffers
 
 ### File Navigation
 

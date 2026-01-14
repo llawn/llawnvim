@@ -29,25 +29,74 @@ This page provides a comprehensive reference of all key mappings in the LLawn Ne
 
 ### Window Operations
 
-| Key | Mode | Description |
-|-----|------|-------------|
-| `<C-w>1` | n | Horizontal split |
-| `<C-w>2` | n | Vertical split |
-| `<C-w>3` | n | Move to left window |
-| `<C-w>4` | n | Move to right window |
-| `<C-w>5` | n | Move to upper window |
-| `<C-w>6` | n | Move to lower window |
-| `<C-w>7` | n | Close current window |
+The window menu provides interactive selection for window management:
+
+- **Horizontal Split**: Create horizontal split
+- **Vertical Split**: Create vertical split
+- **Move Left/Right/Up/Down**: Navigate to adjacent windows
+- **Close Window**: Close current window
 
 ### Git Operations
 
+The git menu offers advanced git operations:
+
 | Key | Mode | Description |
 |-----|------|-------------|
-| `<C-g>1` | n | Git Status |
-| `<C-g>2` | n | Git Commit |
-| `<C-g>3` | n | Git Push |
-| `<C-g>4` | n | Git Log |
-| `<C-g>5` | n | Git Diff |
+| `<C-g>1` | n | Git Log |
+| `<C-g>2` | n | Git Diff |
+
+#### Git Log Menu
+
+Interactive git log with fuzzy search and filtering:
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `<CR>` | i,n | Open full diff in floating window |
+| `<C-o>` | i,n | Open commit in browser |
+
+**Search filters**: `author:john`, `msg:fix`, `hash:abc123`, `type:feat`
+
+#### Git Diff Menu
+
+Select diff type:
+
+- **Unstaged Diff**: Show changes not yet staged
+- **Staged Diff**: Show changes ready for commit
+
+### Treesitter Parser Management
+
+The treesitter menu manages syntax parsers:
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `<C-t>` | n | Treesitter parser management menu |
+
+#### Parser Management Menu
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `I` | i | Install selected parser |
+| `X` | i | Uninstall selected parser |
+| `U` | i | Update selected parser |
+| `o` | i | Open parser repository URL |
+
+### Mason LSP Server Management
+
+The mason menu manages LSP and other servers:
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `<A-m>` | n | Mason telescope menu for server management |
+
+#### Server Management Menu
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `I` | i | Install selected server |
+| `X` | i | Uninstall selected server |
+| `U` | i | Update selected server |
+
+**Categories**: All, LSP, DAP, Linters, Formatters, Other
 
 ## Editing
 
@@ -88,6 +137,7 @@ The quit system provides intelligent handling of unsaved files:
 
 - **Smart Quit**: If no unsaved buffers, quits immediately; otherwise opens quit menu
 - **Quit Menu Options**:
+
   - Unsaved Menu: Interactive handling of unsaved buffers with diff preview
   - Force Quit: Quit without saving
   - Save All and Quit: Save all modified buffers and quit
@@ -102,6 +152,19 @@ When unsaved buffers exist, a Telescope picker shows:
 - **D**: Discard all changes
 
 Each entry shows a diff preview of unsaved changes.
+
+#### Swap Files Menu
+
+When swap files exist for closed buffers, a Telescope picker shows:
+
+| Key | Mode | Description |
+|-----|------|-------------|
+| `<CR>` | i,n | Recover selected file (simple recover) |
+| `r` | i | Recover selected file |
+| `x` | i | Delete selected swap file |
+| `X` | i | Delete all swap files |
+
+Each entry shows a diff preview between saved file and swap content.
 
 ## File Management
 
@@ -150,6 +213,8 @@ Each entry shows a diff preview of unsaved changes.
 | `<leader>tb` | n | Browse buffers |
 | `<leader>th` | n | Search help tags |
 | `<leader>tw` | n | Find word under cursor |
+| `<leader>tu` | n | Telescope unsaved files menu |
+| `<leader>ts` | n | Telescope swap files menu |
 
 ## LSP (Language Server Protocol)
 
@@ -368,17 +433,6 @@ Keymaps are defined in `lua/llawn/config/keymaps.lua`. To add new mappings:
 
 ```lua
 vim.keymap.set("n", "<leader>your_key", your_command, { desc = "Description" })
-```
-
-### Menu Customization
-
-Menus are defined in `lua/llawn/config/menu.lua`. Add new menu items:
-
-```lua
-{
-  "Menu Item",
-  function() vim.cmd("YourCommand") end
-}
 ```
 
 ### Plugin Keymaps
