@@ -1,5 +1,34 @@
 # Changelog
 
+### Details of Changes
+```
+```
+## [1.3.7] - 2026-01-14
+
+### Details of Changes
+
+```
+    commit 717d2b7 fix: remove empty [Unreleased] section after tag push
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:28:05 2026 +0100
+    
+    
+     CHANGELOG.md      |  2 --
+     docs/changelog.md | 10 ----------
+     2 files changed, 12 deletions(-)
+    
+    commit 99747a6 docs: update changelogs
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:26:44 2026 +0100
+    
+    
+     CHANGELOG.md      |  4 ++++
+     docs/changelog.md | 28 ++++++++++++++++++++++++++++
+     2 files changed, 32 insertions(+)
+```
+
+
+
 ## [1.3.6] - 2026-01-14
 
 ### Details of Changes
