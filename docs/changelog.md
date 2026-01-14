@@ -1,6 +1,16 @@
 # Changelog
 
-## [1.3.6] - 2026-01-14\n\n### Details of Changes\n\n```\n    commit 70b76ed fix: correct next tag calculation in changelog script
+## [Unreleased] - 2026-01-14\n\n### Details of Changes\n\n```\n    commit 30cd1b6 fix: use temp file in generate_entry to preserve trailing newlines
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:19:15 2026 +0100
+    
+    
+     CHANGELOG.md          | 45 ++++++++++++++++++++++++++++++++++++---------
+     docs/changelog.md     | 12 +++++++++++-
+     generate_changelog.sh | 17 ++++++++++++-----
+     3 files changed, 59 insertions(+), 15 deletions(-)
+    
+    commit 70b76ed fix: correct next tag calculation in changelog script
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 18:17:03 2026 +0100
     

@@ -47,8 +47,7 @@ done
 
 # Commits after the last tag
 DATE=$(date +%Y-%m-%d)
-LATEST_TAG=$(echo "$TAGS" | tail -1)
-NEXT_TAG=$(echo "$LATEST_TAG" | awk -F. '{print $1"."$2"."($3+1)}')
+NEXT_TAG="Unreleased"
 ENTRY=$(generate_entry "${PREV_COMMIT}..HEAD" "$NEXT_TAG" "$DATE")
 CHANGELOG_BODY="$ENTRY$CHANGELOG_BODY"
 
