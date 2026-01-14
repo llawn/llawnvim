@@ -114,3 +114,4 @@ The following parsers are automatically installed and configured:
 ## Folder Structure
 
 [Full folder structure documentation](https://llawn.github.io/llawnvim/structure/)
+# Test commit for 1.4.1
