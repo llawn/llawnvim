@@ -1,10 +1,36 @@
 # Changelog
 
-## [Unreleased] - 2026-01-14
+## [1.4.1] - 2026-01-14
 
 ### Details of Changes
 
 ```
+
+```
+
+
+
+
+### Details of Changes
+
+```
+    commit 51ecac3 docs: add test note for 1.4.1
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:34:03 2026 +0100
+    
+    
+     README.md | 1 +
+     1 file changed, 1 insertion(+)
+    
+    commit 245679f feat: restore categorization of commits in changelog
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:32:35 2026 +0100
+    
+    
+     CHANGELOG.md      | 298 +++++++++++++++++++++++++++++++++++++++---------------
+     docs/changelog.md |  12 ++-
+     2 files changed, 224 insertions(+), 86 deletions(-)
+    
     commit a0520f7 docs: update changelogs
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 18:31:08 2026 +0100
