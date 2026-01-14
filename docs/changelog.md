@@ -1,11 +1,27 @@
 # Changelog
 
-## [Unreleased] - 2026-01-14
+## [1.4.0] - 2026-01-14
 
 ### Details of Changes
 
 ```
 
+```
+
+
+
+
+### Details of Changes
+
+```
+    commit 0b0dc5c docs: update changelogs
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:30:34 2026 +0100
+    
+    
+     CHANGELOG.md      |  6 +++++-
+     docs/changelog.md | 19 ++++++++++++++++++-
+     2 files changed, 23 insertions(+), 2 deletions(-)
 ```
 
 
