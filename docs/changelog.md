@@ -5,6 +5,34 @@
 ### Details of Changes
 
 ```
+
+```
+
+
+
+## [1.3.6] - 2026-01-14
+
+### Details of Changes
+
+```
+    commit ad36655 docs: add changelog link to documentation index
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:24:48 2026 +0100
+    
+    
+     docs/index.md | 1 +
+     1 file changed, 1 insertion(+)
+    
+    commit 273c1fa style: add 2 blank lines between changelog sections
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:22:59 2026 +0100
+    
+    
+     CHANGELOG.md          | 14 ++++++++++++++
+     docs/changelog.md     | 23 +++++++++++++++++++++++
+     generate_changelog.sh | 12 ++++++------
+     3 files changed, 43 insertions(+), 6 deletions(-)
+    
     commit 8027d25 fix: use echo -e to properly write newlines in changelogs
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 18:22:28 2026 +0100

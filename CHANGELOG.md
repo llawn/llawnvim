@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-01-14
 
+## [1.3.6] - 2026-01-14
+
+- docs: add changelog link to documentation index
+- style: add 2 blank lines between changelog sections
 - fix: use echo -e to properly write newlines in changelogs
 - feat: use 'Unreleased' section for pending commits without tags
 - fix: use temp file in generate_entry to preserve trailing newlines
