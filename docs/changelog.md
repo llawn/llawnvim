@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.4.1] - 2026-01-14
+## [v1.4.2] - 2026-01-14
 
 ### Details of Changes
 
@@ -10,6 +10,43 @@
 
 
 
+
+### Details of Changes
+
+```
+    commit 721aa3a docs: remove undeveloped llawn-ai plugin and update MkDocs color palette
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:45:30 2026 +0100
+    
+    
+     docs/keymaps.md                | 23 ++++++++++++++-
+     docs/structure.md              | 62 ++++++++++++++++++++++++++++++++++++++++
+     generate_changelog.sh          | 64 ++++++++++++++++++++++++++++++++++++++----
+     lua/llawn/plugins/llawn-ai.lua | 17 -----------
+     mkdocs.yml                     | 16 +++++------
+     5 files changed, 151 insertions(+), 31 deletions(-)
+    
+    commit 27bdeb4 docs: remove test note
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:35:45 2026 +0100
+    
+    
+     README.md | 1 -
+     1 file changed, 1 deletion(-)
+    
+    commit 80626f2 docs: update changelogs
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:34:12 2026 +0100
+    
+    
+     CHANGELOG.md      | 13 ++++++++++++-
+     docs/changelog.md | 28 +++++++++++++++++++++++++++-
+     2 files changed, 39 insertions(+), 2 deletions(-)
+```
+
+
+
+## [1.4.1] - 2026-01-14
 
 ### Details of Changes
 
