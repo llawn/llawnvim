@@ -1,6 +1,21 @@
 # Changelog
 
-## [Unreleased] - 2026-01-14\n\n### Details of Changes\n\n```\n    commit 30cd1b6 fix: use temp file in generate_entry to preserve trailing newlines
+## [Unreleased] - 2026-01-14
+
+### Details of Changes
+
+```
+    commit 0ffe5b9 feat: use 'Unreleased' section for pending commits without tags
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:20:43 2026 +0100
+    
+    
+     CHANGELOG.md          |  3 ++-
+     docs/changelog.md     | 12 +++++++++++-
+     generate_changelog.sh |  3 +--
+     3 files changed, 14 insertions(+), 4 deletions(-)
+    
+    commit 30cd1b6 fix: use temp file in generate_entry to preserve trailing newlines
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 18:19:15 2026 +0100
     
@@ -27,7 +42,16 @@
     
      CHANGELOG.md      |  67 +----
      docs/changelog.md | 756 +-----------------------------------------------------
-     2 files changed, 2 insertions(+), 821 deletions(-)\n```\n\n## [1.3.5] - 2026-01-14\n\n### Details of Changes\n\n```\n    commit caac1da feat: categorize commits in changelog by type (feat, fix, docs, etc.)
+     2 files changed, 2 insertions(+), 821 deletions(-)
+```
+
+
+## [1.3.5] - 2026-01-14
+
+### Details of Changes
+
+```
+    commit caac1da feat: categorize commits in changelog by type (feat, fix, docs, etc.)
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 18:13:22 2026 +0100
     
@@ -42,32 +66,77 @@
     
      CHANGELOG.md      |  81 +++++-
      docs/changelog.md | 809 ++++++++++++++++++++++++++++++++++++++++++++++++++----
-     2 files changed, 821 insertions(+), 69 deletions(-)\n```\n\n## [1.3.4] - 2026-01-14\n\n### Details of Changes\n\n```\n    commit bbbd4cf feat: update script to generate full changelogs from the beginning
+     2 files changed, 821 insertions(+), 69 deletions(-)
+```
+
+
+## [1.3.4] - 2026-01-14
+
+### Details of Changes
+
+```
+    commit bbbd4cf feat: update script to generate full changelogs from the beginning
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 18:11:06 2026 +0100
     
     
      generate_changelog.sh | 80 +++++++++++++++++++++++++++++++++++++--------------
-     1 file changed, 58 insertions(+), 22 deletions(-)\n```\n\n## [1.3.3] - 2026-01-14\n\n### Details of Changes\n\n```\n    commit 5de755c feat: update changelog script to generate docs/changelog.md automatically
+     1 file changed, 58 insertions(+), 22 deletions(-)
+```
+
+
+## [1.3.3] - 2026-01-14
+
+### Details of Changes
+
+```
+    commit 5de755c feat: update changelog script to generate docs/changelog.md automatically
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 18:05:12 2026 +0100
     
     
      generate_changelog.sh | 6 ++++++
-     1 file changed, 6 insertions(+)\n```\n\n## [1.3.2] - 2026-01-14\n\n### Details of Changes\n\n```\n    commit ed70b50 docs: add detailed changelog in docs/ and automation script
+     1 file changed, 6 insertions(+)
+```
+
+
+## [1.3.2] - 2026-01-14
+
+### Details of Changes
+
+```
+    commit ed70b50 docs: add detailed changelog in docs/ and automation script
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 18:00:10 2026 +0100
     
     
      docs/changelog.md     | 56 +++++++++++++++++++++++++++++++++++++++++++++++++++
      generate_changelog.sh | 22 ++++++++++++++++++++
-     2 files changed, 78 insertions(+)\n```\n\n## [1.3.1] - 2026-01-14\n\n### Details of Changes\n\n```\n    commit 9236993 docs: add changelog for version 1.3.0
+     2 files changed, 78 insertions(+)
+```
+
+
+## [1.3.1] - 2026-01-14
+
+### Details of Changes
+
+```
+    commit 9236993 docs: add changelog for version 1.3.0
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 17:57:37 2026 +0100
     
     
      CHANGELOG.md | 22 ++++++++++++++++++++++
-     1 file changed, 22 insertions(+)\n```\n\n## [1.3.0] - 2026-01-14\n\n### Details of Changes\n\n```\n    commit 1de7368 feat: update LSP, menu, and plugin configurations
+     1 file changed, 22 insertions(+)
+```
+
+
+## [1.3.0] - 2026-01-14
+
+### Details of Changes
+
+```
+    commit 1de7368 feat: update LSP, menu, and plugin configurations
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 14 17:19:52 2026 +0100
     
@@ -130,7 +199,16 @@
     
     
      lua/llawn/plugins/treesitter.lua | 2 +-
-     1 file changed, 1 insertion(+), 1 deletion(-)\n```\n\n## [1.2.2] - 2026-01-13\n\n### Details of Changes\n\n```\n    commit 01654d7 docs: update menu keymaps and folder structure
+     1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+
+## [1.2.2] - 2026-01-13
+
+### Details of Changes
+
+```
+    commit 01654d7 docs: update menu keymaps and folder structure
     Author: llawn <llawn06@gmail.com>
     Date: Tue Jan 13 22:45:51 2026 +0100
     
@@ -186,7 +264,16 @@
     
      lua/llawn/config/keymaps.lua |   3 +
      lua/llawn/config/menu.lua    | 238 ++++++++++++++++++++++++++++++++++++++++++-
-     2 files changed, 240 insertions(+), 1 deletion(-)\n```\n\n## [1.2.1] - 2026-01-12\n\n### Details of Changes\n\n```\n    commit cccdbb0 feat: add lexima for brackets
+     2 files changed, 240 insertions(+), 1 deletion(-)
+```
+
+
+## [1.2.1] - 2026-01-12
+
+### Details of Changes
+
+```
+    commit cccdbb0 feat: add lexima for brackets
     Author: llawn <llawn06@gmail.com>
     Date: Mon Jan 12 19:44:50 2026 +0100
     
@@ -203,7 +290,16 @@
     
      after/lsp/ruff.lua | 18 ++++++++++++++++++
      lazy-lock.json     |  1 +
-     2 files changed, 19 insertions(+)\n```\n\n## [1.2.0] - 2026-01-12\n\n### Details of Changes\n\n```\n    commit 4bedcff fix: Update links in lsp.md
+     2 files changed, 19 insertions(+)
+```
+
+
+## [1.2.0] - 2026-01-12
+
+### Details of Changes
+
+```
+    commit 4bedcff fix: Update links in lsp.md
     Author: llawn <151925221+llawn@users.noreply.github.com>
     Date: Mon Jan 12 18:01:08 2026 +0100
     
@@ -378,7 +474,16 @@
      docs/index.md        | 12 ++++++------
      docs/installation.md |  4 ++--
      mkdocs.yml           |  2 +-
-     4 files changed, 15 insertions(+), 15 deletions(-)\n```\n\n## [1.1.0] - 2026-01-07\n\n### Details of Changes\n\n```\n    commit b57e1f2 docs: fix admonitton support
+     4 files changed, 15 insertions(+), 15 deletions(-)
+```
+
+
+## [1.1.0] - 2026-01-07
+
+### Details of Changes
+
+```
+    commit b57e1f2 docs: fix admonitton support
     Author: llawn <llawn06@gmail.com>
     Date: Wed Jan 7 09:39:44 2026 +0100
     
@@ -483,7 +588,16 @@
     
     
      README.md | 1 +
-     1 file changed, 1 insertion(+)\n```\n\n## [1.0.0] - 2026-01-06\n\n### Details of Changes\n\n```\n    commit 4ae201d docs: add custom keymaps desc
+     1 file changed, 1 insertion(+)
+```
+
+
+## [1.0.0] - 2026-01-06
+
+### Details of Changes
+
+```
+    commit 4ae201d docs: add custom keymaps desc
     Author: llawn <llawn06@gmail.com>
     Date: Tue Jan 6 17:23:13 2026 +0100
     
@@ -741,7 +855,16 @@
     
      README.md | 94 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
      init.lua  | 28 +++++++++++++++++++
-     2 files changed, 120 insertions(+), 2 deletions(-)\n```\n\n## [0.1.0] - 2025-11-06\n\n### Details of Changes\n\n```\n    commit 95f5b69 docs: add license and tags for readme
+     2 files changed, 120 insertions(+), 2 deletions(-)
+```
+
+
+## [0.1.0] - 2025-11-06
+
+### Details of Changes
+
+```
+    commit 95f5b69 docs: add license and tags for readme
     Author: llawn <llawn06@gmail.com>
     Date: Thu Nov 6 11:41:47 2025 +0100
     
@@ -796,4 +919,8 @@
      lua/llawn/config/lsp.lua     | 34 ++++++++++++++++++++++++++++++
      lua/llawn/config/options.lua | 48 ++++++++++++++++++++++++++++++++++++++++++
      lua/llawn/init.lua           |  6 ++++++
-     8 files changed, 180 insertions(+)\n```\n\n
+     8 files changed, 180 insertions(+)
+```
+
+
+

@@ -28,7 +28,7 @@ generate_entry() {
     local date="$3"
     local commits=$(git log --pretty=format:"- %s" $range)
     local temp=$(mktemp)
-    printf "## [%s] - %s\n\n%s\n\n" "$version" "$date" "$commits" > "$temp"
+    printf "## [%s] - %s\n\n%s\n" "$version" "$date" "$commits" > "$temp"
     cat "$temp"
     rm "$temp"
 }
@@ -36,37 +36,29 @@ generate_entry() {
 for TAG in $TAGS; do
     DATE=$(git log -1 --format=%ai ${TAG} | cut -d' ' -f1)
     ENTRY=$(generate_entry "${PREV_COMMIT}..${TAG}" "$TAG" "$DATE")
-    CHANGELOG_BODY="$ENTRY$CHANGELOG_BODY"
+    CHANGELOG_BODY="$ENTRY\n$CHANGELOG_BODY"
 
     # Detailed for docs
     DETAILED_COMMITS=$(git log --stat --pretty=format:"commit %h %s%nAuthor: %an <%ae>%nDate: %ad%n%n%b" ${PREV_COMMIT}..${TAG} | sed 's/^/    /')
     DOCS_ENTRY="## [$TAG] - $DATE\n\n### Details of Changes\n\n\`\`\`\n$DETAILED_COMMITS\n\`\`\`\n\n"
-    DOCS_BODY="$DOCS_ENTRY$DOCS_BODY"
+    DOCS_BODY="$DOCS_ENTRY\n$DOCS_BODY"
     PREV_COMMIT=${TAG}
 done
 
 # Commits after the last tag
 DATE=$(date +%Y-%m-%d)
 NEXT_TAG="Unreleased"
-ENTRY=$(generate_entry "${PREV_COMMIT}..HEAD" "$NEXT_TAG" "$DATE")
-CHANGELOG_BODY="$ENTRY$CHANGELOG_BODY"
+    ENTRY=$(generate_entry "${PREV_COMMIT}..HEAD" "$NEXT_TAG" "$DATE")
+    CHANGELOG_BODY="$ENTRY\n$CHANGELOG_BODY"
 
 DETAILED_COMMITS=$(git log --stat --pretty=format:"commit %h %s%nAuthor: %an <%ae>%nDate: %ad%n%n%b" ${PREV_COMMIT}..HEAD | sed 's/^/    /')
-DOCS_ENTRY="## [$NEXT_TAG] - $DATE\n\n### Details of Changes\n\n\`\`\`\n$DETAILED_COMMITS\n\`\`\`\n\n"
-DOCS_BODY="$DOCS_ENTRY$DOCS_BODY"
+    DOCS_ENTRY="## [$NEXT_TAG] - $DATE\n\n### Details of Changes\n\n\`\`\`\n$DETAILED_COMMITS\n\`\`\`\n\n"
+    DOCS_BODY="$DOCS_ENTRY\n$DOCS_BODY"
 
 # Write CHANGELOG.md
-cat > CHANGELOG.md <<EOF
-$CHANGELOG_HEADER
-
-$CHANGELOG_BODY
-EOF
+echo -e "$CHANGELOG_HEADER\n\n$CHANGELOG_BODY" > CHANGELOG.md
 
 # Write docs/changelog.md
-cat > docs/changelog.md <<EOF
-$DOCS_HEADER
-
-$DOCS_BODY
-EOF
+echo -e "$DOCS_HEADER\n\n$DOCS_BODY" > docs/changelog.md
 
 echo "Generated full changelogs"
