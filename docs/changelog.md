@@ -1,8 +1,32 @@
 # Changelog
 
+## [1.3.8] - 2026-01-14
+
 ### Details of Changes
+
 ```
+
 ```
+
+
+
+## [1.3.8] - 2026-01-14
+
+### Details of Changes
+
+```
+    commit 3334b17 docs: update changelogs
+    Author: llawn <llawn06@gmail.com>
+    Date: Wed Jan 14 18:29:01 2026 +0100
+    
+    
+     CHANGELOG.md      |  5 +++++
+     docs/changelog.md | 29 +++++++++++++++++++++++++++++
+     2 files changed, 34 insertions(+)
+```
+
+
+
 ## [1.3.7] - 2026-01-14
 
 ### Details of Changes
