@@ -170,7 +170,7 @@ return {
         local ft = vim.bo[buf].filetype
         if ft == '' then return end
         local lang = vim.treesitter.language.get_lang(ft)
-        if lang and not require('nvim-treesitter.parsers').has_parser(lang) then
+        if lang and require('nvim-treesitter.parsers').get_parser_configs()[lang] and not require('nvim-treesitter.parsers').has_parser(lang) then
           local choice = vim.fn.confirm('Install treesitter parser for ' .. lang .. '?', '&Yes\n&No', 1)
           if choice == 1 then
             vim.cmd('TSInstall ' .. lang)
