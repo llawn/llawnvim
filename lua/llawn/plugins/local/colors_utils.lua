@@ -76,7 +76,7 @@ function M.hex_to_int(hex)
 
   local int = tonumber(h_std:sub(2), 16)
   if int and int <= 0xffffff then
-      return int
+    return int
   end
 
   return nil
