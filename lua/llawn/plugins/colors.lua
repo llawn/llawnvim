@@ -11,6 +11,7 @@ local colors = {
 
 -- Function to set up a color scheme with custom highlights
 function ColorMyPencils(color)
+  -- Default to "rose-pine-moon"
   color = color or "rose-pine-moon"
 
   -- Transparent background

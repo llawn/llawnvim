@@ -1,3 +1,7 @@
+--- @class Color
+--- @field name string: The name of the color
+--- @field color integer: The color as an integer (e.g., 0xff0000)
+--- @type Color[]
 local colors = {
   {name="black", color=0x000000},
   {name="onyx", color=0x111111},

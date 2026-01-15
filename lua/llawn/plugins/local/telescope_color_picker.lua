@@ -28,7 +28,7 @@ local function hybrid_color_sorter()
   return sorters.new({
       scoring_function = function(_, prompt, _, entry)
         if prompt:match("^#") then
-          local target_hex = colors_utils.expand_input_hex(prompt)
+          local target_hex = colors_utils.standardize_input_hex(prompt)
           if not target_hex then return 1000 end
           local r, g, b = colors_utils.hex_to_rgb(target_hex)
           if r and g and b and entry.r then
@@ -58,7 +58,7 @@ local dynamic_previewer = previewers.new_buffer_previewer({
 
     local prompt = action_state.get_current_line()
     local is_hex_mode = prompt:match("^#")
-    local target_hex = colors_utils.expand_input_hex(prompt)
+    local target_hex = colors_utils.standardize_input_hex(prompt)
 
     local lines = {}
     local hl_ops = {}
