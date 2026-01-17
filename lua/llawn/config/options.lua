@@ -1,5 +1,4 @@
---- @brief Core Neovim editor options
----
+--- Core Neovim editor options
 
 -- Line numbering
 vim.opt.number = true
@@ -39,12 +38,7 @@ vim.opt.splitbelow = true
 
 -- Persistent undo history (undotree)
 if vim.fn.has("persistent_undo") == 1 then
-    local target_path = vim.fn.expand("~/.undodir", 1)
-    if vim.fn.isdirectory(target_path) == 0 then
-        vim.fn.mkdir(target_path, "p", 0700)
-    end
-    vim.opt.undodir = target_path
-    vim.opt.undofile = true
+  vim.opt.undofile = true
 end
 
 -- Default border style for floating windows
@@ -63,3 +57,5 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 vim.opt.colorcolumn = "80"
 
+-- Hide mode indicator since lualine shows it
+vim.opt.showmode = false
