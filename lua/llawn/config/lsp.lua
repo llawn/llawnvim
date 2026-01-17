@@ -1,4 +1,4 @@
---- @brief LSP setup and configuration
+--- LSP setup and configuration
 --- see https://github.com/josean-dev/dev-environment-files
 
 -- ============================================================================

@@ -1,8 +1,6 @@
---- @brief Bootstrap and configure lazy.nvim plugin manager.
----
+--- Configure lazy.nvim plugin manager.
 --- This is based on the official installation instructions
 --- from https://lazy.folke.io/installation.
----
 
 -- Path where lazy.nvim will be installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
