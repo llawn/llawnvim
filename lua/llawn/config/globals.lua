@@ -1,9 +1,5 @@
---- @brief
----
---- Global Variables
 --- Defines global Vim variables used across the Neovim configuration
 --- Includes leader keys, built-in plugin settings, and UI capabilities
----
 
 -- ============================================================================
 -- Leader Keys
