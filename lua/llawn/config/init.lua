@@ -7,6 +7,7 @@ require("llawn.config.options")
 
 -- post lazy
 require("llawn.config.menu")
-require("llawn.plugins.local.telescope_color_picker")
-require("llawn.plugins.local.grid_color_picker")
+require("llawn.colors.telescope_color_picker")
+require("llawn.colors.grid_color_picker")
+require("llawn.colors.palette_commands")
 
