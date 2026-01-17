@@ -1,161 +1,22 @@
---- @brief
----
---- Key Mappings
 --- Defines general keybindings used across the Neovim configuration
 --- Mappings are grouped by functionality for clarity and maintainability
 --- Some plugin keybindings can be found directly in their configuration file.
----
 
 local opts = { noremap = true, silent = true }
 
 -- ============================================================================
--- Popup Menus
+-- Source file
 -- ============================================================================
 
--- Lazy require for menu to avoid circular dependency
-local function get_menu()
-  return require("llawn.config.menu")
-end
+opts.desc = "Reload Nvim Config"
 
-opts.desc = "Window Popup Menu"
-vim.keymap.set("n", "<C-w>", function() get_menu().window.menu() end, opts)
-
-opts.desc = "Disabled (overlaps with window menu)"
-vim.keymap.set("n", "<C-w>d", "<nop>", opts)
-vim.keymap.set("n", "<C-w><C-D>", "<nop>", opts)
-
-opts.desc = "Git Popup Menu"
-vim.keymap.set("n", "<C-g>", function() get_menu().git.menu() end, opts)
-
-opts.desc = "Treesitter Popup Menu"
-vim.keymap.set("n", "<C-t>", function() get_menu().treesitter.menu() end, opts)
-
-opts.desc = "Mason Popup Menu"
-vim.keymap.set("n", "<A-m>", function() get_menu().mason.menu() end, opts)
-
--- ============================================================================
--- UI Toggles
--- ============================================================================
-
--- Toggle display of list characters
-local function toggle_list()
-  local current = vim.o.list
-  vim.o.list = not current
-  print("List chars " .. (not current and "ON" or "OFF"))
-end
-
-opts.desc = "Toggle list characters"
-vim.keymap.set("n", "<C-l>", toggle_list, opts)
-
--- ============================================================================
--- Navigation
--- ============================================================================
-
--- Visual line navigation
-opts.desc = "Navigate visual line"
-for _, keymap in ipairs({
-  { "j", "gj" },
-  { "k", "gk" },
-  { "<Down>", "gj" },
-  { "<Up>", "gk" },
-}) do
-  vim.keymap.set({ "n", "x" }, keymap[1], keymap[2], opts)
-end
-
-for _, keymap in ipairs({
-  { "<Down>", "<C-\\><C-o>gj" },
-  { "<Up>", "<C-\\><C-o>gk" },
-}) do
-  vim.keymap.set("i", keymap[1], keymap[2], opts)
-end
-
--- Buffer navigation
-opts.desc = "Switch to alternate buffer"
-vim.keymap.set("n", "<leader>bb", "<C-^>", opts)
-opts.desc = "Next buffer"
-vim.keymap.set("n", "<leader>bn", vim.cmd.bnext, opts)
-opts.desc = "Previous buffer"
-vim.keymap.set("n", "<leader>bp", vim.cmd.bprevious, opts)
-
--- ============================================================================
--- Editing
--- ============================================================================
-
--- Enter Visual Block mode
-opts.desc = "Visual block mode"
-vim.keymap.set("n", "<C-q>", "<C-v>", opts)
-
--- Move Lines
-opts.desc = "Move line up"
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", opts)
-vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
-
-opts.desc = "Move line down"
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", opts)
-vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", opts)
-
--- ============================================================================
--- File & Workspace
--- ============================================================================
-
--- Open file explorer (Yazi if available, fallback to netrw)
-local function open_file_explorer()
-  local ok, yazi = pcall(require, "yazi")
-  if ok and yazi.yazi then
-    yazi.yazi({
-      cwd = vim.fn.expand("%:p:h"),
-    })
-  else
-    vim.cmd.Ex()
-  end
-end
-opts.desc = "Open file explorer"
-vim.keymap.set("n", "<leader>x", open_file_explorer, opts)
-
-opts.desc = "Quit Neovim"
-vim.keymap.set("n", "<leader>q", function() get_menu().quit.smart_quit() end, opts)
-
--- Save file
-opts.desc = "Save file"
-vim.keymap.set("n", "<leader>w", vim.cmd.w, opts)
-
--- ============================================================================
--- Color Picker
--- ============================================================================
-
-opts.desc = "Pick colors"
-vim.keymap.set("n", "<leader>tc", ":HexColors<CR>", opts)
-opts.desc = "Pick colors 2D"
-vim.keymap.set("n", "<leader>cc", ":ColorPick2D<CR>", opts)
-
--- ============================================================================
--- Lua Utilities
--- ============================================================================
+vim.keymap.set("n", "<leader>R", function()
+  vim.cmd("source $MYVIMRC")
+  vim.notify("Config Reloaded!", vim.log.levels.INFO)
+end, opts)
 
 opts.desc = "Source current file"
 vim.keymap.set("n", "<leader>s", "<Cmd>source %<CR>", opts)
-opts.desc = "Execute current line (Lua)"
-vim.keymap.set("n", "<leader>lx", "<Cmd>:.lua<CR>", opts)
-opts.desc = "Execute selection (Lua)"
-vim.keymap.set("v", "<leader>lx", "<Cmd>:lua<CR>", opts)
-
--- ============================================================================
--- Treesitter
--- ============================================================================
-
-vim.keymap.set("n", "<leader>tp", ":InspectTree<CR>", opts)
-
--- Toggle treesitter highlight for buffer with feedback
-local function toggle_treesitter_highlight()
-  local current = vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()]
-  vim.cmd("TSBufToggle highlight")
-  local new_state = vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()]
-  print("Treesitter highlight " .. (new_state and "ON" or "OFF"))
-end
-opts.desc = "Toggle treesitter highlight for buffer"
-vim.keymap.set("n", "<leader>tl", toggle_treesitter_highlight, opts)
 
 -- ============================================================================
 -- System / Classic Keybindings
@@ -177,5 +38,169 @@ vim.keymap.set("n", "<C-z>", "u", opts)
 opts.desc = "Redo"
 vim.keymap.set("n", "<C-y>", "<C-r>", opts)
 opts.desc = "Save file"
-vim.keymap.set({"n","i", "v"}, "<C-s>", vim.cmd.w, opts)
+vim.keymap.set({ "n", "i", "v" }, "<C-s>", vim.cmd.w, opts)
 
+-- ============================================================================
+-- File & Workspace
+-- ============================================================================
+
+--- Open file explorer (Yazi if available, fallback to netrw)
+--- @return nil
+local function open_file_explorer()
+  local ok, yazi = pcall(require, "yazi")
+  if ok and yazi.yazi then
+    yazi.yazi({
+      cwd = vim.fn.expand("%:p:h"),
+    })
+  else
+    vim.cmd.Ex()
+  end
+end
+
+opts.desc = "Open file explorer"
+vim.keymap.set("n", "<leader>x", open_file_explorer, opts)
+
+-- Save file
+opts.desc = "Save file"
+vim.keymap.set("n", "<leader>w", vim.cmd.w, opts)
+
+-- ============================================================================
+-- Navigation
+-- ============================================================================
+
+-- Visual line navigation
+opts.desc = "Navigate visual line"
+for _, keymap in ipairs({
+  { "j",      "gj" },
+  { "k",      "gk" },
+  { "<Down>", "gj" },
+  { "<Up>",   "gk" },
+}) do
+  vim.keymap.set({ "n", "x" }, keymap[1], keymap[2], opts)
+end
+
+for _, keymap in ipairs({
+  { "<Down>", "<C-\\><C-o>gj" },
+  { "<Up>",   "<C-\\><C-o>gk" },
+}) do
+  vim.keymap.set("i", keymap[1], keymap[2], opts)
+end
+
+-- Buffer navigation
+opts.desc = "Switch to alternate buffer"
+vim.keymap.set("n", "<leader>bb", "<C-^>", opts)
+opts.desc = "Next buffer"
+vim.keymap.set("n", "<leader>bn", vim.cmd.bnext, opts)
+opts.desc = "Previous buffer"
+vim.keymap.set("n", "<leader>bp", vim.cmd.bprevious, opts)
+
+-- ============================================================================
+-- Editing
+-- ============================================================================
+
+-- Enter Visual Block mode
+opts.desc = "Visual block mode"
+vim.keymap.set("n", "<C-q>", "<C-v>", opts)
+
+--- Sets keymaps for moving lines in normal, insert, and visual modes
+---@param desc string Description for the keymap
+---@param key string The key sequence to map
+---@param commands table Table with 'n', 'i', 'v' keys containing the commands for each mode
+---@return nil
+local function set_move_keymaps(desc, key, commands)
+  opts.desc = desc
+  vim.keymap.set("n", key, commands.n, opts)
+  vim.keymap.set("i", key, commands.i, opts)
+  vim.keymap.set("v", key, commands.v, opts)
+end
+
+local move_commands = {
+  up = { n = ":m .-2<CR>==", i = "<Esc>:m .-2<CR>==gi", v = ":m '<-2<CR>gv=gv" },
+  down = { n = ":m .+1<CR>==", i = "<Esc>:m .+1<CR>==gi", v = ":m '>+1<CR>gv=gv" }
+}
+
+set_move_keymaps("Move line up", "<A-k>", move_commands.up)
+set_move_keymaps("Move line up", "<A-Up>", move_commands.up)
+set_move_keymaps("Move line down", "<A-j>", move_commands.down)
+set_move_keymaps("Move line down", "<A-Down>", move_commands.down)
+
+-- ============================================================================
+-- UI Toggles
+-- ============================================================================
+
+-- Toggle display of list characters
+local function toggle_list()
+  local current = vim.o.list
+  vim.o.list = not current
+  print("List chars " .. (not current and "ON" or "OFF"))
+end
+
+opts.desc = "Toggle list characters"
+vim.keymap.set("n", "<C-l>", toggle_list, opts)
+
+
+-- ============================================================================
+-- Lua Utilities
+-- ============================================================================
+
+opts.desc = "Execute current line (Lua)"
+vim.keymap.set("n", "<leader>lx", "<Cmd>:.lua<CR>", opts)
+opts.desc = "Execute selection (Lua)"
+vim.keymap.set("v", "<leader>lx", "<Cmd>:lua<CR>", opts)
+opts.desc = "Execute file (Lua)"
+vim.keymap.set("n", "<leader>lf", "<Cmd>luafile %<CR>", opts)
+
+-- ============================================================================
+-- Popup Menus
+-- ============================================================================
+
+-- Lazy require for menu to avoid circular dependency
+local function get_menu()
+  return require("llawn.config.menu")
+end
+
+opts.desc = "Git Popup Menu"
+vim.keymap.set("n", "<A-g>", function() get_menu().git.menu() end, opts)
+
+opts.desc = "Mason Popup Menu"
+vim.keymap.set("n", "<A-m>", function() get_menu().mason.menu() end, opts)
+
+opts.desc = "Quit Neovim"
+vim.keymap.set("n", "<leader>q", function() get_menu().quit.smart_quit() end, opts)
+
+opts.desc = "Treesitter Popup Menu"
+vim.keymap.set("n", "<A-t>", function() get_menu().treesitter.menu() end, opts)
+
+opts.desc = "Window Popup Menu"
+vim.keymap.set("n", "<A-w>", function() get_menu().window.menu() end, opts)
+
+-- ============================================================================
+-- Color Picker
+-- ============================================================================
+
+opts.desc = "Pick colors"
+vim.keymap.set("n", "<leader>cp", ":HexColors<CR>", opts)
+opts.desc = "Pick colors 2D"
+vim.keymap.set("n", "<leader>cc", ":ColorPick2D<CR>", opts)
+
+-- ============================================================================
+-- Treesitter
+-- ============================================================================
+
+opts.desc = "Treesitter Playground"
+vim.keymap.set("n", "<leader>trp", ":InspectTree<CR>", opts)
+
+--- Toggle treesitter highlight for buffer with feedback
+--- @return nil
+local function toggle_treesitter_highlight()
+  local _ = vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()]
+  vim.cmd("TSBufToggle highlight")
+  local new_state = vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()]
+  print("Treesitter highlight " .. (new_state and "ON" or "OFF"))
+end
+
+opts.desc = "Toggle treesitter highlight for buffer"
+vim.keymap.set("n", "<leader>trh", toggle_treesitter_highlight, opts)
+
+opts.desc = "Find symbols with treesitter"
+vim.keymap.set("n", "<leader>ft", function() get_menu().ts_symbols.menu() end, opts)
