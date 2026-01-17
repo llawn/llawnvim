@@ -159,33 +159,12 @@ local function format_with_confirmation()
   -- remove formatting
   vim.cmd("undo")
 
-  local diff = vim.diff(table.concat(lines, "\n"), table.concat(new_lines, "\n"), { result_type = "unified" })
-  assert(type(diff) == "string", "vim.diff with result_type='unified' should return a string")
-
-  local buf = vim.api.nvim_create_buf(false, true) -- Scratch buffer
-  vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(diff, "\n"))
-  vim.bo[buf].filetype = "diff"
-  vim.bo[buf].modifiable = false
-
-  local width = math.floor(vim.o.columns * 0.8)
-  local height = math.floor(vim.o.lines * 0.8)
-  local win = vim.api.nvim_open_win(
-    buf,
-    true,
-    {
-      relative = "editor",
-      width = width,
-      height = height,
-      col = (vim.o.columns - width) / 2,
-      row = (vim.o.lines - height) / 2,
-      style = "minimal",
-      border = "rounded",
-      title = " Review Changes (y: apply, n/q: cancel) "
-    }
+  local diff_utils = require('llawn.utils.diff')
+  local buf, win = diff_utils.show_diff(
+    table.concat(lines, "\n"),
+    table.concat(new_lines, "\n"),
+    " Review Changes (y: apply, n/q: cancel) "
   )
-
-  vim.wo[win].wrap = false
-  vim.wo[win].cursorline = true
 
   --- Apply formatting and close diff window
   --- @return nil
