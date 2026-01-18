@@ -27,60 +27,8 @@ local function categorize_results(i)
   end
 end
 
---- @class MasonEntry
---- @field value table The raw package data
---- @field ordinal string The string used for fuzzy searching
---- @field display function The function that renders the UI line
-
---- Creates a telescope entry for mason packages.
---- @param entry table|string The package entry or a string
---- @return MasonEntry The telescope entry
-local function entry_maker(entry)
-  if type(entry) == "string" then
-    -- Handle category headers
-    return {
-      value = entry,
-      ordinal = entry,
-      display = function(e) return e.value end
-    }
-  else
-    -- Handle package info entries
-    return {
-      value = entry,
-      ordinal = entry.pkg.name,
-      --- The display function Telescope calls to render each line in the picker.
-      --- @param e MasonEntry The entry table
-      --- @return string text The formatted string to display.
-      --- @return table highlights A list of { {start, end}, hl_group } for coloring.
-      display = function(e)
-        local i = e.value
-        local istatus = categorize_results(i)
-        local status = ""
-        local sym = ""
-        if istatus == menu_utils.Status.UP_TO_DATE then
-          status = "Good"
-          sym = "✓"
-        elseif istatus == menu_utils.Status.OUTDATED then
-          status = "Warning"
-          sym = "⚠"
-        elseif istatus == menu_utils.Status.MISSING then
-          status = "Bad"
-          sym = "✗"
-        end
-
-        local pkg_status = string.format(
-          "[%s] %s %s",
-          sym,
-          i.pkg.name,
-          (i.pkg:get_installed_version() or "")
-        )
-        return pkg_status, { { { 0, 5 }, "MasonInstallInfo" .. status } }
-      end
-    }
-  end
-end
-
 M.mason = {}
+
 --- Shows mason packages for a given category with optional status filter.
 --- @param cat_name string The category name (e.g., "All", "LSP")
 --- @param status_filter string|nil The status filter to apply
@@ -119,9 +67,16 @@ M.mason.show_packages = function(cat_name, status_filter)
       "[F]ilter, [I]nstall, [X]Uninstall, [U]pdate, [O]pen in Browser, [C]hange category"
     )
 
+    local maker = menu_utils.gen_entry_maker(
+      "name",
+      function(i) return i.pkg:get_installed_version() end,
+      categorize_results,
+      "MasonInstallInfo"
+    )
+
     menu_utils.create_picker({
       prompt_title = "Mason Manager (" .. cat_name .. ")",
-      finder = require('telescope.finders').new_table({ results = results, entry_maker = entry_maker }),
+      finder = require('telescope.finders').new_table({ results = results, entry_maker = maker }),
       previewer = previewer,
       attach_mappings = menu_utils.create_attach_mappings(
         {

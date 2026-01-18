@@ -193,59 +193,6 @@ local function categorize_results(i)
   end
 end
 
---- @class ParserEntry
---- @field value MyParserInfo The raw parser data
---- @field ordinal string The string used for fuzzy searching
---- @field display function The function that renders the UI line
-
---- Creates a telescope entry from parser info
---- @param info MyParserInfo|string
---- @return ParserEntry
-local function entry_maker(info)
-  if type(info) == "string" then
-    -- Handle category headers
-    return {
-      value = info,
-      ordinal = info,
-      display = function(e) return e.value end
-    }
-  else
-    -- Handle parser info entries
-    return {
-      value = info,
-      ordinal = info.lang,
-      --- The display function Telescope calls to render each line in the picker.
-      --- @param e ParserEntry The entry table
-      --- @return string text The formatted string to display.
-      --- @return table highlights A list of { {start, end}, hl_group } for coloring.
-      display = function(e)
-        local i = e.value
-        local istatus = categorize_results(i)
-        local status = ""
-        local sym = ""
-        if istatus == menu_utils.Status.UP_TO_DATE then
-          status = "Good"
-          sym = "✓"
-        elseif istatus == menu_utils.Status.OUTDATED then
-          status = "Warning"
-          sym = "⚠"
-        elseif istatus == menu_utils.Status.MISSING then
-          status = "Bad"
-          sym = "✗"
-        end
-
-        local parser_status = string.format(
-          "[%s] %s %s",
-          sym,
-          i.lang,
-          (i.installed_rev or ""):sub(1, 7)
-        )
-        return parser_status, { { { 0, 5 }, "TSInstallInfo" .. status } }
-      end
-    }
-  end
-end
-
 M.treesitter = {}
 
 --- Displays the treesitter parser management menu.
@@ -281,11 +228,18 @@ M.treesitter.menu = function(filter)
     end,
     "[F]ilter, [I]nstall, [X]Remove, [U]pdate, [O]pen in Browser, [L]oad description")
 
+  local maker = menu_utils.gen_entry_maker(
+    "lang",
+    function(i) return (i.installed_rev or ""):sub(1, 7) end,
+    categorize_results,
+    "TSInstallInfo"
+  )
+
   menu_utils.create_picker({
     prompt_title = "TS Manager",
     finder = require('telescope.finders').new_table({
       results = results,
-      entry_maker = entry_maker
+      entry_maker = maker
     }),
     previewer = previewer,
     attach_mappings = menu_utils.create_attach_mappings(

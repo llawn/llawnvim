@@ -26,6 +26,44 @@ M.setup_highlights = function(prefix)
   vim.api.nvim_set_hl(0, prefix .. "Bad", { fg = "#FF0000", bold = true })
 end
 
+--- Formats the display line for a telescope entry.
+--- @param name string The name of the package/parser
+--- @param version string|nil The installed version
+--- @param istatus InstallationStatus The status enum
+--- @param hl_prefix string The highlight group prefix
+--- @return string, table The text and highlight configuration
+M.format_display_line = function(name, version, istatus, hl_prefix)
+  local status_map = {
+    [M.Status.UP_TO_DATE] = { sym = "✓", label = "Good" },
+    [M.Status.OUTDATED] = { sym = "⚠", label = "Warning" },
+    [M.Status.MISSING] = { sym = "✗", label = "Bad" },
+  }
+  local config = status_map[istatus]
+  local text = string.format("[%s] %s %s", config.sym, name, version or "")
+  return text, { { { 0, 5 }, hl_prefix .. config.label } }
+end
+
+--- A generic entry maker factory
+--- @param name_key string The key to find the name (e.g., 'name' or 'lang')
+--- @param version_fn function Function to get the display version
+--- @param check_fn function The categorization function
+--- @param hl_prefix string The highlight prefix
+M.gen_entry_maker = function(name_key, version_fn, check_fn, hl_prefix)
+  return function(entry)
+    if type(entry) == "string" then
+      return { value = entry, ordinal = entry, display = function(e) return e.value end }
+    end
+    return {
+      value = entry,
+      ordinal = entry[name_key],
+      display = function(e)
+        local i = e.value
+        return M.format_display_line(i[name_key], version_fn(i), check_fn(i), hl_prefix)
+      end
+    }
+  end
+end
+
 --- Creates a standardized previewer for installation menus.
 --- @param extract_fn function Function that returns {name, languages, url, target, status}
 --- @param title string|nil Optional title for the previewer
