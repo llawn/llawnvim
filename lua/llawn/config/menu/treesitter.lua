@@ -1,312 +1,330 @@
+--- Treesitter Manager
+
 local M = {}
+local lockfile_utils = require('llawn.utils.lockfile')
+local menu_utils = require('llawn.utils.menu')
+
+--- @class MyParserInfo
+--- @field lang string The language name
+--- @field name string The language name
+--- @field description string The language description (README or ABOUT)
+--- @field url string The remote url
+--- @field target_rev string The up-to-date revision
+--- @field installed_rev string The installed revision
+--- @field is_installed boolean Is parser installed
+--- @field needs_update boolean Is parser up-to-date
+
+--- @param url string The parser name
+--- @return string|nil content The README file or ABOUT section
+--- @return boolean success If it success to find content
+local function get_parser_remote_desc(url)
+  local content = nil
+  -- Branch to search
+  local branches = { "main", "master" }
+  -- Filename to search
+  local files = { "README.md", "readme.md", "Readme.md", "README.rst", "README.txt", "README" }
+  local success = false
+
+  -----------------------------------------------------------------------------
+  -- 1. GITHUB LOGIC (Using `gh`)
+  -----------------------------------------------------------------------------
+  if url:match("github.com") then
+    local repo = url:gsub("https://github%.com/", ""):gsub("%.git$", "")
+    local db_cmd = string.format(
+      "gh repo view %s --json defaultBranchRef --jq .defaultBranchRef.name",
+      vim.fn.shellescape(repo)
+    )
+    local db = vim.trim(vim.fn.system(db_cmd))
+    local attempts = (vim.v.shell_error == 0 and db ~= "") and { db, "main", "master" } or branches
+
+    for _, branch in ipairs(attempts) do
+      if success then break end
+      for _, file in ipairs(files) do
+        local api_cmd = string.format(
+          "gh api repos/%s/contents/%s?ref=%s -H 'Accept: application/vnd.github.raw'",
+          repo,
+          file,
+          branch
+        )
+        local out = vim.fn.system(api_cmd)
+        if vim.v.shell_error == 0 and out ~= "" and not out:match("^{") then
+          content = out
+          success = true
+          break
+        end
+      end
+    end
+    -- Fallback to repo description if no README found
+    if not success then
+      local desc_cmd = "gh repo view " .. vim.fn.shellescape(repo) .. " --json description --jq .description"
+      local desc = vim.trim(vim.fn.system(desc_cmd))
+      if vim.v.shell_error == 0 and desc ~= "" then
+        content = desc
+        success = true
+      end
+    end
+    -----------------------------------------------------------------------------
+    -- 2. GITLAB LOGIC (Using `glab`)
+    -----------------------------------------------------------------------------
+  elseif url:match("gitlab.com") then
+    local repo_path = url:gsub("https://gitlab%.com/", ""):gsub("%.git$", "")
+    local encoded_repo = repo_path:gsub("/", "%%2F")
+    local db_out = vim.fn.system("glab repo view " .. vim.fn.shellescape(repo_path) .. " --fields=default_branch")
+    local db = db_out:match("default_branch:%s*(%S+)")
+    local attempts = db and { db, "main", "master" } or branches
+
+    for _, branch in ipairs(attempts) do
+      if success then break end
+      for _, file in ipairs(files) do
+        local encoded_file = file:gsub("%.", "%%2E")
+        local api_cmd = string.format(
+          "glab api projects/%s/repository/files/%s/raw?ref=%s",
+          encoded_repo,
+          encoded_file,
+          branch
+        )
+        local out = vim.fn.system(api_cmd)
+        if vim.v.shell_error == 0 and out ~= "" then
+          content = out
+          success = true
+          break
+        end
+      end
+    end
+    -----------------------------------------------------------------------------
+    -- 3. CODEBERG / GENERIC LOGIC (Using `curl` + Nice URLs)
+    -----------------------------------------------------------------------------
+  else
+    for _, branch in ipairs(branches) do
+      if success then break end
+      for _, file in ipairs(files) do
+        local raw_url
+        if url:match("codeberg.org") then
+          raw_url = url:gsub("%.git$", "") .. "/raw/branch/" .. branch .. "/" .. file
+        else
+          raw_url = url:gsub("%.git$", "") .. "/raw/" .. branch .. "/" .. file
+        end
+
+        local cmd = "curl -s -L --max-time 8 " .. vim.fn.shellescape(raw_url)
+        local out = vim.fn.system(cmd)
+        if vim.v.shell_error == 0 and out ~= "" and not out:match("^<!DOCTYPE") then
+          content = out
+          success = true
+          break
+        end
+      end
+    end
+  end
+  return content, success
+end
+
+--- @param lang string The language name
+--- @param config ParserInfo The parser info
+--- @return string content The README file or ABOUT section
+local function get_parser_desc(lang, config)
+  local state_dir = vim.fn.stdpath("state") .. "/llawn/treesitter_readmes"
+  vim.fn.mkdir(state_dir, "p")
+  local readme_file = state_dir .. "/" .. lang .. ".txt"
+  local content = nil
+  local success = false
+  if vim.fn.filereadable(readme_file) == 1 then
+    content = table.concat(vim.fn.readfile(readme_file), "\n")
+    success = true
+  else
+    local url = config.install_info.url
+    content, success = get_parser_remote_desc(url)
+    -- Cache handling
+    if success and content ~= "" then
+      vim.fn.writefile(vim.split(content, "\n"), readme_file)
+    else
+      content = "README unavailable"
+      vim.fn.writefile({ content }, readme_file)
+    end
+  end
+  return content
+end
+
+--- Gets parser information for a given language.
+--- @param lang string The language name
+--- @return MyParserInfo|nil Parser info table or nil if not found
+local function get_parser_info(lang)
+  local parsers = require('nvim-treesitter.parsers')
+  local configs = require('nvim-treesitter.configs')
+  local utils = require('nvim-treesitter.utils')
+  local config = parsers.get_parser_configs()[lang]
+  if not config then return nil end
+  local lockfile = lockfile_utils.read_lockfile(utils.join_path(utils.get_package_path(), "lockfile.json"))
+  local target_rev = config.install_info.revision or (lockfile[lang] and lockfile[lang].revision)
+  local installed_rev = nil
+  local info_dir = configs.get_parser_info_dir()
+
+  if info_dir then
+    local rev_file = utils.join_path(info_dir, lang .. ".revision")
+    if vim.fn.filereadable(rev_file) == 1 then
+      installed_rev = vim.fn.readfile(rev_file)[1]
+    end
+  end
+
+  local is_installed = #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".so", true) > 0
+  local description = get_parser_desc(lang, config)
+
+  return {
+    lang = lang,
+    name = lang,
+    description = description,
+    url = config.install_info.url,
+    target_rev = target_rev,
+    installed_rev = installed_rev,
+    is_installed = is_installed,
+    needs_update = is_installed and target_rev ~= installed_rev
+  }
+end
+
+--- Categorize parser info results
+--- @param i MyParserInfo
+--- @return InstallationStatus
+local function categorize_results(i)
+  if not i.is_installed then
+    return menu_utils.Status.MISSING
+  elseif i.needs_update then
+    return menu_utils.Status.OUTDATED
+  else
+    return menu_utils.Status.UP_TO_DATE
+  end
+end
+
+--- @class ParserEntry
+--- @field value MyParserInfo The raw parser data
+--- @field ordinal string The string used for fuzzy searching
+--- @field display function The function that renders the UI line
+
+--- Creates a telescope entry from parser info
+--- @param info MyParserInfo|string
+--- @return ParserEntry
+local function entry_maker(info)
+  if type(info) == "string" then
+    -- Handle category headers
+    return {
+      value = info,
+      ordinal = info,
+      display = function(e) return e.value end
+    }
+  else
+    -- Handle parser info entries
+    return {
+      value = info,
+      ordinal = info.lang,
+      --- The display function Telescope calls to render each line in the picker.
+      --- @param e ParserEntry The entry table
+      --- @return string text The formatted string to display.
+      --- @return table highlights A list of { {start, end}, hl_group } for coloring.
+      display = function(e)
+        local i = e.value
+        local istatus = categorize_results(i)
+        local status = ""
+        local sym = ""
+        if istatus == menu_utils.Status.UP_TO_DATE then
+          status = "Good"
+          sym = "✓"
+        elseif istatus == menu_utils.Status.OUTDATED then
+          status = "Warning"
+          sym = "⚠"
+        elseif istatus == menu_utils.Status.MISSING then
+          status = "Bad"
+          sym = "✗"
+        end
+
+        local parser_status = string.format(
+          "[%s] %s %s",
+          sym,
+          i.lang,
+          (i.installed_rev or ""):sub(1, 7)
+        )
+        return parser_status, { { { 0, 5 }, "TSInstallInfo" .. status } }
+      end
+    }
+  end
+end
 
 M.treesitter = {}
 
-M.treesitter.menu = function()
+--- Displays the treesitter parser management menu.
+--- @param filter string|nil The status filter to apply
+M.treesitter.menu = function(filter)
+  menu_utils.setup_highlights("TSInstallInfo")
+  local items = {}
+  local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
+  local langs = vim.tbl_keys(parser_configs)
+  table.sort(langs)
 
-  -- Helper: Open URL
-  local function open_url(url)
-    local opener = vim.fn.has("mac") == 1 and "open" or "xdg-open"
-    os.execute(opener .. " " .. url .. " > /dev/null 2>&1")
+  for _, lang in ipairs(langs) do
+    local info = get_parser_info(lang)
+    if info then table.insert(items, info) end
   end
 
-  -- Load required nvim-treesitter modules for parser management
-  local utils = require('nvim-treesitter.utils')
-  local parsers = require('nvim-treesitter.parsers')
-  local configs = require('nvim-treesitter.configs')
+  local results = menu_utils.build_categorized_list(items, categorize_results, filter)
 
-  -- Global lockfile data for parser revisions
-  local lockfile = {}
-
-  -- Load the lockfile.json containing parser revision information
-  local function load_lockfile()
-    local filename = utils.join_path(utils.get_package_path(), "lockfile.json")
-    lockfile = vim.fn.filereadable(filename) == 1 and vim.fn.json_decode(vim.fn.readfile(filename)) or {}
-  end
-
-  -- Get list of all available parsers from nvim-treesitter configs
-  local function get_available_parsers()
-    local parser_configs = parsers.get_parser_configs()
-    local available = {}
-    for lang, _ in pairs(parser_configs) do
-      table.insert(available, lang)
-    end
-    table.sort(available)
-    return available
-  end
-
-  -- Retrieve installation info for a specific parser
-  local function get_parser_install_info(lang)
-    local parser_config = parsers.get_parser_configs()[lang]
-    if not parser_config then
-      error('Parser not available for language "' .. lang .. '"')
-    end
-    return parser_config.install_info
-  end
-
-  -- Get the latest revision for a parser from lockfile or install info
-  local function get_revision(lang)
-    if #lockfile == 0 then
-      load_lockfile()
-    end
-    local install_info = get_parser_install_info(lang)
-    if install_info.revision then
-      return install_info.revision
-    end
-    if lockfile[lang] then
-      return lockfile[lang].revision
-    end
-  end
-
-  -- Get the currently installed revision for a parser
-  local function get_installed_revision(lang)
-    local parser_info_dir = configs.get_parser_info_dir()
-    if not parser_info_dir then
-      return nil
-    end
-    local lang_file = utils.join_path(parser_info_dir, lang .. ".revision")
-    if vim.fn.filereadable(lang_file) == 1 then
-      return vim.fn.readfile(lang_file)[1]
-    end
-  end
-
-  -- Normalize path for cross-platform compatibility
-  local function clean_path(input)
-    local pth = vim.fn.fnamemodify(input, ":p")
-    if vim.fn.has "win32" == 1 then
-      pth = pth:gsub("/", "\\")
-    end
-    return pth
-  end
-
-  -- Check if a parser is installed by verifying the .so file exists in install dir
-  local function is_installed(lang)
-    local matched_parsers = vim.api.nvim_get_runtime_file("parser/" .. lang .. ".so", true) or {}
-    local install_dir = configs.get_parser_install_dir()
-    if not install_dir then
-      return false
-    end
-    install_dir = clean_path(install_dir)
-    for _, path in ipairs(matched_parsers) do
-      local abspath = clean_path(path)
-      if vim.startswith(abspath, install_dir) then
-        return true
+  local previewer = menu_utils.create_install_previewer(
+    function(entry)
+      local i = entry
+      if type(i) == "string" then
+        return { name = i, languages = "", url = "", target = "", status = "", description = "" }
       end
-    end
-    return false
-  end
+      return {
+        name = i.lang,
+        languages = "Parser",
+        url = i.url or "N/A",
+        target = (i.target_rev or "N/A"):sub(1, 7),
+        status = categorize_results(i),
+        description = i.description or "No description available"
+      }
+    end,
+    "[F]ilter, [I]nstall, [X]Remove, [U]pdate, [O]pen in Browser, [L]oad description")
 
-  -- Check if a parser needs updating by comparing revisions
-  local function needs_update(lang)
-    local revision = get_revision(lang)
-    return not revision or revision ~= get_installed_revision(lang)
-  end
-
-  -- Define highlight groups for parser status indicators
-  vim.api.nvim_set_hl(0, "TSInstallInfoGood", { fg = "#00FF00", bold = true })
-  vim.api.nvim_set_hl(0, "TSInstallInfoWarning", { fg = "#FFA500", bold = true })
-  vim.api.nvim_set_hl(0, "TSInstallInfoBad", { fg = "#FF0000", bold = true })
-
-  -- Load telescope modules for creating the interactive picker UI
-  local pickers = require('telescope.pickers')
-  local finders = require('telescope.finders')
-  local sorters = require('telescope.sorters')
-  local previewers = require('telescope.previewers')
-  local actions = require('telescope.actions')
-  local action_state = require('telescope.actions.state')
-
-  -- Create a custom previewer to show detailed parser information
-  local treesitter_previewer = previewers.new_buffer_previewer({
-    title = "Parser Info",
-    define_preview = function(self, entry, _)
-      local bufnr = self.state.bufnr
-      vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, {})
-      if entry.value:match("^%[") then
-        local lang_part = entry.value:match("%]%s+(.+)")
-        local lang = lang_part:match("^(%w+)")
-        local lines = {}
-        table.insert(lines, "Language: " .. lang)
-        local parser_config = parsers.get_parser_configs()[lang]
-        if parser_config then
-          local install_info = parser_config.install_info
-          table.insert(lines, "URL: " .. (install_info.url or "unknown"))
-          local revision = get_revision(lang)
-          table.insert(lines, "Latest Revision: " .. (revision or "unknown"))
-          local installed_rev = get_installed_revision(lang)
-          table.insert(lines, "Installed Revision: " .. (installed_rev or "not installed"))
-          local is_inst = is_installed(lang)
-          table.insert(lines, "Status: " .. (is_inst and "installed" or "not installed"))
-          if is_inst then
-            local needs_up = needs_update(lang)
-            table.insert(lines, "Up to date: " .. (needs_up and "no" or "yes"))
-          end
-        end
-        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
-      else
-        local lines = {"Category: " .. entry.value}
-        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
-      end
-    end
+  menu_utils.create_picker({
+    prompt_title = "TS Manager",
+    finder = require('telescope.finders').new_table({
+      results = results,
+      entry_maker = entry_maker
+    }),
+    previewer = previewer,
+    attach_mappings = menu_utils.create_attach_mappings(
+      {
+        I = {
+          condition = function(i) return not i.is_installed end,
+          action = function(i) pcall(function() vim.cmd("TSInstall " .. i.lang) end) end,
+          msg = "Installing "
+        },
+        X = {
+          condition = function(i) return i.is_installed end,
+          action = function(i) pcall(function() vim.cmd("TSUninstall " .. i.lang) end) end,
+          msg = "Uninstalling "
+        },
+        U = {
+          condition = function(i) return i.needs_update end,
+          action = function(i) pcall(function() vim.cmd("TSUpdate " .. i.lang) end) end,
+          msg = "Updating "
+        },
+        O = {
+          condition = function(i) return i.url ~= nil end,
+          action = function(i) menu_utils.open_url(i.url) end
+        },
+        L = {
+          condition = function(_) return true end,
+          action = function(i)
+            local state_dir = vim.fn.stdpath("state") .. "/llawn/treesitter_readmes"
+            local readme_file = state_dir .. "/" .. i.lang .. ".txt"
+            if vim.fn.delete(readme_file) == 0 then
+              print("README cache cleared for " .. i.lang)
+            else
+              print("No cached README for " .. i.lang)
+            end
+          end,
+          msg = "Clearing README cache for "
+        }
+      },
+      function() M.treesitter.menu(filter) end, function(f) M.treesitter.menu(f) end)
   })
-
-  -- Categorize available parsers by installation status
-  local available = get_available_parsers()
-  local installed_up_to_date = {}
-  local installed_outdated = {}
-  local not_installed = {}
-
-  for _, lang in ipairs(available) do
-    if is_installed(lang) then
-      if needs_update(lang) then
-        local current = get_installed_revision(lang) or "unknown"
-        local latest = get_revision(lang) or "unknown"
-        table.insert(installed_outdated, string.format("[⚠] %s %s -> %s", lang, current:sub(1,7), latest:sub(1,7)))
-      else
-        local version = get_installed_revision(lang) or "unknown"
-        table.insert(installed_up_to_date, string.format("[✓] %s %s", lang, version:sub(1,7)))
-      end
-    else
-      table.insert(not_installed, string.format("[✗] %s", lang))
-    end
-  end
-
-  -- Build the display list with categorized parsers
-  local results = {}
-  if #installed_up_to_date > 0 then
-    table.insert(results, "Installed (up-to-date):")
-    for _, line in ipairs(installed_up_to_date) do
-      table.insert(results, line)
-    end
-    table.insert(results, "")
-  end
-  if #installed_outdated > 0 then
-    table.insert(results, "Installed (outdated):")
-    for _, line in ipairs(installed_outdated) do
-      table.insert(results, line)
-    end
-    table.insert(results, "")
-  end
-  if #not_installed > 0 then
-    table.insert(results, "Not installed:")
-    for _, line in ipairs(not_installed) do
-      table.insert(results, line)
-    end
-  end
-
-  -- Create entry maker for telescope with colored status indicators
-  local entry_maker = function(entry)
-    return {
-      value = entry,
-      display = function(e)
-        local text = e.value
-        if text:match("^%[✓%]") then
-          return text, { { {0, 5}, "TSInstallInfoGood" } }
-        elseif text:match("^%[⚠%]") then
-          return text, { { {0, 5}, "TSInstallInfoWarning" } }
-        elseif text:match("^%[✗%]") then
-          return text, { { {0, 5}, "TSInstallInfoBad" } }
-        else
-          return text
-        end
-      end,
-      ordinal = entry,
-    }
-  end
-
-  -- Create and launch the telescope picker for parser management
-  pickers.new({}, {
-    prompt_title = "Treesitter Install Info [I]nstall, [X]Uninstall, [U]pdate, [o]pen URL",
-    finder = finders.new_table({ results = results, entry_maker = entry_maker }),
-    sorter = sorters.get_generic_fuzzy_sorter(),
-    previewer = treesitter_previewer,
-    attach_mappings = function(prompt_bufnr, map)
-      -- Disable default enter action
-      actions.select_default:replace(function()
-        actions.close(prompt_bufnr)
-      end)
-      -- Map 'I' to install not installed parsers
-      map('i', 'I', function()
-        local selection = action_state.get_selected_entry()
-        if selection and selection.value:match("^%[✗%]") then
-          local lang = selection.value:match("%]%s+(.+)")
-          print("Installing " .. lang)
-          actions.close(prompt_bufnr)
-          vim.cmd("TSInstall " .. lang)
-          local attempts = 0
-          local function check_install()
-            attempts = attempts + 1
-            if attempts > 60 then return end
-            if is_installed(lang) then
-              M.treesitter.menu()
-            else
-              vim.defer_fn(check_install, 1000)
-            end
-          end
-          vim.defer_fn(check_install, 1000)
-        end
-      end)
-      -- Map 'X' to uninstall installed parsers
-      map('i', 'X', function()
-        local selection = action_state.get_selected_entry()
-        if selection and (selection.value:match("^%[✓%]") or selection.value:match("^%[⚠%]")) then
-          local lang_part = selection.value:match("%]%s+(.+)")
-          local lang = lang_part:match("^(%w+)")
-          print("Uninstalling " .. lang)
-          actions.close(prompt_bufnr)
-          vim.cmd("TSUninstall " .. lang)
-          local attempts = 0
-          local function check_uninstall()
-            attempts = attempts + 1
-            if attempts > 60 then return end
-            if not is_installed(lang) then
-              M.treesitter.menu()
-            else
-              vim.defer_fn(check_uninstall, 1000)
-            end
-          end
-          vim.defer_fn(check_uninstall, 1000)
-        end
-      end)
-      -- Map 'U' to update outdated parsers
-      map('i', 'U', function()
-        local selection = action_state.get_selected_entry()
-        if selection and selection.value:match("^%[⚠%]") then
-          local lang_part = selection.value:match("%]%s+(.+)")
-          local lang = lang_part:match("^(%w+)")
-          print("Updating " .. lang)
-          actions.close(prompt_bufnr)
-          vim.cmd("TSUpdate " .. lang)
-          local attempts = 0
-          local function check_update()
-            attempts = attempts + 1
-            if attempts > 60 then return end
-            if not needs_update(lang) then
-              M.treesitter.menu()
-            else
-              vim.defer_fn(check_update, 1000)
-            end
-          end
-          vim.defer_fn(check_update, 1000)
-         end
-        end)
-        -- Map 'o' to open URL in browser
-        map('i', 'o', function()
-          local selection = action_state.get_selected_entry()
-          if selection and selection.value:match("^%[") then
-            local lang_part = selection.value:match("%]%s+(.+)")
-            local lang = lang_part:match("^(%w+)")
-            local install_info = get_parser_install_info(lang)
-            if install_info.url then
-              open_url(install_info.url)
-              print("Opened " .. install_info.url)
-            else
-              print("No URL available for " .. lang)
-            end
-          end
-        end)
-        return true
-     end,
-   }):find()
 end
 
 return M

@@ -1,4 +1,5 @@
---- @brief Utility functions for diff operations
+--- Utility functions for diff operations
+
 local M = {}
 
 --- Applies a unified diff to an existing buffer with syntax highlighting

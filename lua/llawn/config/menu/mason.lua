@@ -1,231 +1,165 @@
+--- Mason manager
+
 local M = {}
+local lockfile_utils = require('llawn.utils.lockfile')
+local menu_utils = require('llawn.utils.menu')
+
+--- Reads the mason lockfile and returns locked versions.
+--- @return table Table of package names to versions
+local function read_lockfile()
+  local path = vim.fn.stdpath("config") .. "/mason-lock.json"
+  local data = lockfile_utils.read_lockfile(path)
+  local locked = {}
+  for _, item in ipairs(data) do locked[item.name] = item.version end
+  return locked
+end
+
+--- Categorize mason package results
+--- @param i table The package item
+--- @return InstallationStatus
+local function categorize_results(i)
+  if not i.pkg:is_installed() then
+    return menu_utils.Status.MISSING
+  elseif i.pkg:get_installed_version() ~= i.target then
+    return menu_utils.Status.OUTDATED
+  else
+    return menu_utils.Status.UP_TO_DATE
+  end
+end
+
+--- @class MasonEntry
+--- @field value table The raw package data
+--- @field ordinal string The string used for fuzzy searching
+--- @field display function The function that renders the UI line
+
+--- Creates a telescope entry for mason packages.
+--- @param entry table|string The package entry or a string
+--- @return MasonEntry The telescope entry
+local function entry_maker(entry)
+  if type(entry) == "string" then
+    -- Handle category headers
+    return {
+      value = entry,
+      ordinal = entry,
+      display = function(e) return e.value end
+    }
+  else
+    -- Handle package info entries
+    return {
+      value = entry,
+      ordinal = entry.pkg.name,
+      --- The display function Telescope calls to render each line in the picker.
+      --- @param e MasonEntry The entry table
+      --- @return string text The formatted string to display.
+      --- @return table highlights A list of { {start, end}, hl_group } for coloring.
+      display = function(e)
+        local i = e.value
+        local istatus = categorize_results(i)
+        local status = ""
+        local sym = ""
+        if istatus == menu_utils.Status.UP_TO_DATE then
+          status = "Good"
+          sym = "✓"
+        elseif istatus == menu_utils.Status.OUTDATED then
+          status = "Warning"
+          sym = "⚠"
+        elseif istatus == menu_utils.Status.MISSING then
+          status = "Bad"
+          sym = "✗"
+        end
+
+        local pkg_status = string.format(
+          "[%s] %s %s",
+          sym,
+          i.pkg.name,
+          (i.pkg:get_installed_version() or "")
+        )
+        return pkg_status, { { { 0, 5 }, "MasonInstallInfo" .. status } }
+      end
+    }
+  end
+end
 
 M.mason = {}
-
-local function setup_highlights()
-  vim.api.nvim_set_hl(0, "MasonInstallInfoGood", { fg = "#00FF00", bold = true })
-  vim.api.nvim_set_hl(0, "MasonInstallInfoWarning", { fg = "#FFA500", bold = true })
-  vim.api.nvim_set_hl(0, "MasonInstallInfoBad", { fg = "#FF0000", bold = true })
-end
-
-M.mason.menu = function()
-  local category_choices = {
-    { "All", "all" },
-    { "LSP", "lsp" },
-    { "DAP", "dap" },
-    { "Linters", "linter" },
-    { "Formatters", "formatter" },
-    { "Other", "other" },
-  }
-
-  vim.ui.select(
-    category_choices,
-    {
-      prompt = "Mason Category:",
-      format_item = function(item) return item[1] end
-    },
-    function(choice)
-      if choice then
-        M.mason.show_packages(choice[2])
-      end
-    end
-  )
-end
-
-M.mason.show_packages = function(selected_category)
-  setup_highlights()
+--- Shows mason packages for a given category with optional status filter.
+--- @param cat_name string The category name (e.g., "All", "LSP")
+--- @param status_filter string|nil The status filter to apply
+--- @return nil
+M.mason.show_packages = function(cat_name, status_filter)
+  menu_utils.setup_highlights("MasonInstallInfo")
   local registry = require('mason-registry')
 
-  -- Use the async callback for refresh to ensure data is ready
   registry.refresh(function()
-    local all_packages = registry.get_all_packages()
-
-    local categories = {
-      lsp = { installed_up_to_date = {}, installed_outdated = {}, not_installed = {} },
-      dap = { installed_up_to_date = {}, installed_outdated = {}, not_installed = {} },
-      linter = { installed_up_to_date = {}, installed_outdated = {}, not_installed = {} },
-      formatter = { installed_up_to_date = {}, installed_outdated = {}, not_installed = {} },
-      other = { installed_up_to_date = {}, installed_outdated = {}, not_installed = {} },
-    }
-
-    -- Categorization Logic
-    for _, pkg in ipairs(all_packages) do
-      local spec = pkg.spec
-      local cats_to_process = (spec.categories and #spec.categories > 0) and spec.categories or { nil }
-
-      for _, cat_name in ipairs(cats_to_process) do
-        local key = cat_name and cat_name:lower()
-        local target_cat = categories[key] or categories.other
-
-        if pkg:is_installed() then
-          local installed_ver = pkg:get_installed_version()
-          local latest_ver = pkg:get_latest_version()
-          if installed_ver == latest_ver then
-            table.insert(target_cat.installed_up_to_date, pkg)
-          else
-            table.insert(target_cat.installed_outdated, pkg)
-          end
-        else
-          table.insert(target_cat.not_installed, pkg)
-        end
+    local locked = read_lockfile()
+    local filter_cat = cat_name:lower() == "all" and "all" or cat_name
+    local filtered = {}
+    for _, pkg in ipairs(registry.get_all_packages()) do
+      if filter_cat == "all" or (pkg.spec.categories and vim.tbl_contains(pkg.spec.categories, filter_cat)) then
+        table.insert(filtered, { pkg = pkg, name = pkg.name, target = locked[pkg.name] or pkg:get_latest_version() })
       end
     end
 
-    -- Telescope setup
-    local pickers = require('telescope.pickers')
-    local finders = require('telescope.finders')
-    local sorters = require('telescope.sorters')
-    local previewers = require('telescope.previewers')
-    local actions = require('telescope.actions')
-    local action_state = require('telescope.actions.state')
+    local results = menu_utils.build_categorized_list(filtered, categorize_results, status_filter)
 
-    -- Previewer with header highlighting (Extmarks)
-    local mason_previewer = previewers.new_buffer_previewer({
-      title = "Package Info",
-      define_preview = function(self, entry)
-        local bufnr = self.state.bufnr
-        if type(entry.value) ~= "table" then
-          vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "Category Header: " .. entry.value })
-          return
+    local previewer = menu_utils.create_install_previewer(
+      function(entry)
+        local i = entry
+        if type(i) ~= "table" or not i.pkg then
+          return { name = "No package info", languages = "", url = "", target = "", status = "", description = "" }
         end
-
-        local pkg = entry.value
-        local spec = pkg.spec
-
-        -- Start building the lines array
-        local lines = {}
-        table.insert(lines, "Name: " .. spec.name)
-        table.insert(lines, "")
-
-        local raw_desc = spec.description or "No description"
-        local desc_lines = vim.split(raw_desc, "\n", { trimempty = true })
-
-        table.insert(lines, "Description:")
-        for _, d_line in ipairs(desc_lines) do
-          table.insert(lines, "  " .. d_line)
-        end
-
-        table.insert(lines, "")
-        table.insert(lines, "Homepage: " .. (spec.homepage or "N/A"))
-        table.insert(lines, "Categories: " .. table.concat(spec.categories or {}, ", "))
-        table.insert(lines, "Languages: " .. table.concat(spec.languages or {}, ", "))
-        table.insert(lines, "")
-        table.insert(lines, "Latest Version: " .. tostring(pkg:get_latest_version() or "unknown"))
-
-        if pkg:is_installed() then
-          table.insert(lines, "Status: Installed")
-          table.insert(lines, "Installed Version: " .. tostring(pkg:get_installed_version()))
-        else
-          table.insert(lines, "Status: Not Installed")
-        end
-
-        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
-
-        -- Highlights
-        local ns_id = vim.api.nvim_create_namespace("mason_preview")
-        for i, line in ipairs(lines) do
-          local pos = line:find(":")
-          if pos then
-            vim.api.nvim_buf_set_extmark(bufnr, ns_id, i-1, 0, { end_col = pos - 1, hl_group = "Title" })
-          end
-        end
-      end
-    })
-
-    -- Building results list
-    local results = {}
-    local added = {}
-    local cats_to_show = selected_category == "all" and { "lsp", "dap", "linter", "formatter", "other" } or { selected_category }
-
-    local sections = {
-      { key = "installed_up_to_date", label = "  Installed (up-to-date):" },
-      { key = "installed_outdated",   label = "  Installed (outdated):"   },
-      { key = "not_installed",        label = "  Not installed:"          },
-    }
-
-    for _, cat_name in ipairs(cats_to_show) do
-      local cat_data = categories[cat_name]
-      if cat_data then
-        table.insert(results, cat_name:upper() .. ":")
-        for _, section in ipairs(sections) do
-          local pkgs = cat_data[section.key]
-          if #pkgs > 0 then
-            table.insert(results, section.label)
-            for _, pkg in ipairs(pkgs) do
-              if not added[pkg.name] then
-                table.insert(results, pkg)
-                added[pkg.name] = true
-              end
-            end
-            table.insert(results, "")
-          end
-        end
-      end
-    end
-
-    -- Entry Maker with Search Logic
-    local entry_maker = function(entry)
-      if type(entry) == "string" then
-        return { value = entry, display = entry, ordinal = "" }
-      end
-
-      local pkg = entry
-      local spec = pkg.spec
-      -- We include name, languages, and categories for a better search experience.
-      local search_terms = string.format("%s %s %s",
-        spec.name,
-        table.concat(spec.languages or {}, " "),
-        table.concat(spec.categories or {}, " ")
-      )
-
-      return {
-        value = pkg,
-        ordinal = search_terms,
-        display = function(e)
-          local p = e.value
-          local s = p.spec
-          if p:is_installed() then
-            local inst = p:get_installed_version()
-            local lat = p:get_latest_version()
-            if inst == lat then
-              return string.format("[✓] %s %s", s.name, inst), { { {0, 3}, "MasonInstallInfoGood" } }
-            else
-              return string.format("[⚠] %s %s -> %s", s.name, inst, lat), { { {0, 3}, "MasonInstallInfoWarning" } }
-            end
-          end
-          return string.format("[✗] %s", s.name), { { {0, 3}, "MasonInstallInfoBad" } }
-        end,
-      }
-    end
-
-    -- Launch Picker
-    pickers.new({}, {
-      prompt_title = "Mason Manager (" .. selected_category:upper() .. ") - [I]nst, [U]pdt, [X]Uninst",
-      finder = finders.new_table({ results = results, entry_maker = entry_maker }),
-      sorter = sorters.get_generic_fuzzy_sorter(),
-      previewer = mason_previewer,
-      attach_mappings = function(prompt_bufnr, map)
-        local function handle_pkg_action(key, action_fn, success_msg)
-          map('i', key, function()
-            local selection = action_state.get_selected_entry()
-            -- 4. Safety check for headers
-            if selection and type(selection.value) == "table" then
-              local pkg = selection.value
-              actions.close(prompt_bufnr)
-              print(success_msg .. pkg.spec.name)
-              action_fn(pkg)
-              vim.defer_fn(function() M.mason.show_packages(selected_category) end, 1000)
-            end
-          end)
-        end
-
-        handle_pkg_action('I', function(p) p:install() end, "Installing ")
-        handle_pkg_action('X', function(p) p:uninstall() end, "Uninstalling ")
-        handle_pkg_action('U', function(p) p:install() end, "Updating ")
-
-        return true
+        return {
+          name = i.pkg.name,
+          languages = table.concat(i.pkg.spec.languages or {}, ", "),
+          url = i.pkg.spec.homepage or "N/A",
+          target = i.target or "N/A",
+          status = categorize_results(i),
+          description = i.pkg.spec.description or "No description available"
+        }
       end,
-    }):find()
+      "[F]ilter, [I]nstall, [X]Uninstall, [U]pdate, [O]pen in Browser, [C]hange category"
+    )
+
+    menu_utils.create_picker({
+      prompt_title = "Mason Manager (" .. cat_name .. ")",
+      finder = require('telescope.finders').new_table({ results = results, entry_maker = entry_maker }),
+      previewer = previewer,
+      attach_mappings = menu_utils.create_attach_mappings(
+        {
+          I = { condition = function() return true end, action = function(i) i.pkg:install({ version = i.target }) end, msg = "Installing " },
+          X = { condition = function(i) return i.pkg:is_installed() end, action = function(i) i.pkg:uninstall() end, msg = "Uninstalling " },
+          U = {
+            condition = function(i) return i.pkg:is_installed() end,
+            action = function(i)
+              i.pkg:install({ version = i.target })
+            end,
+            msg = "Updating "
+          },
+          O = {
+            condition = function(i) return i.pkg.spec.homepage ~= nil end,
+            action = function(i)
+              menu_utils.open_url(i
+                .pkg.spec.homepage)
+            end
+          },
+          C = {
+            condition = function(_) return true end,
+            action = function(_) M.mason.menu(status_filter) end,
+            no_close = true
+          },
+        },
+        function() M.mason.show_packages(cat_name, status_filter) end,
+        function(f) M.mason.show_packages(cat_name, f) end
+      )
+    })
+  end)
+end
+
+--- Displays the mason category selection menu.
+--- @param status_filter string|nil The status filter to apply
+--- @return nil
+M.mason.menu = function(status_filter)
+  vim.ui.select({ "All", "LSP", "DAP", "Linter", "Formatter" }, { prompt = "Category:" }, function(c)
+    if c then M.mason.show_packages(c, status_filter) end
   end)
 end
 
