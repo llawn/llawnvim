@@ -1,40 +1,152 @@
---- @brief Plugin configuration for telescope
---- telescope is a highly extendable fuzzy finder for Neovim
---- Provides powerful search and navigation capabilities
----
+-- Plugin: Telescope
+-- Description: Highly extendable fuzzy finder over lists with multiple extensions for enhanced functionality.
 
 return {
   'nvim-telescope/telescope.nvim',
-  dependencies = { 'nvim-lua/plenary.nvim' }, -- Required utility functions
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    'debugloop/telescope-undo.nvim',
+    'nvim-telescope/telescope-frecency.nvim',
+    'nvim-telescope/telescope-live-grep-args.nvim',
+    'nvim-telescope/telescope-project.nvim',
+    'nvim-telescope/telescope-symbols.nvim',
+    'nvim-telescope/telescope-github.nvim',
+    'kkharji/sqlite.lua',
+  },
   config = function()
-    -- Basic telescope setup with default configuration
-    require('telescope').setup({})
-
-    -- Load builtin functions
+    local telescope = require('telescope')
     local builtin = require('telescope.builtin')
 
-    -- Telescope keybindings for various search functions
+    telescope.setup({
+      defaults = {
+        file_ignore_patterns = { "node_modules", ".git/" },
+        path_display = { "truncate" },
+        mappings = {
+          i = {
+            ["<C-k>"] = require('telescope.actions').move_selection_previous,
+            ["<C-j>"] = require('telescope.actions').move_selection_next,
+          },
+        },
+      },
+      extensions = {
+        fzf = {
+          fuzzy = true,
+          override_generic_sorter = true,
+          override_file_sorter = true,
+          case_mode = "smart_case",
+        },
+        undo = {},
+        live_grep_args = { auto_quoting = true },
+        project = {
+          base_dirs = {
+            '~/Source',
+          },
+          hidden_files = true,
+          theme = "dropdown",
+          order_by = "recent",
+          search_by = "title",
+          sync_with_nvim_tree = false,
+        },
+        frecency = {
+          show_scores = true,
+          show_unindexed = true,
+          ignore_patterns = { "*.git/*", "*/tmp/*" },
+        },
+        gh = {
+        },
+      }
+    })
 
-    vim.keymap.set('n', '<leader>tf', builtin.find_files, { desc = 'Telescope find files' })
-    vim.keymap.set('n', '<leader>tg', builtin.git_files, { desc = 'Telescope git files' })
-    vim.keymap.set('n', '<leader>tb', builtin.buffers, { desc = 'Telescope buffers' })
-    vim.keymap.set('n', '<leader>th', builtin.help_tags, { desc = 'Telescope help tags' })
+    -- Load Extensions
+    telescope.load_extension('fzf')
+    telescope.load_extension('undo')
+    telescope.load_extension('frecency')
+    telescope.load_extension('live_grep_args')
+    telescope.load_extension('project')
+    telescope.load_extension('gh')
 
-    -- Search the current word under the cursor
+    -- --- Keybindings ---
+
+    -- Basic File Navigation
+    vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find Files' })
+    vim.keymap.set('n', '<leader>fgf', builtin.git_files, { desc = 'Git Files' })
+    vim.keymap.set('n', '<leader>fr', telescope.extensions.frecency.frecency, { desc = 'Frecency (Smart Recent)' })
+
+    -- Search/Grep
+    vim.keymap.set('n', '<leader>fl', telescope.extensions.live_grep_args.live_grep_args, { desc = 'Live Grep (Args)' })
+    vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'Find word' })
+
+    -- Extension Specific Bindings
+    vim.keymap.set('n', '<leader>ft', '<cmd>Telescope undo<cr>', { desc = 'Undo Tree' })
+    vim.keymap.set('n', '<leader>fp', telescope.extensions.project.project, { desc = 'Projects' })
+
+    -- Symbols/Icons by source
     vim.keymap.set(
       'n',
-      '<leader>tw',
-      function()
-        local word = vim.fn.expand("<cword>")
-        builtin.grep_string({ search = word })
-      end,
-      { desc = 'Telescope find word' }
+      '<leader>fie',
+      function() builtin.symbols { sources = { 'emoji' } } end,
+      { desc = 'Insert Emoji' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>fij',
+      function() builtin.symbols { sources = { 'julia' } } end,
+      { desc = 'Insert Julia' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>fig',
+      function() builtin.symbols { sources = { 'gitmoji' } } end,
+      { desc = 'Insert Gitmoji' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>fik',
+      function() builtin.symbols { sources = { 'kaomoji' } } end,
+      { desc = 'Insert Kaomoji' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>fil',
+      function() builtin.symbols { sources = { 'latex' } } end,
+      { desc = 'Insert LaTeX Symbols' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>fim',
+      function() builtin.symbols { sources = { 'math' } } end,
+      { desc = 'Insert Math Symbols' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>fin',
+      function() builtin.symbols { sources = { 'nerd' } } end,
+      { desc = 'Insert Nerd Fonts' }
     )
 
-    -- Keymap for unsaved files
-    vim.keymap.set('n', '<leader>tu', require('llawn.config.menu').unsaved.menu, { desc = 'Telescope unsaved files' })
+    -- Neovim / Buffer exploration
+    vim.keymap.set('n', '<leader>fb', function()
+      builtin.buffers(require('telescope.themes').get_dropdown({
+        previewer = false,
+        initial_mode = "insert",
+      }))
+    end, { desc = 'Buffers' })
 
-    -- Keymap for swap files
-    vim.keymap.set('n', '<leader>ts', require('llawn.config.menu').swapfiles.menu, { desc = 'Telescope swap files' })
+    vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Help Tags' })
+    vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Search Keymaps' })
+
+    -- GitHub specific bindings
+    vim.keymap.set('n', '<leader>fgi', telescope.extensions.gh.issues, { desc = 'GH Issues' })
+    vim.keymap.set('n', '<leader>fgp', telescope.extensions.gh.pull_request, { desc = 'GH Pull Requests' })
+    vim.keymap.set('n', '<leader>fgw', telescope.extensions.gh.run, { desc = 'GH Workflow Runs' })
+
+    vim.keymap.set('n', '<leader>fgc', require('llawn.config.menu').git.log, { desc = 'Git Commits' })
+    vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'Git Branches' })
+    vim.keymap.set('n', '<leader>fgs', require('llawn.config.menu').git.diff_menu, { desc = 'Git Status' })
+
+    -- Custom menus
+    vim.keymap.set('n', '<leader>fu', require('llawn.config.menu').unsaved.menu, { desc = 'Unsaved Files' })
+    vim.keymap.set('n', '<leader>fs', require('llawn.config.menu').swapfiles.menu, { desc = 'Swap Files' })
   end
 }
