@@ -1,4 +1,4 @@
---- @brief Advanced Git Menu
+--- Advanced Git Menu
 
 local M = {}
 M.git = {}
@@ -30,7 +30,7 @@ end
 
 M.git.menu = function()
   local choices = {
-    { "Log", M.git.log },
+    { "Log",  M.git.log },
     { "Diff", M.git.diff_menu },
   }
 
@@ -67,16 +67,16 @@ local colors = {
   author   = "#73c2fb",
 }
 
-vim.api.nvim_set_hl(0, "GitHash",     { fg = colors.hash })
-vim.api.nvim_set_hl(0, "GitTag",      { fg = colors.tag, italic = true })
-vim.api.nvim_set_hl(0, "GitFeat",     { fg = colors.feat, bold = true })
-vim.api.nvim_set_hl(0, "GitFix",      { fg = colors.fix, bold = true })
-vim.api.nvim_set_hl(0, "GitChore",    { fg = colors.chore })
-vim.api.nvim_set_hl(0, "GitDocs",     { fg = colors.docs })
-vim.api.nvim_set_hl(0, "GitStyle",    { fg = colors.style })
+vim.api.nvim_set_hl(0, "GitHash", { fg = colors.hash })
+vim.api.nvim_set_hl(0, "GitTag", { fg = colors.tag, italic = true })
+vim.api.nvim_set_hl(0, "GitFeat", { fg = colors.feat, bold = true })
+vim.api.nvim_set_hl(0, "GitFix", { fg = colors.fix, bold = true })
+vim.api.nvim_set_hl(0, "GitChore", { fg = colors.chore })
+vim.api.nvim_set_hl(0, "GitDocs", { fg = colors.docs })
+vim.api.nvim_set_hl(0, "GitStyle", { fg = colors.style })
 vim.api.nvim_set_hl(0, "GitRefactor", { fg = colors.refactor })
-vim.api.nvim_set_hl(0, "GitTest",     { fg = colors.test })
-vim.api.nvim_set_hl(0, "GitAuthor",   { fg = colors.author })
+vim.api.nvim_set_hl(0, "GitTest", { fg = colors.test })
+vim.api.nvim_set_hl(0, "GitAuthor", { fg = colors.author })
 
 ---------------------------------------------------------------------
 -- STRUCTURED QUERY PARSER
@@ -97,17 +97,15 @@ local function parse_query(prompt)
   end
 
   return filters, table.concat(fuzzy, " ")
-
 end
 
 local function matches(entry, filters)
-
   for key, values in pairs(filters) do
     local field =
-    (key == "author" and entry.author)
-    or (key == "msg" and entry.msg)
-    or (key == "hash" and entry.hash)
-    or (key == "type" and entry.type)
+        (key == "author" and entry.author)
+        or (key == "msg" and entry.msg)
+        or (key == "hash" and entry.hash)
+        or (key == "type" and entry.type)
 
     if not field then return false end
 
@@ -129,28 +127,28 @@ end
 -- GIT LOG
 ---------------------------------------------------------------------
 M.git.log = function(opts)
-  opts = opts or {}
-  local pickers        = require("telescope.pickers")
-  local finders        = require("telescope.finders")
-  local sorters        = require("telescope.sorters")
-  local previewers     = require("telescope.previewers")
-  local entry_display  = require("telescope.pickers.entry_display")
-  local putils         = require("telescope.previewers.utils")
-  local actions        = require("telescope.actions")
-  local action_state   = require("telescope.actions.state")
+  opts                = opts or {}
+  local pickers       = require("telescope.pickers")
+  local finders       = require("telescope.finders")
+  local sorters       = require("telescope.sorters")
+  local previewers    = require("telescope.previewers")
+  local entry_display = require("telescope.pickers.entry_display")
+  local putils        = require("telescope.previewers.utils")
+  local actions       = require("telescope.actions")
+  local action_state  = require("telescope.actions.state")
 
   -------------------------------------------------------------------
   -- DISPLAY
   -------------------------------------------------------------------
 
-  local displayer = entry_display.create({
+  local displayer     = entry_display.create({
     separator = " ",
     items = {
-      { width = 3 },   -- graph
-      { width = 8 },   -- hash
-      { width = 12 },  -- tags
+      { width = 3 },  -- graph
+      { width = 8 },  -- hash
+      { width = 12 }, -- tags
       { remaining = true },
-      { width = 14, align = "right" },
+      { width = 14,      align = "right" },
     },
   })
 
@@ -158,12 +156,12 @@ M.git.log = function(opts)
   -- DATA STORE (incremental)
   -------------------------------------------------------------------
 
-  local commits = {}
+  local commits       = {}
 
   -------------------------------------------------------------------
   -- DYNAMIC FINDER
   -------------------------------------------------------------------
-  local finder = finders.new_dynamic({
+  local finder        = finders.new_dynamic({
     fn = function(prompt)
       local filters = parse_query(prompt)
       local results = {}
@@ -191,12 +189,12 @@ M.git.log = function(opts)
 
         -- fuzzy relevance + date tie-break
         ordinal =
-          c.author .. " " ..
-          c.msg .. " " ..
-          c.hash .. " " ..
-          c.tags .. " " ..
-          c.type .. " " ..
-          string.format("%020d", 2^60 - c.date),
+            c.author .. " " ..
+            c.msg .. " " ..
+            c.hash .. " " ..
+            c.tags .. " " ..
+            c.type .. " " ..
+            string.format("%020d", 2 ^ 60 - c.date),
 
         display = function()
           return displayer({
@@ -220,9 +218,7 @@ M.git.log = function(opts)
 
     finder = finder,
 
-    sorter = pcall(require, "telescope._extensions.fzf")
-      and sorters.get_fzf_sorter()
-      or sorters.get_generic_fuzzy_sorter(),
+    sorter = sorters.get_fzf_sorter and sorters.get_fzf_sorter() or sorters.get_generic_fuzzy_sorter(),
 
     previewer = previewers.new_buffer_previewer({
       define_preview = function(self, entry)
@@ -231,10 +227,10 @@ M.git.log = function(opts)
           "--date=format:%Y %b %d %H:%M:%S %z",
           entry.value.hash,
         }, self.state.bufnr, {
-            callback = function(bufnr)
-              vim.bo[bufnr].filetype = "diff"
-            end,
-          })
+          callback = function(bufnr)
+            vim.bo[bufnr].filetype = "diff"
+          end,
+        })
       end,
     }),
 
@@ -261,23 +257,26 @@ M.git.log = function(opts)
           border = "rounded",
         })
         local escaped_search = search:gsub("'", "\\'"):gsub('"', '\\"')
-        vim.api.nvim_buf_set_keymap(buf, "n", "<Esc>", string.format("<cmd>lua vim.api.nvim_win_close(%d, true); require('llawn.config.menu.git').git.log({default_text='%s'})<CR>", win, escaped_search), { noremap = true })
+        vim.api.nvim_buf_set_keymap(buf, "n", "<Esc>",
+          string.format(
+            "<cmd>lua vim.api.nvim_win_close(%d, true); require('llawn.config.menu.git').git.log({default_text='%s'})<CR>",
+            win, escaped_search), { noremap = true })
       end)
       map({ "i", "n" }, "<C-o>", function()
         local sel = action_state.get_selected_entry()
         if not sel then return end
         local remote = vim.fn.system("git config --get remote.origin.url"):gsub("\n$", "")
         if not remote or remote == "" then
-          vim.api.nvim_echo({{"No remote origin found", "WarningMsg"}}, false, {})
+          vim.api.nvim_echo({ { "No remote origin found", "WarningMsg" } }, false, {})
           return
         end
-        vim.api.nvim_echo({{"Remote: " .. remote, "Normal"}}, false, {})
+        vim.api.nvim_echo({ { "Remote: " .. remote, "Normal" } }, false, {})
         local url = get_commit_url(remote, sel.value.hash)
         if url then
-          vim.api.nvim_echo({{"Opening: " .. url, "Normal"}}, false, {})
-          vim.fn.jobstart({"flatpak", "run", "app.zen_browser.zen", url}, {detach = true})
+          vim.api.nvim_echo({ { "Opening: " .. url, "Normal" } }, false, {})
+          vim.fn.jobstart({ "flatpak", "run", "app.zen_browser.zen", url }, { detach = true })
         else
-          vim.api.nvim_echo({{"Unsupported remote: " .. remote, "WarningMsg"}}, false, {})
+          vim.api.nvim_echo({ { "Unsupported remote: " .. remote, "WarningMsg" } }, false, {})
         end
       end)
       return true
@@ -299,7 +298,7 @@ M.git.log = function(opts)
 
     on_stdout = function(_, line)
       local graph, hash, tags, author, date, msg =
-      line:match("^(.-)\31(.-)\31(.-)\31(.-)\31(.-)\31(.+)$")
+          line:match("^(.-)\31(.-)\31(.-)\31(.-)\31(.-)\31(.+)$")
       if not hash then return end
 
       local type_full = msg:match("^([%w_]+%([^)]+%))?:") or msg:match("^([%w_]+):") or ""
@@ -325,7 +324,7 @@ end
 M.git.diff_menu = function()
   local choices = {
     { "Unstaged Diff", "unstaged" },
-    { "Staged Diff", "staged" },
+    { "Staged Diff",   "staged" },
   }
 
   vim.ui.select(choices, {
@@ -334,10 +333,10 @@ M.git.diff_menu = function()
       return item[1]
     end,
   }, function(choice)
-      if choice then
-        M.git.show_diff(choice[2])
-      end
-    end)
+    if choice then
+      M.git.show_diff(choice[2])
+    end
+  end)
 end
 
 M.git.show_diff = function(type)
@@ -442,10 +441,9 @@ M.git.show_diff = function(type)
       results = files,
       entry_maker = entry_maker,
     }),
-    sorter = sorters.get_generic_fuzzy_sorter(),
+    sorter = sorters.get_fzf_sorter and sorters.get_fzf_sorter() or sorters.get_generic_fuzzy_sorter(),
     previewer = diff_previewer,
   }):find()
 end
 
 return M
-
