@@ -10,10 +10,8 @@ return {
 
   config = function()
     local harpoon = require("harpoon")
-
-    -- basic telescope configuration
     local conf = require("telescope.config").values
-
+    local themes = require("telescope.themes")
 
     --- Deletes a harpoon item from the list
     --- @param selection table The selected entry to delete
@@ -23,7 +21,7 @@ return {
       local index
       local item_to_remove
       for i, item in ipairs(list.items) do
-        if item and item.value == selection.value.value then
+        if item and item.value == selection.value then
           index = i
           item_to_remove = item
           break
@@ -42,39 +40,34 @@ return {
     --- @param harpoon_files table The harpoon list
     local function toggle_telescope(harpoon_files)
       local finder = require("telescope.finders").new_table({
-        results = harpoon_files.items,
-        entry_maker = function(entry)
-          return {
-            value = entry,
-            path = entry.value,
-            display = entry.value,
-            ordinal = entry.value,
-          }
-        end
+        results = vim.tbl_map(function(item) return item.value end, harpoon_files.items),
+        entry_maker = require("telescope.make_entry").gen_from_file({})
       })
 
-      require("telescope.pickers").new({}, {
+      local dropdown_options = themes.get_dropdown({
+        previewer = false,
+        initial_mode = "insert",
+      })
+
+      require("telescope.pickers").new(dropdown_options, {
         prompt_title = "Harpoon | [D]elete",
         finder = finder,
-        previewer = conf.file_previewer({}),
         sorter = conf.generic_sorter({}),
         attach_mappings = function(prompt_bufnr, map)
           local actions = require("telescope.actions")
           local action_state = require("telescope.actions.state")
 
-          map("i", "D", function()
+          -- Helper to handle deletion
+          local function do_delete()
             local selection = action_state.get_selected_entry()
             delete_harpoon_item(selection)
             actions.close(prompt_bufnr)
+            -- Re-open to refresh the list
             vim.schedule(function() toggle_telescope(harpoon:list()) end)
-          end)
+          end
 
-          map("n", "D", function()
-            local selection = action_state.get_selected_entry()
-            delete_harpoon_item(selection)
-            actions.close(prompt_bufnr)
-            vim.schedule(function() toggle_telescope(harpoon:list()) end)
-          end)
+          map("i", "<C-d>", do_delete) -- Use Ctrl+d in insert mode
+          map("n", "D", do_delete)     -- Use D in normal mode
 
           return true
         end,
