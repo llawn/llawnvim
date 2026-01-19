@@ -21,15 +21,20 @@ return {
       local list = harpoon:list()
       -- find the index of the selected item
       local index
+      local item_to_remove
       for i, item in ipairs(list.items) do
         if item and item.value == selection.value.value then
           index = i
+          item_to_remove = item
           break
         end
       end
       if index then
         table.remove(list.items, index)
         list._length = list._length - 1
+        -- Emit the REMOVE event to persist the change
+        local Extensions = require("harpoon.extensions")
+        Extensions.extensions:emit(Extensions.event_names.REMOVE, { list = list, item = item_to_remove, idx = index })
       end
     end
 
@@ -61,14 +66,14 @@ return {
             local selection = action_state.get_selected_entry()
             delete_harpoon_item(selection)
             actions.close(prompt_bufnr)
-            vim.schedule(function () toggle_telescope(harpoon:list()) end)
+            vim.schedule(function() toggle_telescope(harpoon:list()) end)
           end)
 
           map("n", "D", function()
             local selection = action_state.get_selected_entry()
             delete_harpoon_item(selection)
             actions.close(prompt_bufnr)
-            vim.schedule(function () toggle_telescope(harpoon:list()) end)
+            vim.schedule(function() toggle_telescope(harpoon:list()) end)
           end)
 
           return true
@@ -86,7 +91,7 @@ return {
     vim.keymap.set(
       "n",
       "<C-e>",
-      function () toggle_telescope(harpoon:list()) end,
+      function() toggle_telescope(harpoon:list()) end,
       { desc = "Open harpoon window" }
     )
 
