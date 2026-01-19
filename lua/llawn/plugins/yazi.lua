@@ -15,17 +15,17 @@ return {
       "<leader>-",
       mode = { "n", "v" },
       "<cmd>Yazi<cr>",
-      desc = "Open yazi at the current file",
+      desc = "Yazi File",
     },
     {
-      "<leader>cw",
+      "<leader>y",
       "<cmd>Yazi cwd<cr>",
-      desc = "Open the file manager in nvim's working directory",
+      desc = "Yazi CWD",
     },
     {
       "<c-up>",
       "<cmd>Yazi toggle<cr>",
-      desc = "Resume the last yazi session",
+      desc = "Yazi Toggle",
     },
   },
   -- Configuration options for Yazi plugin
