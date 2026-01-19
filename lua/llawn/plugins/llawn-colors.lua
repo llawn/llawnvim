@@ -1,10 +1,13 @@
+-- Plugin: llawn.colors
+-- Description: My custom color highlighter and color picker
+
 return {
   'llawn/llawn.colors',
   config = function()
     -- Command to start the palette server
     vim.api.nvim_create_user_command('StartPaletteServer', function()
       local plugin_dir = vim.fn.stdpath('data') .. '/lazy/llawn.colors/lua/llawn/colors'
-      vim.fn.jobstart({'bash', plugin_dir .. '/serve_palette.sh'}, {
+      vim.fn.jobstart({ 'bash', plugin_dir .. '/serve_palette.sh' }, {
         detach = true,
         on_exit = function() end
       })
@@ -25,6 +28,6 @@ return {
     end, {})
 
     -- Keymap to open it (optional)
-    vim.keymap.set('n', '<leader>pc', ':OpenPaletteGenerator<CR>', { desc = 'Open Palette Generator' })
+    vim.keymap.set('n', '<leader>cp', ':OpenPaletteGenerator<CR>', { desc = 'Palette Generator' })
   end
 }
