@@ -1,5 +1,7 @@
 #!/bin/bash
-
+# @description Automatically generates changelogs by parsing Git tags and commit messages.
+# @output CHANGELOG.md (Keep a Changelog format)
+# @output docs/changelog.md (Technical log with stats)²
 # Script to generate full CHANGELOG.md and docs/changelog.md from git history
 
 # Header for CHANGELOG.md
@@ -21,7 +23,7 @@ PREV_COMMIT=$(git rev-list --max-parents=0 HEAD)
 
 CHANGELOG_BODY=""
 DOCS_BODY=""
-
+ 
 generate_entry() {
   local range="$1"
   local version="$2"
