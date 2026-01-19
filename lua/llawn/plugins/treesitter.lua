@@ -1,5 +1,10 @@
-local function save_treesitter_lock()
+-- Plugin: Treesitter (TS)
+-- Description: TS is a parser generator tool and an incremental parsing library.
+--              It can build a concrete syntax tree for a source file and efficiently
+--              update the syntax tree as the source file is edited.
 
+-- Save TS parser information to the root nvim config as a "lock" file
+local function save_treesitter_lock()
   local parsers = require('nvim-treesitter.parsers')
   local configs = parsers.get_parser_configs()
   local utils = require('nvim-treesitter.utils')
@@ -28,7 +33,7 @@ local function save_treesitter_lock()
   end
 
   table.sort(data, function(a, b) return a.name < b.name end)
-  local json_lines = {"["}
+  local json_lines = { "[" }
   for i, entry in ipairs(data) do
     local entry_str = vim.fn.json_encode(entry)
     table.insert(json_lines, "  " .. entry_str .. (i < #data and "," or ""))
@@ -144,7 +149,7 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-           init_selection = 'gnn',
+          init_selection = 'gnn',
           node_incremental = 'grn',
           scope_incremental = 'grc',
           node_decremental = 'grm',
