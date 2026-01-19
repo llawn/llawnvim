@@ -1,4 +1,4 @@
---- @brief Quit menu
+--- Quit menu
 
 local M = {}
 
@@ -30,19 +30,22 @@ end
 
 M.quit.menu = function()
   local choices = {
-    { "Unsaved Menu", function() unsaved.unsaved.menu() end },
-    { "Force Quit", function() vim.cmd("qa!") end },
-    { "Save All and Quit", function() vim.cmd("wa") vim.cmd("qa") end },
+    { "Unsaved Menu",      function() unsaved.unsaved.menu() end },
+    { "Force Quit",        function() vim.cmd("qa!") end },
+    { "Save All and Quit", function()
+      vim.cmd("wa")
+      vim.cmd("qa")
+    end },
   }
 
   vim.ui.select(choices, {
     prompt = "Quit Options:",
     format_item = function(item) return item[1] end
   }, function(choice)
-      if choice then
-        choice[2]()
-      end
-    end)
+    if choice then
+      choice[2]()
+    end
+  end)
 end
 
 return M
