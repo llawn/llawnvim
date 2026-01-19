@@ -1,6 +1,6 @@
---- @brief Yazi plugin configuration for file management in Neovim
---- Provides keybindings for opening Yazi file manager
----
+-- Plugin: mikavilpas/yazi.nvim
+-- Description: Yazi is a terminal file manager written in Rust,
+--              providing a fast and efficient way to navigate and manage files in Neovim.
 
 return {
   "mikavilpas/yazi.nvim",
