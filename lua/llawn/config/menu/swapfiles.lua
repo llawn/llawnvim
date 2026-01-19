@@ -1,3 +1,5 @@
+-- Menu for swap files
+
 local M = {}
 
 M.swapfiles = {}
@@ -100,11 +102,16 @@ M.swapfiles.menu = function()
       vim.fn.writefile(saved_lines, temp_saved)
       vim.fn.writefile(swap_lines, temp_swap)
 
-      -- Run diff
-      local cmd = "diff -u '" .. vim.fn.shellescape(temp_saved) .. "' '" .. vim.fn.shellescape(temp_swap) .. "' 2>/dev/null || echo 'No differences'"
-      local handle = io.popen(cmd)
-      local diff_output = handle:read("*a")
-      handle:close()
+       -- Run diff
+       local cmd = "diff -u '" .. vim.fn.shellescape(temp_saved) .. "' '" .. vim.fn.shellescape(temp_swap) .. "' 2>/dev/null || echo 'No differences'"
+       local handle = io.popen(cmd)
+       local diff_output
+       if handle then
+         diff_output = handle:read("*a")
+         handle:close()
+       else
+         diff_output = "Failed to run diff command"
+       end
       os.remove(temp_saved)
       os.remove(temp_swap)
 
