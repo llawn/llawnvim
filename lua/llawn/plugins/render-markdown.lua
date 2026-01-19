@@ -1,0 +1,19 @@
+-- Plugin: Render Markdown
+-- Description: render-markdown provides enhanced markdown rendering in Neovim
+
+return {
+  'MeanderingProgrammer/render-markdown.nvim',
+  dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  keys = {
+    { '<leader>pm', '<cmd>RenderMarkdown toggle<cr>', desc = 'Toggle MD Render' },
+  },
+  config = function()
+    require('render-markdown').setup({
+      checkbox = {
+        unchecked = { icon = '󰄱 ' },
+        checked = { icon = '󰄵 ' },
+      },
+      enabled = true,
+    })
+  end
+}
