@@ -1,6 +1,7 @@
 --- Utility for reading lockfile
 
 local M = {}
+
 --- Reads and parses a JSON lockfile.
 --- @param path string The path to the lockfile
 --- @return table The parsed data as a table, or an empty table if file not readable

@@ -3,10 +3,10 @@
 local M = {}
 
 --- Applies a unified diff to an existing buffer with syntax highlighting
----@param bufnr number The buffer to apply the diff to
----@param old_content string The original content
----@param new_content string The modified content
----@param ns_name string The namespace name for highlights
+--- @param bufnr number The buffer to apply the diff to
+--- @param old_content string The original content
+--- @param new_content string The modified content
+--- @param ns_name string The namespace name for highlights
 function M.apply_diff_to_buffer(bufnr, old_content, new_content, ns_name)
   local diff = vim.diff(old_content, new_content, { result_type = "unified" })
   assert(type(diff) == "string", "vim.diff with result_type='unified' should return a string")
@@ -28,10 +28,10 @@ function M.apply_diff_to_buffer(bufnr, old_content, new_content, ns_name)
 end
 
 --- Displays a unified diff in a new buffer with syntax highlighting
----@param old_content string The original content
----@param new_content string The modified content
----@param title string The title for the diff window
----@return number, number The buffer and window numbers
+--- @param old_content string The original content
+--- @param new_content string The modified content
+--- @param title string The title for the diff window
+--- @return number, number The buffer and window numbers
 function M.show_diff(old_content, new_content, title)
   local buf = vim.api.nvim_create_buf(false, true) -- Scratch buffer
   M.apply_diff_to_buffer(buf, old_content, new_content, "diff_highlight")
