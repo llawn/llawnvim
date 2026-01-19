@@ -5,14 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.4.2] - 2026-01-14
+## [Unreleased] - 2026-01-15
 
 ### Documentation
 
 - update changelogs
+- update changelogs
 
-
-
+## [1.4.2] - 2026-01-14
 
 ### Documentation
 
@@ -22,8 +22,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - remove undeveloped llawn-ai plugin and update MkDocs color palette
 - remove test note
 - update changelogs
-
-
 
 ## [1.4.1] - 2026-01-14
 
@@ -36,15 +34,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - add test note for 1.4.1
 - update changelogs
 
-
-
 ## [1.4.0] - 2026-01-14
 
 ### Documentation
 
 - update changelogs
-
-
 
 ## [1.3.9] - 2026-01-14
 
@@ -52,15 +46,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - update changelogs
 
-
-
 ## [1.3.8] - 2026-01-14
 
 ### Documentation
 
 - update changelogs
-
-
 
 ## [1.3.7] - 2026-01-14
 
@@ -71,8 +61,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 
 - update changelogs
-
-
 
 ## [1.3.6] - 2026-01-14
 
@@ -95,8 +83,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - add 2 blank lines between changelog sections
 
-
-
 ## [1.3.5] - 2026-01-14
 
 ### Added
@@ -107,15 +93,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - update changelogs
 
-
-
 ## [1.3.4] - 2026-01-14
 
 ### Added
 
 - update script to generate full changelogs from the beginning
-
-
 
 ## [1.3.3] - 2026-01-14
 
@@ -123,23 +105,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - update changelog script to generate docs/changelog.md automatically
 
-
-
 ## [1.3.2] - 2026-01-14
 
 ### Documentation
 
 - add detailed changelog in docs/ and automation script
 
-
-
 ## [1.3.1] - 2026-01-14
 
 ### Documentation
 
 - add changelog for version 1.3.0
-
-
 
 ## [1.3.0] - 2026-01-14
 
@@ -156,8 +132,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - reorganize quit logic for better modularity
 
-
-
 ## [1.2.2] - 2026-01-13
 
 ### Added
@@ -172,16 +146,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - update docs to account for mason menu, lockfiles and new color highlighter
 - update some badges
 
-
-
 ## [1.2.1] - 2026-01-12
 
 ### Added
 
 - add lexima for brackets
 - custom config to ignore hover for ruff
-
-
 
 ## [1.2.0] - 2026-01-12
 
@@ -216,8 +186,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update workflow to deploy MkDocs only on tag pushes
 - Rename repository to llawnvim and update documentation links
 
-
-
 ## [1.1.0] - 2026-01-07
 
 ### Added
@@ -238,8 +206,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix admonitton support
 - simplify documentation
 - add a badge in readme for neovim
-
-
 
 ## [1.0.0] - 2026-01-06
 
@@ -285,8 +251,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - enabling hints in lsp
 - move lsp to after dir
 
-
-
 ## [0.1.0] - 2025-11-06
 
 ### Added
@@ -299,7 +263,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - add license and tags for readme
 - add a readme
-
-
 
 
