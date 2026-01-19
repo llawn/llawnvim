@@ -1,3 +1,5 @@
+-- All the menu
+
 local M = {}
 
 -- Helper to safely load modules that might have different return structures
