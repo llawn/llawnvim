@@ -16,7 +16,7 @@ vim.keymap.set("n", "<leader>R", function()
 end, opts)
 
 opts.desc = "Source current file"
-vim.keymap.set("n", "<leader>s", "<Cmd>source %<CR>", opts)
+vim.keymap.set("n", "<leader>S", "<Cmd>source %<CR>", opts)
 
 -- ============================================================================
 -- System / Classic Keybindings
@@ -143,11 +143,11 @@ vim.keymap.set("n", "<C-l>", toggle_list, opts)
 -- Lua Utilities
 -- ============================================================================
 
-opts.desc = "Execute current line (Lua)"
+opts.desc = "Execute Lua"
 vim.keymap.set("n", "<leader>lx", "<Cmd>:.lua<CR>", opts)
-opts.desc = "Execute selection (Lua)"
+opts.desc = "Execute Lua"
 vim.keymap.set("v", "<leader>lx", "<Cmd>:lua<CR>", opts)
-opts.desc = "Execute file (Lua)"
+opts.desc = "Execute Lua File"
 vim.keymap.set("n", "<leader>lf", "<Cmd>luafile %<CR>", opts)
 
 -- ============================================================================
@@ -179,28 +179,29 @@ vim.keymap.set("n", "<A-w>", function() get_menu().window.menu() end, opts)
 -- ============================================================================
 
 opts.desc = "Pick colors"
-vim.keymap.set("n", "<leader>cp", ":HexColors<CR>", opts)
+vim.keymap.set("n", "<leader>cc", ":HexColors<CR>", opts)
 opts.desc = "Pick colors 2D"
-vim.keymap.set("n", "<leader>cc", ":ColorPick2D<CR>", opts)
+vim.keymap.set("n", "<leader>cC", ":ColorPick2D<CR>", opts)
 
 -- ============================================================================
 -- Treesitter
 -- ============================================================================
 
-opts.desc = "Treesitter Playground"
-vim.keymap.set("n", "<leader>trp", ":InspectTree<CR>", opts)
+opts.desc = "TS Playground"
+vim.keymap.set("n", "<leader>tp", ":InspectTree<CR>", opts)
 
 --- Toggle treesitter highlight for buffer with feedback
+--- desc: Toggle TS Highlight
 --- @return nil
-local function toggle_treesitter_highlight()
+function toggle_treesitter_highlight()
   local _ = vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()]
   vim.cmd("TSBufToggle highlight")
   local new_state = vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()]
   print("Treesitter highlight " .. (new_state and "ON" or "OFF"))
 end
 
-opts.desc = "Toggle treesitter highlight for buffer"
-vim.keymap.set("n", "<leader>trh", toggle_treesitter_highlight, opts)
+opts.desc = "Toggle TS Highlight"
+vim.keymap.set("n", "<leader>th", toggle_treesitter_highlight, opts)
 
-opts.desc = "Find symbols with treesitter"
-vim.keymap.set("n", "<leader>ft", function() get_menu().ts_symbols.menu() end, opts)
+opts.desc = "Find Symbols"
+vim.keymap.set("n", "<leader>ts", function() get_menu().ts_symbols.menu() end, opts)
