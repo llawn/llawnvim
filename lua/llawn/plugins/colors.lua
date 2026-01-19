@@ -1,6 +1,7 @@
---- @brief This file configures the Rose-Pine color scheme
---- Based on: https://github.com/ThePrimeagen/init.lua
----
+-- Plugin: Rose-Pine Color Scheme
+-- Description: Configures the Rose-Pine color scheme with a transparent background,
+--              custom highlights for invisible characters, and optional hex color highlighter.
+-- Based on: https://github.com/ThePrimeagen/init.lua
 
 local colors = {
   nontext = "#9eb9d4",
@@ -9,7 +10,8 @@ local colors = {
   endofbuffer = "#708090",
 }
 
--- Function to set up a color scheme with custom highlights
+--- Function to set up a color scheme with custom highlights
+--- @param color string|nil
 function ColorMyPencils(color)
   -- Default to "rose-pine-moon"
   color = color or "rose-pine-moon"
@@ -24,7 +26,6 @@ function ColorMyPencils(color)
   vim.api.nvim_set_hl(0, "Whitespace", { fg = colors.whitespace, italic = true })
   vim.api.nvim_set_hl(0, "SpecialKey", { fg = colors.specialkey, bold = true })
   vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = colors.endofbuffer })
-
 end
 
 return {
@@ -40,14 +41,17 @@ return {
         },
       })
 
-       -- Apply the custom colors and highlights
-       ColorMyPencils();
+      -- Apply the custom colors and highlights
+      ColorMyPencils();
 
-       -- Setup color highlighter
-       local highlighter = require('llawn.plugins.local.colors_highlighter')
-       highlighter.setup()
+      -- Setup color highlighter if available
+      local ok, highlighter = pcall(require, 'llawn.colors.colors_highlighter')
+      if ok then
+        highlighter.setup()
+      else
+        vim.notify('Custom color highlighter not found, skipping setup.', vim.log.levels.WARN)
       end
-    },
+    end
+  },
 
 }
-
