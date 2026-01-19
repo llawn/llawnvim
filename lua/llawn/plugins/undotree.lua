@@ -1,6 +1,6 @@
---- @brief Plugin configuration for undotree
---- undotree visualizes the undo history as a tree for easy navigation
----
+-- Plugin: Undotree
+-- Description: The undo tree visualizes the undo history and makes it easy
+--              to browse and switch between different undo branches.
 
 return {
   "mbbill/undotree",
@@ -11,7 +11,7 @@ return {
       "n",
       "<leader>u",
       vim.cmd.UndotreeToggle,
-      { desc = "Toggle UndoTree"}
+      { desc = "UndoTree"}
     )
   end
 }
