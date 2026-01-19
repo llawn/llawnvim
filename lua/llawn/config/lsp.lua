@@ -223,10 +223,10 @@ local function setup_lsp_keymaps(ev)
   -- --------------------------------------------------------------------------
 
   opts.desc = "Show LSP buffer symbols"
-  keymap.set("n", "<leader>fb", "<cmd>Telescope lsp_document_symbols<CR>", opts)
+  keymap.set("n", "<leader>tb", "<cmd>Telescope lsp_document_symbols<CR>", opts)
 
   opts.desc = "Show LSP project symbols"
-  keymap.set("n", "<leader>fp", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", opts)
+  keymap.set("n", "<leader>tw", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", opts)
 
   -- --------------------------------------------------------------------------
   -- DIAGNOSTICS
@@ -265,13 +265,13 @@ local function setup_lsp_keymaps(ev)
   -- --------------------------------------------------------------------------
 
   opts.desc = "See available code actions"
-  keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+  keymap.set({ "n", "v" }, "<leader>pa", vim.lsp.buf.code_action, opts)
 
   opts.desc = "Smart rename"
-  keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+  keymap.set("n", "<leader>pn", vim.lsp.buf.rename, opts)
 
   opts.desc = "Restart LSP"
-  keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
+  keymap.set("n", "<leader>ps", ":LspRestart<CR>", opts)
 
   -- --------------------------------------------------------------------------
   -- INLAY HINTS
@@ -286,14 +286,14 @@ local function setup_lsp_keymaps(ev)
   ---@diagnostic disable-next-line: param-type-mismatch
   if client and client.supports_method("textDocument/inlayHint", ev.buf) then
     opts.desc = "Toggle Inlay Hints"
-    keymap.set("n", "<leader>ti", toggle_inlay_hint, opts)
+    keymap.set("n", "<leader>ph", toggle_inlay_hint, opts)
   end
 
   -- --------------------------------------------------------------------------
   -- FORMAT WITH CONFIRMATION (Y/N/Q)
   -- --------------------------------------------------------------------------
   opts.desc = "Format file (y/n)"
-  keymap.set("n", "<leader>ff", format_with_confirmation, opts)
+  keymap.set("n", "<leader>pf", format_with_confirmation, opts)
 end
 
 -- ============================================================================
