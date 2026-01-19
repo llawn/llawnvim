@@ -1,7 +1,8 @@
---- @brief Mason LSP configuration
---- configures mason-lspconfig to automatically install some LSP
----
+-- Plugin: Mason
+-- Description: Configures mason-lspconfig to automatically install LSP
+--              Custom lockfile to see LSP installation
 
+-- Custom lockfile for mason
 local function save_mason_lock()
   local registry = require('mason-registry')
   local installed = registry.get_installed_packages()
@@ -15,7 +16,7 @@ local function save_mason_lock()
     end
   end
   table.sort(data, function(a, b) return a.name < b.name end)
-  local json_lines = {"["}
+  local json_lines = { "[" }
   for i, entry in ipairs(data) do
     local entry_str = string.format(
       '{"name": %s, "version": %s}',
@@ -37,16 +38,12 @@ return {
       ensure_installed = {
         -- C/C++/Objective-C
         "clangd",
-
         -- Fortran
         "fortls",
-
         -- Go
         "gopls",
-
         -- Lua
         "lua_ls",
-
         -- Python
         "ty",
         "ruff",
