@@ -1,4 +1,6 @@
-.PHONY: build serve clean
+CHANGELOG_GEN := ./scripts/generate_changelog.sh
+
+.PHONY: build serve clean changelog
 
 build:
 	mkdocs build
@@ -8,6 +10,11 @@ serve:
 
 clean:
 	rm -rf site/
+
+changelog:
+	@echo "--- Starting Changelog Generation ---"
+	@bash $(CHANGELOG_GEN)
+	@echo "--- Changelo Generation Complete ---"
 
 help:
 	@echo "Available commands:"
