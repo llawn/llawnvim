@@ -24,10 +24,6 @@ This configuration draws inspiration from:
 - [Josean Martinez's dev-environment-files](https://github.com/josean-dev/dev-environment-files)
 - [TJ DeVries' config.nvim](https://github.com/tjdevries/config.nvim)
 
-## Local Plugins
-
-- **Color Pickers**: Custom Telescope-based hex color picker (`:HexColors`) and 2D grid color picker (`:ColorPick2D`)
-
 This configuration is continuously updated and modular, making it easy to
 expand with new languages or plugins.
 
@@ -53,13 +49,6 @@ git clone git@github.com:llawn/llawnvim.git
 
 ## Features
 
-- **Lazy** plugin manager for fast startup.
-- **Mason** for automatic LSP server installation.
-- Built-in **LSP setup** using Neovim 0.11+ `vim.lsp.enable`.
-- **Keymaps and menus** for window management, Git, Treesitter, and more.
-- **Alpha dashboard** for a clean startup screen.
-- Plugins configured:
-
 | Plugin | Description | Version |
 |--------|-------------|---------|
 | [rose-pine](https://github.com/rose-pine/neovim) | Color scheme | cf2a288 |
@@ -78,6 +67,9 @@ git clone git@github.com:llawn/llawnvim.git
 | [lexima](https://github.com/cohama/lexima.vim) | Auto close parentheses | ab621e4 |
 | [yazi](https://github.com/mikavilpas/yazi.nvim) | File manager | 4a8bd32 |
 | [alpha](https://github.com/goolord/alpha-nvim) | Dashboard | 3979b01 |
+
+- Built-in **LSP setup** using Neovim 0.11+ `vim.lsp.enable`.
+- Custom menus for Git, Treesitter, Mason and more.
 
 [More features](https://llawn.github.io/llawnvim/features/)
 

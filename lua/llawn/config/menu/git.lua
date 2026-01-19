@@ -5,6 +5,10 @@ M.git = {}
 
 local Job = require("plenary.job")
 
+--- Get commit url of the remote repo
+--- @param remote_url string
+--- @param hash string
+--- @return string|nil The commit url
 local function get_commit_url(remote_url, hash)
   local base
   if remote_url:match("^git@") then
@@ -28,6 +32,7 @@ end
 -- MENU
 ---------------------------------------------------------------------
 
+--- The menu for git action
 M.git.menu = function()
   local choices = {
     { "Log",  M.git.log },
@@ -54,6 +59,18 @@ end
 -- COLORS / HIGHLIGHTS
 ---------------------------------------------------------------------
 
+--- A palette of hexadecimal colors used for Git-related UI components and conventional commit types.
+--- @class ColorsScheme
+--- @field hash string
+--- @field tag string
+--- @field feat string
+--- @field fix string
+--- @field chore string
+--- @field docs string
+--- @field style string
+--- @field refactor string
+--- @field test string
+--- @field author string
 local colors = {
   hash     = "#ccccff",
   tag      = "#81d8d0",
@@ -82,6 +99,12 @@ vim.api.nvim_set_hl(0, "GitAuthor", { fg = colors.author })
 -- STRUCTURED QUERY PARSER
 ---------------------------------------------------------------------
 
+--- Parsers a Telescope prompt to separate conventional commit metadata from fuzzy search terms.
+--- Designed for use within a Telescope finder to allow dynamic filtering
+--- by commit type (feat, fix, etc.) or author.
+--- @param prompt string The raw input string from the user.
+--- @return table<string, string[]> filters A dictionary where keys map to lists of lowercase values.
+--- @return string fuzzy A space-separated string of non-filter keywords.
 local function parse_query(prompt)
   local filters = {}
   local fuzzy = {}
@@ -99,6 +122,13 @@ local function parse_query(prompt)
   return filters, table.concat(fuzzy, " ")
 end
 
+--- Validates a Telescope entry against a set of parsed conventional commit filters.
+--- The function ensures the entry satisfies ALL filter categories provided.
+--- If a category has multiple values, the entry must match at least ONE of them.
+---
+--- @param entry table The git commit entry (expects .author, .msg, .hash, or .type).
+--- @param filters table<string, string[]> Filters extracted via `parse_query`.
+--- @return boolean # Returns true if the entry matches all filter criteria.
 local function matches(entry, filters)
   for key, values in pairs(filters) do
     local field =
@@ -238,7 +268,9 @@ M.git.log = function(opts)
       map({ "i", "n" }, "<CR>", function()
         local sel = action_state.get_selected_entry()
         if not sel then return end
-        local search = (vim.api.nvim_buf_get_lines(prompt_bufnr, 0, -1, false)[1] or ""):gsub("^> ?", "")
+        local search = (
+          vim.api.nvim_buf_get_lines(prompt_bufnr, 0, -1, false)[1] or ""
+        ):gsub("^> ?", "")
         actions.close(prompt_bufnr)
         local buf = vim.api.nvim_create_buf(false, true)
         vim.bo[buf].filetype = "diff"
@@ -247,20 +279,31 @@ M.git.log = function(opts)
         local result = h:read("*a")
         h:close()
         vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(result, "\n"))
-        local win = vim.api.nvim_open_win(buf, true, {
-          relative = "editor",
-          width = math.floor(vim.o.columns * 0.8),
-          height = math.floor(vim.o.lines * 0.8),
-          col = math.floor(vim.o.columns * 0.1),
-          row = math.floor(vim.o.lines * 0.1),
-          style = "minimal",
-          border = "rounded",
-        })
+        local win = vim.api.nvim_open_win(
+          buf,
+          true,
+          {
+            relative = "editor",
+            width = math.floor(vim.o.columns * 0.8),
+            height = math.floor(vim.o.lines * 0.8),
+            col = math.floor(vim.o.columns * 0.1),
+            row = math.floor(vim.o.lines * 0.1),
+            style = "minimal",
+            border = "rounded",
+          }
+        )
         local escaped_search = search:gsub("'", "\\'"):gsub('"', '\\"')
-        vim.api.nvim_buf_set_keymap(buf, "n", "<Esc>",
+        vim.api.nvim_buf_set_keymap(
+          buf,
+          "n",
+          "<Esc>",
           string.format(
             "<cmd>lua vim.api.nvim_win_close(%d, true); require('llawn.config.menu.git').git.log({default_text='%s'})<CR>",
-            win, escaped_search), { noremap = true })
+            win,
+            escaped_search
+          ),
+          { noremap = true }
+        )
       end)
       map({ "i", "n" }, "<C-o>", function()
         local sel = action_state.get_selected_entry()
@@ -321,6 +364,7 @@ end
 -- GIT DIFF MENU
 ---------------------------------------------------------------------
 
+-- Git diff menu between staged / or unstaged change
 M.git.diff_menu = function()
   local choices = {
     { "Unstaged Diff", "unstaged" },
@@ -339,6 +383,7 @@ M.git.diff_menu = function()
   end)
 end
 
+-- Show diff
 M.git.show_diff = function(type)
   local cached = type == "staged" and "--cached" or ""
   local cmd = "git diff --name-status " .. cached
