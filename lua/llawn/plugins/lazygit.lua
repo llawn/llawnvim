@@ -1,6 +1,7 @@
---- @brief LazyGit plugin configuration for Git integration in Neovim
---- Provides keybindings for launching LazyGit interface
----
+-- Plugin: LazyGit
+-- Description: Integrates LazyGit, a simple terminal UI for git commands, into Neovim
+--              Provides seamless git management with keybindings for various LazyGit modes
+--              Supports floating windows and custom configurations for enhanced workflow
 
 return {
   "kdheepak/lazygit.nvim",
@@ -12,13 +13,14 @@ return {
     "LazyGitFilter",
     "LazyGitFilterCurrentFile",
   },
+
   -- optional for floating window border decoration
   dependencies = {
     "nvim-lua/plenary.nvim",
   },
   -- setting the keybinding for LazyGit
   keys = {
-    { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+    { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
   },
   --- Configuration function for lazygit
   config = function()
