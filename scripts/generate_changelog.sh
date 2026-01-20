@@ -13,7 +13,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)."
 
 # Header for docs/changelog.md
-DOCS_HEADER="# Changelog"
+DOCS_HEADER="---
+title: Changelog
+description: Version history and changes for the LLawn Neovim configuration
+icon: material/history
+---
+
+# Changelog"
 
 # Get all tags sorted by version
 TAGS=$(git tag --sort=-version:refname | tac)
