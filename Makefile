@@ -18,6 +18,8 @@ changelog:
 
 help:
 	@echo "Available commands:"
-	@echo "  build    - Build the documentation"
-	@echo "  serve    - Serve documentation locally"
-	@echo "  clean    - Clean built site"
+	@echo "  build      - Build the documentation"
+	@echo "  serve      - Serve documentation locally"
+	@echo "  clean      - Clean built site"
+	@echo "  changelog  - Generate changelog from git history"
+	@echo "  help       - Show this help message"
