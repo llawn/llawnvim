@@ -11,7 +11,7 @@ local servers = {
   fortran = { "fortls" },
   go = { "gopls" },
   lua = { "lua_ls" },
-  python = { "ty", "ruff" },
+  python = { "ruff", "ty" },
 }
 
 for _, group in pairs(servers) do
@@ -87,7 +87,6 @@ end
 
 --- Copies all formatted diagnostics from the current buffer to the system clipboard.
 --- Uses the '+' register to interface with the system clipboard.
----
 --- @return nil
 local function yank_buffer_diagnostics()
   local lines, count = get_formatted_diagnostics()
@@ -103,7 +102,6 @@ local function yank_buffer_diagnostics()
 end
 
 --- Show all formatted diagnostic in a floating window.
----
 --- @return nil
 local function show_buffer_diagnostics_float()
   local lines = get_formatted_diagnostics()
@@ -143,55 +141,9 @@ local function show_buffer_diagnostics_float()
 end
 
 
---- Format current buffer, display diff and confirm changes
---- @return nil
-local function format_with_confirmation()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-  vim.lsp.buf.format({ async = false })
-  local new_lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-
-  if vim.deep_equal(lines, new_lines) then
-    vim.notify("No formatting needed", vim.log.levels.INFO)
-    return
-  end
-
-  -- remove formatting
-  vim.cmd("undo")
-
-  local diff_utils = require('llawn.utils.diff')
-  local buf, win = diff_utils.show_diff(
-    table.concat(lines, "\n"),
-    table.concat(new_lines, "\n"),
-    " Review Changes (y: apply, n/q: cancel) "
-  )
-
-  --- Apply formatting and close diff window
-  --- @return nil
-  local function close_and_apply()
-    vim.api.nvim_win_close(win, true)
-    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, new_lines)
-    vim.notify("Formatted!", vim.log.levels.INFO)
-  end
-
-  --- Reject formatting and close diff window
-  --- @return nil
-  local function close_and_reject()
-    vim.api.nvim_win_close(win, true)
-    vim.notify("Formatting Cancelled", vim.log.levels.WARN)
-  end
-
-  local win_opts = { buffer = buf, nowait = true }
-  vim.keymap.set("n", "y", close_and_apply, win_opts)
-  vim.keymap.set("n", "n", close_and_reject, win_opts)
-  vim.keymap.set("n", "q", close_and_reject, win_opts)
-  vim.keymap.set("n", "<Esc>", close_and_reject, win_opts)
-end
-
 --- Configures and applies buffer-local keymaps for LSP interaction.
 --- This function is intended to be called within an LspAttach autocommand.
 --- It maps lsp commands specifically for the buffer where the LSP client is active.
----
 --- @param ev table The event object provided by the LspAttach autocommand, containing 'buf' and 'data.client_id'.
 --- @return nil
 local function setup_lsp_keymaps(ev)
@@ -283,17 +235,15 @@ local function setup_lsp_keymaps(ev)
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
   end
 
-  ---@diagnostic disable-next-line: param-type-mismatch
-  if client and client.supports_method("textDocument/inlayHint", ev.buf) then
+  if client and client.server_capabilities.inlayHintProvider then
     opts.desc = "Toggle Inlay Hints"
     keymap.set("n", "<leader>ph", toggle_inlay_hint, opts)
   end
 
-  -- --------------------------------------------------------------------------
-  -- FORMAT WITH CONFIRMATION (Y/N/Q)
-  -- --------------------------------------------------------------------------
+  -- Synchronize formatting behaviour between builtin lsp formatting and conform
+  -- So formatting (works even without LSP)
   opts.desc = "Format file (y/n)"
-  keymap.set("n", "<leader>pf", format_with_confirmation, opts)
+  keymap.set("n", "<leader>pf", require("llawn.utils.formatting").format_with_confirmation, opts)
 end
 
 -- ============================================================================
