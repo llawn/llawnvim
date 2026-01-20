@@ -105,6 +105,8 @@ M.create_base_previewer = function(title, info_extract_fn)
       local lines = info_extract_fn(entry.value)
       vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
       vim.bo[self.state.bufnr].filetype = 'markdown'
+      pcall(vim.treesitter.start, self.state.bufnr)
+      vim.defer_fn(function() pcall(vim.cmd, 'RenderMarkdown enable') end, 100)
     end
   })
 end
