@@ -102,27 +102,111 @@ vim.keymap.set("n", "<leader>bp", vim.cmd.bprevious, opts)
 opts.desc = "Visual block mode"
 vim.keymap.set("n", "<C-q>", "<C-v>", opts)
 
---- Sets keymaps for moving lines in normal, insert, and visual modes
----@param desc string Description for the keymap
----@param key string The key sequence to map
----@param commands table Table with 'n', 'i', 'v' keys containing the commands for each mode
----@return nil
+-- Format entire file and return to original position
+opts.desc = "Indent file"
+vim.keymap.set("n", "<leader>pi", function()
+  local pos = vim.fn.getpos('.')
+  vim.cmd('normal! gg=G')
+  vim.fn.setpos('.', pos)
+end, opts)
+
+local function get_visual_selection_range()
+  -- Ensure marks are updated by exiting visual mode briefly
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "x", true)
+
+  local start_pos = vim.fn.getpos("'<")
+  local end_pos = vim.fn.getpos("'>")
+
+  -- Rows are 0-indexed in API, cols depend on usage
+  return {
+    start_row = start_pos[2] - 1,
+    start_col = start_pos[3] - 1,
+    end_row = end_pos[2] - 1,
+    end_col = end_pos[3],
+    bufnr = vim.api.nvim_get_current_buf()
+  }
+end
+
+local function move_visual_left()
+  local r = get_visual_selection_range()
+  local start_pos = vim.fn.getpos("'<")
+  local end_pos = vim.fn.getpos("'>")
+  if r.start_col > 0 then
+    for row = r.start_row, r.end_row do
+      local text = vim.api.nvim_buf_get_text(r.bufnr, row, r.start_col, row, r.end_col, {})
+      vim.api.nvim_buf_set_text(r.bufnr, row, r.start_col, row, r.end_col, {})
+      vim.api.nvim_buf_set_text(r.bufnr, row, r.start_col - 1, row, r.start_col - 1, text)
+    end
+
+    -- Reset selection
+    vim.fn.setpos("'<", { r.bufnr, r.start_row + 1, start_pos[3] - 1, 0 })
+    vim.fn.setpos("'>", { r.bufnr, r.end_row + 1, end_pos[3] - 1, 0 })
+    vim.cmd("normal! gv")
+  else
+    vim.cmd("normal! gv") -- Keep selection if we can't move
+  end
+end
+
+local function move_visual_right()
+  local r = get_visual_selection_range()
+  local start_pos = vim.fn.getpos("'<")
+  local end_pos = vim.fn.getpos("'>")
+  local can_move = true
+  for row = r.start_row, r.end_row do
+    local line = vim.api.nvim_buf_get_lines(r.bufnr, row, row + 1, false)[1]
+    local line_len = #line
+    if r.end_col >= line_len then
+      can_move = false
+      break
+    end
+  end
+  if can_move then
+    for row = r.start_row, r.end_row do
+      local text = vim.api.nvim_buf_get_text(r.bufnr, row, r.start_col, row, r.end_col, {})
+      vim.api.nvim_buf_set_text(r.bufnr, row, r.start_col, row, r.end_col, {})
+      vim.api.nvim_buf_set_text(r.bufnr, row, r.start_col + 1, row, r.start_col + 1, text)
+    end
+
+    -- Reset selection
+    vim.fn.setpos("'<", { r.bufnr, r.start_row + 1, start_pos[3] + 1, 0 })
+    vim.fn.setpos("'>", { r.bufnr, r.end_row + 1, end_pos[3] + 1, 0 })
+    vim.cmd("normal! gv")
+  else
+    vim.cmd("normal! gv")
+  end
+end
+
+-- Fixed mapping function
 local function set_move_keymaps(desc, key, commands)
-  opts.desc = desc
   vim.keymap.set("n", key, commands.n, opts)
   vim.keymap.set("i", key, commands.i, opts)
   vim.keymap.set("v", key, commands.v, opts)
 end
 
 local move_commands = {
-  up = { n = ":m .-2<CR>==", i = "<Esc>:m .-2<CR>==gi", v = ":m '<-2<CR>gv=gv" },
-  down = { n = ":m .+1<CR>==", i = "<Esc>:m .+1<CR>==gi", v = ":m '>+1<CR>gv=gv" }
+  up    = { n = ":m .-2<CR>==", i = "<Esc>:m .-2<CR>==gi", v = ":m '<-2<CR>gv=gv" },
+  down  = { n = ":m .+1<CR>==", i = "<Esc>:m .+1<CR>==gi", v = ":m '>+1<CR>gv=gv" },
+  left  = {
+    n = "xhP",
+    i = "<Left><Esc>xhPli",
+    v = move_visual_left
+  },
+  right = {
+    n = "xp",
+    i = "<Esc>xpli",
+    v = move_visual_right
+  }
 }
 
-set_move_keymaps("Move line up", "<A-k>", move_commands.up)
-set_move_keymaps("Move line up", "<A-Up>", move_commands.up)
-set_move_keymaps("Move line down", "<A-j>", move_commands.down)
-set_move_keymaps("Move line down", "<A-Down>", move_commands.down)
+-- Bindings
+set_move_keymaps("Move text up", "<A-k>", move_commands.up)
+set_move_keymaps("Move text up", "<A-Up>", move_commands.up)
+set_move_keymaps("Move text down", "<A-j>", move_commands.down)
+set_move_keymaps("Move text down", "<A-Down>", move_commands.down)
+set_move_keymaps("Move text left", "<A-h>", move_commands.left)
+set_move_keymaps("Move text left", "<A-Left>", move_commands.left)
+set_move_keymaps("Move text right", "<A-l>", move_commands.right)
+set_move_keymaps("Move text right", "<A-Right>", move_commands.right)
 
 -- ============================================================================
 -- UI Toggles
@@ -193,7 +277,7 @@ vim.keymap.set("n", "<leader>tp", ":InspectTree<CR>", opts)
 --- Toggle treesitter highlight for buffer with feedback
 --- desc: Toggle TS Highlight
 --- @return nil
-function toggle_treesitter_highlight()
+local function toggle_treesitter_highlight()
   local _ = vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()]
   vim.cmd("TSBufToggle highlight")
   local new_state = vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()]
