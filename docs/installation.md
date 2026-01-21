@@ -1,13 +1,8 @@
-______________________________________________________________________
-
+---
 title: Installation
-
-description: Step-by-step guide for installing and setting up the LLawn Neovim
-configuration
-
+description: Step-by-step guide for installing and setting up the LLawn Neovim configuration
 icon: material/download
-
-______________________________________________________________________
+---
 
 # Installation
 

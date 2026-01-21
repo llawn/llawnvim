@@ -1,13 +1,8 @@
-______________________________________________________________________
-
+---
 title: LLawn Neovim Configuration
-
-description: A modular, feature-rich Neovim configuration optimized for multiple
-programming languages
-
+description: A modular, feature-rich Neovim configuration optimized for multiple programming languages
 icon: material/home
-
-______________________________________________________________________
+---
 
 # LLawn Neovim Configuration
 

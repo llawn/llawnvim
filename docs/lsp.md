@@ -1,13 +1,8 @@
-______________________________________________________________________
-
+---
 title: LSP Configurations
-
-description: Language Server Protocol setup and configurations for various
-programming languages
-
+description: Language Server Protocol setup and configurations for various programming languages
 icon: material/code-braces
-
-______________________________________________________________________
+---
 
 # LSP Configurations
 

@@ -1,13 +1,8 @@
-______________________________________________________________________
-
+---
 title: Keymaps
-
-description: Complete reference of all key mappings in the LLawn Neovim
-configuration
-
+description: Complete reference of all key mappings in the LLawn Neovim configuration
 icon: material/keyboard
-
-______________________________________________________________________
+---
 
 # Keymaps
 

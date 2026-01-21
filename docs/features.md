@@ -1,12 +1,8 @@
-______________________________________________________________________
-
+---
 title: Features
-
 description: Comprehensive overview of LLawn Neovim configuration features
-
 icon: material/star
-
-______________________________________________________________________
+---
 
 # Features
 

@@ -1,13 +1,8 @@
-______________________________________________________________________
-
+---
 title: Folder Structure
-
-description: Organization and purpose of each directory and file in the LLawn
-Neovim configuration
-
+description: Organization and purpose of each directory and file in the LLawn Neovim configuration
 icon: material/folder
-
-______________________________________________________________________
+---
 
 # Folder Structure
 
