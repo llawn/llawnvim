@@ -45,8 +45,8 @@ return {
         -- Lua
         "lua_ls",
         -- Python
-        "ty",
         "ruff",
+        "ty",
       },
     },
     dependencies = {
