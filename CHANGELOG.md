@@ -4,8 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.1.3] - 2026-01-21
+- docs: add assets (ff121da)
+- docs: add a banner (ba5c480)
+- docs: change release process (eb5a651)
+- feat: make release (17807e3)
+
 ## [0.1.2] - 2026-01-21
-- fix: fix release sh (cd7b14a)
+- fix: fix release sh (bf2fc0e)
 - chore(release): 0.1.2 (4561ce1)
 - fix: release sh (27340ea)
 - chore(release): 0.1.2 (9ef52fb)
