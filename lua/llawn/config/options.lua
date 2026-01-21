@@ -19,6 +19,9 @@ vim.opt.listchars = {
   space = "·",
 }
 
+-- Visual selection
+vim.opt.selection = "inclusive"
+
 -- Preview substitutions
 -- :%s/foo/bar/g
 vim.opt.inccommand = 'split'
