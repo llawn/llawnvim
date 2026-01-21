@@ -31,8 +31,6 @@ labels=(
     "windows|1d76db|Windows-specific"
     "lsp|0e8a16|Language Server Protocol related"
     "lua|000080|Lua-specific"
-    "python|3776ab|Python-specific"
-    "typescript|3178c6|TypeScript/JavaScript specific"
     "priority: high|b60205|High priority"
     "priority: medium|fbca04|Medium priority"
     "priority: low|0e8a16|Low priority"
