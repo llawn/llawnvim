@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ---
 
 ## [0.1.3] - 2026-01-21
+- fix: release (db34f15)
+- docs: add assets (e66e210)
 - docs: add assets (ff121da)
 - docs: add a banner (ba5c480)
 - docs: change release process (eb5a651)

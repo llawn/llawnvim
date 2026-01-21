@@ -30,7 +30,10 @@ git commit --amend --no-edit
 git tag -d "$TAG_NAME"
 git tag -s "$TAG_NAME" -m "Release $TAG_NAME"
 
-# 6. Push
+# 6. Pull any remote changes
+git pull --rebase
+
+# 7. Push
 git push origin main
 git push origin "$TAG_NAME"
 
