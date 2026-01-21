@@ -121,14 +121,6 @@
   description: "Lua-specific"
   color: "000080"
 
-- name: "python"
-  description: "Python-specific"
-  color: "3776ab"
-
-- name: "typescript"
-  description: "TypeScript/JavaScript specific"
-  color: "3178c6"
-
 # Priority
 - name: "priority: high"
   description: "High priority"
