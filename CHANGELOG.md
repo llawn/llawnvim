@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.1.2] - 2026-01-21
+- chore(release): 0.1.2 (8612fdf)
+- fix: release.sh (de98c62)
+- feat: better changelog scripts (47b7342)
+- docs: remove github readme (85966b0)
+- docs: update README.md (a2108fd)
+- chore: remove issue description (441de9a)
+- fix: correct github label (1abcd80)
+- fix: correct GitHub labels script to handle colons in label names (3244e22)
+- fix: github labels (dada6f2)
+- feat: add GitHub issue templates and labels configuration (65ccc2e)
+
 ## [0.1.1] - 2026-01-21
 - docs: update changelogs for 0.1.1 (c12106a)
 - fix: release.sh (5d2d8bd)
