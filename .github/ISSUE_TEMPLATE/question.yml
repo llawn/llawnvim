@@ -1,0 +1,39 @@
+name: Question/Support
+description: Ask a question or request help
+title: "[Question]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Question/Support Request
+        Need help or have a question about the configuration?
+
+  - type: input
+    id: version
+    attributes:
+      label: Neovim Version
+      description: Run `:version` and paste the first line
+      placeholder: "NVIM v0.11.0-dev"
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What do you need help with?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Provide any relevant context or background information
+      placeholder: "I've tried X, and Y happened..."
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Relevant Configuration
+      description: Any relevant configuration or setup details
+      placeholder: "My system is X, I have plugins Y installed, etc."
