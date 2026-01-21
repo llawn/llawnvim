@@ -1,7 +1,7 @@
 # GitHub Labels Configuration for LLawn Neovim Configuration
 #
-# To apply these labels to your GitHub repository, you can use the GitHub CLI:
-# gh label create --force <name> --description "<description>" --color <color>
+# To apply these labels to your GitHub repository, run:
+# ./scripts/apply-github-labels.sh
 #
 # Or apply them manually in the repository settings.
 
