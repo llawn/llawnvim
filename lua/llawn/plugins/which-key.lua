@@ -51,8 +51,10 @@ return {
 
       -- Alt Key
       { "<A-g>", icon = { icon = "󰊢 ", color = "orange" } }, -- Git Menu
-      { "<A-j>", icon = { icon = "󰜮 ", color = "blue" } }, -- Move Line Down
-      { "<A-k>", icon = { icon = "󰜷 ", color = "red" } }, -- Move Line Up
+      { "<A-h>", icon = { icon = "󰜱", color = "blue" } }, -- Move Left
+      { "<A-j>", icon = { icon = "󰜮", color = "blue" } }, -- Move Line Down
+      { "<A-k>", icon = { icon = "󰜷", color = "red" } }, -- Move Line Up
+      { "<A-l>", icon = { icon = "󰜴", color = "blue" } }, -- Move Right
       { "<A-m>", icon = { icon = "󱌢 ", color = "green" } }, -- Mason Menu
       { "<A-t>", icon = { icon = "󰐅 ", color = "green" } }, -- Treesitter Menu
 
@@ -74,16 +76,15 @@ return {
       { "<C-Space>", mode = "i", icon = { icon = "󰋖 ", color = "grey" }, desc = "CMP Complete" },
       { "<C-Up>", icon = { icon = "󰙅 ", color = "blue" } }, -- Yazi Toggle
 
-
       -- 1-stroke key
       { "<leader>a", icon = { icon = "󰛢 ", color = "purple" } }, -- Add to Harpoon
       { "<leader>q", icon = { icon = "󰈆 ", color = "red" } }, -- Quit Neovim
+      { "<leader>R", icon = { icon = "󰑐 ", color = "blue" } }, -- Reload Config
       { "<leader>S", icon = { icon = " ", color = "green" } }, -- Source File
       { "<leader>u", icon = { icon = "󰕍 ", color = "red" } }, -- UndoTree
       { "<leader>w", icon = { icon = "󰆓 ", color = "green" } }, -- Save File
       { "<leader>x", icon = { icon = "󰙅 ", color = "blue" } }, -- File Explorer
       { "<leader>y", icon = { icon = "󰙅 ", color = "blue" } }, -- Yazi CWD
-      { "<leader>R", icon = { icon = "󰑐 ", color = "blue" } }, -- Reload Config
       { "<leader>-", icon = { icon = "󰙅 ", color = "blue" } }, -- Yazi File
       { "<leader>?", icon = { icon = "󰋖 ", color = "grey" } }, -- Keymaps
 
@@ -93,35 +94,22 @@ return {
       { "<leader>bp", icon = { icon = "󰮳 ", color = "cyan" } }, -- Previous Buffer
 
       -- Color
-      { "<leader>cc", icon = { icon = "󰈊 ", color = "purple" } }, -- Pick Colors
-      { "<leader>cp", icon = { icon = "󰸌 ", color = "purple" } }, -- Palette Generator
       { "<leader>cC", icon = { icon = "󰈊 ", color = "purple" } }, -- Pick Colors 2D
       { "<leader>ct", icon = { icon = "󰏘 ", color = "purple" } }, -- Toggle Colors
 
       -- Diagnostics
       { "<leader>db", icon = { icon = "󰨮 ", color = "red" } }, -- Buffer Diagnostics
       { "<leader>dc", icon = { icon = "󰅍 ", color = "yellow" } }, -- Copy Diagnostics
-      { "<leader>dd", icon = { icon = "󰨮 ", color = "red" } }, -- Show Diagnostic
-      { "<leader>ds", icon = { icon = "󰨮 ", color = "red" } }, -- Show Diagnostics
+      { "<leader>dC", icon = { icon = "󰅍 ", color = "yellow" } }, -- Copy Diagnostics (Source)
+      { "<leader>dd", icon = { icon = "󰨮 ", color = "red" } }, -- Show line Diagnostic
+      { "<leader>ds", icon = { icon = "󰨮 ", color = "red" } }, -- Show Buffer Diagnostic
+      { "<leader>dS", icon = { icon = "󰨮 ", color = "red" } }, -- Show BUffer Diagnostic (Source)
 
       -- Find/Telescope
       { "<leader>fb", icon = { icon = "󰓩 ", color = "cyan" } }, -- Buffers
       { "<leader>ff", icon = { icon = "󰱼 ", color = "blue" } }, -- Find Files
-      { "<leader>fgb", icon = { icon = "󰊢 ", color = "orange" } }, -- Git Branches
-      { "<leader>fgc", icon = { icon = "󰊢 ", color = "orange" } }, -- Git Commits
-      { "<leader>fgf", icon = { icon = "󰊢 ", color = "orange" } }, -- Git Files
-      { "<leader>fgi", icon = { icon = "󰊢 ", color = "orange" } }, -- GH Issues
-      { "<leader>fgp", icon = { icon = "󰊢 ", color = "orange" } }, -- GH PR
-      { "<leader>fgs", icon = { icon = "󰊢 ", color = "orange" } }, -- Git Status
-      { "<leader>fgw", icon = { icon = "󰊢 ", color = "orange" } }, -- GH Runs
       { "<leader>fh", icon = { icon = "󰋖 ", color = "grey" } }, -- Help Tags
-      { "<leader>fie", icon = { icon = "󰞅 ", color = "purple" } }, -- Emoji
-      { "<leader>fig", icon = { icon = " ", color = "purple" } }, -- Gitmoji
-      { "<leader>fij", icon = { icon = "", color = "purple" } }, -- Julia
-      { "<leader>fik", icon = { icon = "󰏘", color = "purple" } }, -- Kaomoji
-      { "<leader>fil", icon = { icon = "", color = "purple" } }, -- LaTeX
-      { "<leader>fim", icon = { icon = "󰿉", color = "purple" } }, -- Math
-      { "<leader>fin", icon = { icon = "", color = "purple" } }, -- Nerd
+      { "<leader>fk", icon = { icon = "󰌌", color = "blue" } }, -- Keymaps
       { "<leader>fl", icon = { icon = "󰱼 ", color = "blue" } }, -- Live Grep
       { "<leader>fp", icon = { icon = "󰱼 ", color = "blue" } }, -- Projects
       { "<leader>fr", icon = { icon = "󰱼 ", color = "blue" } }, -- Frecency
@@ -129,6 +117,20 @@ return {
       { "<leader>fu", icon = { icon = "󰷊 ", color = "orange" } }, -- Unsaved Files
       { "<leader>fw", icon = { icon = "󰈬 ", color = "yellow" } }, -- Find Word
       { "<leader>fs", icon = { icon = "󰆏 ", color = "red" } }, -- Swap Files
+      { "<leader>fgb", icon = { icon = "󰊢 ", color = "orange" } }, -- Git Branches
+      { "<leader>fgc", icon = { icon = "󰊢 ", color = "orange" } }, -- Git Commits
+      { "<leader>fgf", icon = { icon = "󰊢 ", color = "orange" } }, -- Git Files
+      { "<leader>fgi", icon = { icon = "󰊢 ", color = "orange" } }, -- GH Issues
+      { "<leader>fgp", icon = { icon = "󰊢 ", color = "orange" } }, -- GH PR
+      { "<leader>fgs", icon = { icon = "󰊢 ", color = "orange" } }, -- Git Status
+      { "<leader>fgw", icon = { icon = "󰊢 ", color = "orange" } }, -- GH Runs
+      { "<leader>fie", icon = { icon = "󰞅 ", color = "purple" } }, -- Emoji
+      { "<leader>fig", icon = { icon = " ", color = "purple" } }, -- Gitmoji
+      { "<leader>fij", icon = { icon = "", color = "purple" } }, -- Julia
+      { "<leader>fik", icon = { icon = "󰏘", color = "purple" } }, -- Kaomoji
+      { "<leader>fil", icon = { icon = "", color = "purple" } }, -- LaTeX
+      { "<leader>fim", icon = { icon = "󰿉", color = "purple" } }, -- Math
+      { "<leader>fin", icon = { icon = "", color = "purple" } }, -- Nerd
 
       -- Git/Gitsigns
       { "<leader>gb", icon = { icon = "󰋀 ", color = "orange" } }, -- Blame Line
@@ -157,13 +159,15 @@ return {
 
       -- LSP + Neogen
       { "<leader>pa", mode = { "n", "v" }, icon = { icon = "󰌵 ", color = "green" } }, -- Code Action
-      { "<leader>pd", icon = { icon = "󰏫 ", color = "green" } }, -- Function Doc
-      { "<leader>pf", icon = { icon = "󰉶 ", color = "green" } }, -- Format
-      { "<leader>ph", icon = { icon = "󰌶 ", color = "grey" } }, -- Toggle Inlay Hints
-      { "<leader>pm", icon = { icon = "󰽛 ", color = "cyan" } }, -- Toggle Markdown Render
-      { "<leader>pn", icon = { icon = "󰑕 ", color = "orange" } }, -- Rename
-      { "<leader>ps", icon = { icon = "󰑐 ", color = "blue" } }, -- Restart LSP
-      { "<leader>pt", icon = { icon = "󰏫 ", color = "green" } }, -- Type Doc
+      { "<leader>pd", icon = { icon = "󰏫", color = "green" } }, -- Function Doc
+      { "<leader>pf", icon = { icon = "󰉶", color = "green" } }, -- Format
+      { "<leader>ph", icon = { icon = "󰌶", color = "grey" } }, -- Toggle Inlay Hints
+      { "<leader>pi", icon = { icon = "", color = "blue" } }, -- Indent file
+      { "<leader>pl", icon = { icon = "󰨮", color = "red" } }, -- Trigger Linting
+      { "<leader>pm", icon = { icon = "󰽛", color = "cyan" } }, -- Toggle Markdown Render
+      { "<leader>pn", icon = { icon = "󰑕", color = "orange" } }, -- Rename
+      { "<leader>ps", icon = { icon = "󰑐", color = "blue" } }, -- Restart LSP
+      { "<leader>pt", icon = { icon = "󰏫", color = "green" } }, -- Type Doc
 
       -- Treesitter + Symbols
       { "<leader>tb", icon = { icon = "󰭷 ", color = "blue" } }, -- LSP Buffer Symbols
@@ -249,12 +253,12 @@ return {
       { "K", icon = { icon = "󰋖 ", color = "grey" } }, -- Signature help (normal)
 
       -- nvim-cmp Keymaps
-      { "<C-b>", mode = "i", icon = { icon = "󰋖 ", color = "grey" }, desc = "CMP Scroll Docs Up" },
-      { "<C-e>", mode = "i", icon = { icon = "󰋖 ", color = "grey" }, desc = "CMP Abort" },
-      { "<C-f>", mode = "i", icon = { icon = "󰋖 ", color = "grey" }, desc = "CMP Scroll Docs Down" },
-      { "<C-j>", mode = "i", icon = { icon = "󰋖 ", color = "grey" }, desc = "CMP Select Next Item" },
-      { "<C-k>", mode = "i", icon = { icon = "󰋖 ", color = "grey" }, desc = "CMP Select Previous Item" },
-      { "<CR>", mode = "i", icon = { icon = "󰋖 ", color = "grey" }, desc = "CMP Confirm" },
+      { "<C-b>", mode = "i", icon = { icon = "󰋖", color = "grey" }, desc = "CMP Scroll Docs Up" },
+      { "<C-e>", mode = "i", icon = { icon = "󰋖", color = "grey" }, desc = "CMP Abort" },
+      { "<C-f>", mode = "i", icon = { icon = "󰋖", color = "grey" }, desc = "CMP Scroll Docs Down" },
+      { "<C-j>", mode = "i", icon = { icon = "󰋖", color = "grey" }, desc = "CMP Select Next Item" },
+      { "<C-k>", mode = "i", icon = { icon = "󰋖", color = "grey" }, desc = "CMP Select Previous Item" },
+      { "<CR>", mode = "i", icon = { icon = "󰋖", color = "grey" }, desc = "CMP Confirm" },
     })
   end
 }
