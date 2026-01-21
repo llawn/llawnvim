@@ -193,32 +193,32 @@ local function setup_lsp_keymaps(ev)
   -- Symbols
   -- --------------------------------------------------------------------------
 
-  opts.desc = "Show LSP buffer symbols"
+  opts.desc = "LSP buffer symbols"
   keymap.set("n", "<leader>tb", "<cmd>Telescope lsp_document_symbols<CR>", opts)
 
-  opts.desc = "Show LSP project symbols"
+  opts.desc = "LSP project symbols"
   keymap.set("n", "<leader>tw", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", opts)
 
   -- --------------------------------------------------------------------------
   -- DIAGNOSTICS
   -- --------------------------------------------------------------------------
 
-  opts.desc = "Show buffer diagnostics"
+  opts.desc = "Telescope buffer diag"
   keymap.set("n", "<leader>db", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 
-  opts.desc = "Show line diagnostics"
+  opts.desc = "Line diagnostics"
   keymap.set("n", "<leader>dd", vim.diagnostic.open_float, opts)
 
-  opts.desc = "Go to previous diagnostic"
+  opts.desc = "Previous diagnostic"
   keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
 
-  opts.desc = "Go to next diagnostic"
+  opts.desc = "Next diagnostic"
   keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
 
-  opts.desc = "Copy buffer diagnostics to clipboard"
+  opts.desc = "Copy buffer diag"
   keymap.set("n", "<leader>dc", function() yank_buffer_diagnostics() end, opts)
 
-  opts.desc = "Copy buffer diagnostics to clipboard (prompt for source)"
+  opts.desc = "Copy buffer diag (source)"
   keymap.set("n", "<leader>dC", function()
     vim.ui.input({ prompt = "Diagnostic source: " }, function(input)
       if input and input ~= "" then
@@ -227,10 +227,10 @@ local function setup_lsp_keymaps(ev)
     end)
   end, opts)
 
-  opts.desc = "See buffer diagnostics"
+  opts.desc = "See buffer diag"
   keymap.set("n", "<leader>ds", function() show_buffer_diagnostics_float() end, opts)
 
-  opts.desc = "See buffer diagnostics (prompt for source)"
+  opts.desc = "See buffer diag (source)"
   keymap.set("n", "<leader>dS", function()
     vim.ui.input({ prompt = "Diagnostic source: " }, function(input)
       if input and input ~= "" then
@@ -253,7 +253,7 @@ local function setup_lsp_keymaps(ev)
   -- Actions
   -- --------------------------------------------------------------------------
 
-  opts.desc = "See available code actions"
+  opts.desc = "Code actions"
   keymap.set({ "n", "v" }, "<leader>pa", vim.lsp.buf.code_action, opts)
 
   opts.desc = "Smart rename"
