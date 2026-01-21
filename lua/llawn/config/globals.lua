@@ -22,3 +22,10 @@ vim.g.netrw_winsize = 25
 -- ============================================================================
 
 vim.g.have_nerd_font = true
+
+-- ============================================================================
+-- PATH
+-- ============================================================================
+
+-- Ensure Mason binaries are in PATH for linters/formatters
+vim.env.PATH = vim.env.PATH .. ':' .. vim.fn.stdpath('data') .. '/mason/bin'
