@@ -74,15 +74,18 @@ M.create_install_previewer = function(extract_fn, title)
     title or default_title,
     function(entry)
       local data = extract_fn(entry)
-      local lines = {
-        "**Name:** " .. data.name,
-        "**Languages:** " .. data.languages,
-        "**Url:** " .. data.url,
-        "**Target:** " .. data.target,
-        "**Status:** " .. data.status,
-        "",
-        "**Description:**"
-      }
+      local lines = {}
+      table.insert(lines, "**Name:** " .. data.name)
+      table.insert(lines, "**Languages:** " .. data.languages)
+      if data.categories then
+        local cat_value = data.categories ~= "" and data.categories or "N/A"
+        table.insert(lines, "**Categories:** " .. cat_value)
+      end
+      table.insert(lines, "**Url:** " .. data.url)
+      table.insert(lines, "**Target:** " .. data.target)
+      table.insert(lines, "**Status:** " .. data.status)
+      table.insert(lines, "")
+      table.insert(lines, "**Description:**")
       -- Add description lines
       local desc_lines = vim.split(data.description, "\n", { plain = true })
       for _, line in ipairs(desc_lines) do
