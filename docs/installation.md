@@ -69,18 +69,29 @@ LLawn Neovim configuration.
     The workflow runs on Ubuntu with Python 3.x and MkDocs Material, providing
     automated quality checks for the documentation.
 
-!!! tip "Git Hooks"
+!!! info "Release Process"
 
-    The repository includes a pre-push git hook (`.git/hooks/pre-push`) that
-    automatically:
+    The repository includes automated release scripts for managing versions and changelogs.
 
-    - Updates changelogs when pushing tags
-    - Runs `make changelog` to generate release notes
-    - Commits updated CHANGELOG.md and docs/changelog.md files
-    - Ensures documentation stays synchronized with releases
+    To create a new release:
 
-    The hook requires GPG signing for commits (`git commit -S`).
-    [See the Git Hooks Setup section](#git-hooks-setup).
+    1. Ensure all changes are committed.
+    2. Run the release command:
+
+       ```bash
+       make release TAG=0.1.3
+       ```
+
+    This will:
+    - Generate the changelog from git history
+    - Create a signed git tag
+    - Update CHANGELOG.md with the new release entry
+    - Amend the commit with changelog updates
+    - Push the tag and branch to remote
+
+    The release script handles all changelog generation, signing, and pushing automatically.
+
+    For manual changelog updates, use `make changelog`.
 
 ## Quick Installation
 
@@ -260,51 +271,21 @@ echo $FLUTTER_ROOT
 - **Theme**: Customize `lua/llawn/plugins/colors.lua`
 - **Plugins**: Add to `lua/llawn/plugins/`
 
-### Git Hooks Setup
+### Release Setup
 
-!!! info "Setting up Git Hooks"
+!!! info "Configuring Releases"
 
-    The repository includes a pre-push git hook for automatic changelog management.
-    The hook code is:
-
-    ```bash
-    #!/bin/bash
-
-    # Pre-push hook to update changelogs if pushing tags
-
-    while read -r local_ref; do
-        if [[ "$local_ref" == refs/tags/* ]]; then
-            tag_name=${local_ref#refs/tags/}
-            echo "Pushing tag $local_ref, updating changelogs..."
-            if make changelog; then
-                # Replace [Unreleased] with the tag name if it exists
-                sed -i "s/^## \[Unreleased\]/## [$tag_name]/" CHANGELOG.md docs/changelog.md
-                # Remove duplicate tag headers, keeping the first
-                for file in CHANGELOG.md docs/changelog.md; do
-                    awk '!seen[$0]++ || !/^## \['"${tag_name}"'\]/{print}' "$file" > "${file}.tmp" && mv "${file}.tmp" "$file"
-                done
-                git add CHANGELOG.md docs/changelog.md
-                git commit -S -m "docs: update changelogs"
-                echo "Changelogs updated and committed."
-            fi
-            break
-        fi
-    done
-    ```
-
-    To set it up:
+    To prepare for releases, ensure GPG signing is configured for commits and tags:
 
     ```bash
-    # Make sure the hook is executable
-    chmod +x .git/hooks/pre-push
-
-    # Verify GPG signing is configured (required for hook commits)
+    # Set your GPG signing key
     git config --global user.signingkey YOUR_GPG_KEY_ID
+
+    # Enable commit signing globally
     git config --global commit.gpgsign true
     ```
 
-    The hook automatically runs when pushing tags, updating changelogs and
-    committing changes with GPG signatures.
+    The release script uses signed commits and tags for security and verification.
 
 ### Makefile Targets
 
@@ -317,6 +298,7 @@ The repository includes a Makefile with useful development targets:
     make serve      # Serve documentation locally for development
     make clean      # Clean built documentation files
     make changelog  # Generate changelog from git history
+    make release    # Create and push a new release tag (usage: make release TAG=<tag-name>)
     make help       # Show available targets
 
     # Format documentation with mdformat
