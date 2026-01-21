@@ -1,6 +1,7 @@
 [
   {"name": "bash", "commit": "0c46d792d54c536be5ff7eb18eb95c70fccdb232"},
   {"name": "c", "commit": "2a265d69a4caf57108a73ad2ed1e6922dd2f998c"},
+  {"name": "editorconfig", "commit": "3f2b371537355f6e53cc3af37f79ba450efb5132"},
   {"name": "git_rebase", "commit": "bff4b66b44b020d918d67e2828eada1974a966aa"},
   {"name": "gitignore", "commit": "f4685bf11ac466dd278449bcfe5fd014e94aa504"},
   {"name": "html", "commit": "cbb91a0ff3621245e890d1c50cc811bffb77a26b"},
