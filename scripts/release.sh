@@ -1,22 +1,32 @@
 #!/bin/bash
+set -e
 
-# Pre-push hook to update changelogs if pushing tags
+TAG_NAME=$1
 
-while read -r local_ref; do
-  if [[ "$local_ref" == refs/tags/* ]]; then
-    tag_name=${local_ref#refs/tags/}
-    echo "Pushing tag $local_ref, updating changelogs..."
-    if make changelog; then
-      # Replace [Unreleased] with the tag name if it exists
-      sed -i "s/^## \[Unreleased\]/## [$tag_name]/" CHANGELOG.md docs/changelog.md
-      # Remove duplicate tag headers, keeping the first
-      for file in CHANGELOG.md docs/changelog.md; do
-        awk '!seen[$0]++ || !/^## \['"${tag_name}"'\]/{print}' "$file" > "${file}.tmp" && mv "${file}.tmp" "$file"
-      done
-      git add CHANGELOG.md docs/changelog.md
-      git commit -S -m "docs: update changelogs"
-      echo "Changelogs updated and committed."
-    fi
-    break
-  fi
-done
+# Check if tag name was provided
+if [ -z "$TAG_NAME" ]; then
+    echo "Usage: ./scripts/release.sh <tag-name>"
+    exit 1
+fi
+
+echo "🚀 Starting release process for $TAG_NAME..."
+
+# 1. Update the changelog
+# If you don't have a Makefile, you can remove the 'if make changelog' block
+if make changelog; then
+    # Note: If on macOS and this fails, use: sed -i '' "s/..."
+    sed -i "s/^## \[Unreleased\]/## [$TAG_NAME]/" CHANGELOG.md docs/changelog.md
+fi
+
+# 2. Commit the changes
+git add CHANGELOG.md docs/changelog.md
+git commit -S -m "docs: update changelogs for $TAG_NAME"
+
+# 3. Create the signed tag
+git tag -s "$TAG_NAME" -m "Release $TAG_NAME"
+
+# 4. Push
+git push origin main
+git push origin "$TAG_NAME"
+
+echo "✅ Done!"
