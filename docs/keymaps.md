@@ -286,6 +286,12 @@ Each entry shows a diff preview between saved file and swap content.
 | `<leader>pt` | n    | Type Doc                |
 | `<leader>ps` | n    | Restart LSP             |
 
+### Commands
+
+| Command    | Description              |
+| ---------- | ------------------------ |
+| `:LintInfo` | Show linting information |
+
 ## Treesitter
 
 ### Syntax Tree Inspection
