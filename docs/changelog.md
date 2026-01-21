@@ -6,12 +6,48 @@ icon: material/history
 
 # Changelog
 
-## [Unreleased] - 2026-01-21
+## [0.1.1] - 2026-01-21
 
 ### Details of Changes
 
 ```
-
+  commit 5d2d8bd fix: release.sh
+  Author: llawn <llawn06@gmail.com>
+  Date: Wed Jan 21 16:37:34 2026 +0100
+  
+  
+   scripts/release.sh | 50 ++++++++++++++++++++++++++++++--------------------
+   1 file changed, 30 insertions(+), 20 deletions(-)
+  
+  commit 92730c0 feat: add a release script for changing changelog
+  Author: llawn <llawn06@gmail.com>
+  Date: Wed Jan 21 16:32:49 2026 +0100
+  
+  
+   scripts/release.sh | 22 ++++++++++++++++++++++
+   1 file changed, 22 insertions(+)
+  
+  commit b492a44 fix: frontmatter for mkdocs
+  Author: llawn <llawn06@gmail.com>
+  Date: Wed Jan 21 16:22:39 2026 +0100
+  
+  
+   docs/features.md     |  8 ++------
+   docs/index.md        | 11 +++--------
+   docs/installation.md | 11 +++--------
+   docs/keymaps.md      | 11 +++--------
+   docs/lsp.md          | 11 +++--------
+   docs/structure.md    | 11 +++--------
+   6 files changed, 17 insertions(+), 46 deletions(-)
+  
+  commit 27733bf docs: update changelogs
+  Author: llawn <llawn06@gmail.com>
+  Date: Wed Jan 21 16:13:39 2026 +0100
+  
+  
+   CHANGELOG.md      |    6 +
+   docs/changelog.md | 3467 +++++++++++++++++++++++++++--------------------------
+   2 files changed, 1748 insertions(+), 1725 deletions(-)
 ```
 
 ## [0.1.0] - 2026-01-21
