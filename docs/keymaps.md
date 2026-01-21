@@ -254,22 +254,25 @@ Each entry shows a diff preview between saved file and swap content.
 
 ### Code Actions
 
-| Key          | Mode | Description |
-| ------------ | ---- | ----------- |
-| `<leader>pa` | n,v  | Code Action |
-| `<leader>pn` | n    | Rename      |
-| `<leader>pf` | n    | Format      |
+| Key          | Mode | Description              |
+| ------------ | ---- | ------------------------ |
+| `<leader>pa` | n,v  | Code Action              |
+| `<leader>pn` | n    | Rename                   |
+| `<leader>pf` | n    | Format with confirmation |
+| `<leader>pl` | n    | Trigger linting          |
 
 ### Diagnostics
 
-| Key          | Mode | Description        |
-| ------------ | ---- | ------------------ |
-| `<leader>dd` | n    | Show Diagnostic    |
-| `<leader>db` | n    | Buffer Diagnostics |
-| `<leader>dc` | n    | Copy Diagnostics   |
-| `<leader>ds` | n    | Show Diagnostics   |
-| `[d`         | n    | Prev Diagnostic    |
-| `]d`         | n    | Next Diagnostic    |
+| Key          | Mode | Description                       |
+| ------------ | ---- | --------------------------------- |
+| `<leader>dd` | n    | Show Diagnostic                   |
+| `<leader>db` | n    | Buffer Diagnostics                |
+| `<leader>dc` | n    | Copy Buffer Diagnostics           |
+| `<leader>dC` | n    | Copy Buffer Diagnostics by Source |
+| `<leader>ds` | n    | Show Buffer Diagnostics           |
+| `<leader>dS` | n    | Show Buffer Diagnostics by Source |
+| `[d`         | n    | Prev Diagnostic                   |
+| `]d`         | n    | Next Diagnostic                   |
 
 ### Documentation
 

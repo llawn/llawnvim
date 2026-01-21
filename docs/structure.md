@@ -113,11 +113,12 @@ functionality.
 
 **Features**:
 
-- Server enablement using `vim.lsp.enable`
-- Language-to-server mapping
+- Server enablement using `vim.lsp.enable` with Mason integration
+- Language-to-server mapping from Mason registry
 - LSP key bindings (buffer-local)
-- Diagnostic configuration
+- Diagnostic configuration with floating windows and copy functionality
 - Inlay hints setup
+- Formatting integration with conform and LSP fallback
 
 ### Menu Sub-modules
 
@@ -265,6 +266,26 @@ configuration.
 
 - Menu creation and management helpers
 
+### mason.lua
+
+**Purpose**: Mason package management utilities
+
+**Features**:
+
+- Bridge Mason language names to Neovim filetypes
+- Get installed Mason tools by category (LSP, Linter, Formatter)
+- Filter tools based on categories and languages
+
+### formatting.lua
+
+**Purpose**: Formatting utilities for LSP and conform integration
+
+**Features**:
+
+- Confirmation-based formatting with diff preview
+- Prioritizes conform formatters over LSP
+- Handles both conform and LSP formatting workflows
+
 ## Plugin Layer (lua/llawn/plugins/)
 
 Each plugin has its own configuration file for modularity.
@@ -294,6 +315,28 @@ Each plugin has its own configuration file for modularity.
 - Auto-installation list
 - UI settings with icons
 - Server status indicators
+
+#### conform.lua
+
+**Purpose**: Code formatting with conform.nvim
+
+**Features**:
+
+- Automatic formatter detection from Mason
+- Manual formatting with confirmation and diff preview
+- LSP fallback formatting
+- Format-on-save disabled by default
+
+#### linting.lua
+
+**Purpose**: Asynchronous linting with nvim-lint
+
+**Features**:
+
+- Automatic linter detection from Mason
+- Filters out linters that are also LSP servers
+- Runs on buffer events (enter, write, insert leave)
+- Manual lint trigger
 
 ### Core Plugins
 

@@ -64,11 +64,13 @@ Documentation is crucial for this project. Here's how to contribute:
 - Include code examples where helpful
 - Keep documentation up-to-date with code changes
 - Use MkDocs Material formatting for docs in `docs/`
+- Format Markdown files with `mdformat` for consistency
 
 ### Updating Documentation
 
 - Edit files in the `docs/` directory
 - Use MkDocs Material syntax (admonitions, code blocks, etc.)
+- Format with `mdformat` before committing
 - Test documentation locally: `make serve`
 - Ensure links and references are correct
 

@@ -57,6 +57,9 @@ LLawn Neovim configuration.
 
     # Check for C compiler
     command -v clang || gcc --version || echo "C compiler missing"
+
+    # Check for mdformat (for documentation formatting)
+    command -v mdformat || echo "mdformat missing - install with: pip install mdformat"
     ```
 
 !!! info "CI/CD Integration"
@@ -320,6 +323,9 @@ The repository includes a Makefile with useful development targets:
     make clean      # Clean built documentation files
     make changelog  # Generate changelog from git history
     make help       # Show available targets
+
+    # Format documentation with mdformat
+    mdformat docs/ README.md CONTRIBUTING.md
     ```
 
     These targets help with documentation maintenance and development workflow.
