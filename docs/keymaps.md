@@ -287,6 +287,8 @@ Each entry shows a diff preview between saved file and swap content.
 | ---------- | ------------------------ |
 | `:LintInfo` | Show linting information |
 
+![Lint Info](assets/LintInfo.png)
+
 ## Treesitter
 
 ### Syntax Tree Inspection

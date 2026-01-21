@@ -25,7 +25,10 @@ configuration.
 
 ### Status Line
 
-- **Lualine**: Informative status line with git, lsp, treesitter integration
+- **Lualine**: Informative status line with git, lsp, treesitter, formatter, and linter integration
+
+![Lualine Status Line](assets/Lualine.png)
+
 - **Mode Indicators**: Clear visual feedback for current mode
 - **File Information**: Encoding, file type, and position
 
@@ -47,11 +50,21 @@ for quick actions.
     - **Diff**: File-by-file diff preview for staged/unstaged changes
     - Browser integration for commits on GitHub/GitLab
 
+Here is the Git Log Menu:
+
+![Git Log Menu](assets/GitLogMenu.png)
+
+Here is the Git Diff Menu:
+
+![Git Diff Menu](assets/GitDiffMenu.png)
+
 - **Treesitter Menu** (`<A-t>`): Parser lifecycle management
 
     - Install/update/uninstall parsers with status indicators
     - Repository URL access
     - Categorized view (up-to-date, outdated, not installed)
+
+![Treesitter Manager](assets/CustomTSManager.png)
 
 - **Mason Menu** (`<A-m>`): LSP and tool server management
 
@@ -59,10 +72,15 @@ for quick actions.
     - Package information previews
     - Version status and update management
 
+![Mason Manager](assets/CustomMasonManager.png)
+
 Additional utility menus accessed via quit operations or keybindings:
 
 - **Unsaved Buffers Menu**: Interactive save/discard for modified files with
   diff previews
+
+![Unsaved Buffers Menu](assets/UnsavedMenu.png)
+
 - **Swap Files Menu**: Recovery and cleanup of swap files for closed buffers
 
 ### File Navigation
@@ -96,6 +114,14 @@ Additional utility menus accessed via quit operations or keybindings:
 - **Which-Key**: Interactive key binding hints
 - **Llawn Colors**: Color pickers (HexColors, ColorPick2D), completion, and
   highlighting with virtual hints
+
+![Color Picker 2D](assets/ColorPicker2D.png)
+
+![Telescope Color Picker](assets/TelescopeColorPicker.png)
+
+The custom color highlighter provides virtual hints for hex codes and enhances visibility for color-related elements:
+
+![Color Highlights](assets/ColorHighlights.png)
 
 ### LSP Management
 
