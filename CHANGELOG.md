@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-01-21
 
+
+- 
+
+## [0.1.0] - 2026-01-21
+
 ### Added
 
 - add a LintInfo to mimic ConformInfo
@@ -107,6 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- update changelog
 - update documentation for nvim-lint and conform
 - change keymap desc
 - add changelog to toc
