@@ -5,16 +5,21 @@
 -- LSP SERVERS CONFIGURATION
 -- ============================================================================
 
-local servers = {
-  cpp = { "clangd" },
+--- @alias ServerMap table<string, string[]> Mapping of filetypes to lists of servers
+
+--- Override or supplement servers detected from Mason registry.
+--- Server names should match Mason package names
+--- @type ServerMap
+local servers_by_ft = {
   dart = { "flutter_ls" },
-  fortran = { "fortls" },
-  go = { "gopls" },
-  lua = { "lua_ls" },
-  python = { "ruff", "ty" },
 }
 
-for _, group in pairs(servers) do
+local mason_utils = require("llawn.utils.mason")
+local mason_servers = mason_utils.get_mason_tools("LSP")
+local merged_servers = vim.tbl_deep_extend('force', mason_servers, servers_by_ft)
+
+-- Enable all servers
+for _, group in pairs(merged_servers) do
   for _, server in ipairs(group) do
     vim.lsp.config(server, {})
     vim.lsp.enable(server)
@@ -43,39 +48,46 @@ vim.lsp.inlay_hint.enable(true)
 -- Utils
 -- ============================================================================
 
---- Generates a list of strings representing all diagnostics in the current buffer.
+--- Generates a list of strings representing diagnostics in the current buffer, optionally filtered by source.
 --- Uses global diagnostic config for icons and severity names.
----
+--- @param source string|nil The source to filter by (e.g., "ruff", "ty"). If nil, show all.
 --- @return table|nil lines A list of formatted strings or nil if no diagnostics are found.
 --- @return number|nil count The total number of diagnostics found or nil.
-local function get_formatted_diagnostics()
+local function get_formatted_diagnostics(source)
   local bufnr = vim.api.nvim_get_current_buf()
   local diagnostics = vim.diagnostic.get(bufnr)
   if #diagnostics == 0 then return nil end
 
-  -- Pull icons from your diagnostic config
-  local diag_config = vim.diagnostic.config()
-  local icons = (diag_config and diag_config.signs and diag_config.signs.text) or {}
+  -- Filter diagnostics by source if specified
+  if source then
+    diagnostics = vim.tbl_filter(
+      function(diag)
+        return diag.source == source
+      end,
+      diagnostics
+    )
+    if #diagnostics == 0 then return nil end
+  end
 
   local lines = {}
-  for _, diag in ipairs(diagnostics) do
+  for i, diag in ipairs(diagnostics) do
     local severity_id = diag.severity
-    local icon = icons[severity_id] or ""
     local severity_name = vim.diagnostic.severity[severity_id] or "UNKNOWN"
 
     local line_content = vim.api.nvim_buf_get_lines(bufnr, diag.lnum, diag.lnum + 1, false)[1] or ""
     local marker = string.rep(" ", diag.col) .. "^"
 
     -- Header: Icon + Severity Name + Source + Line Number
-    local header = string.format("%s %s (%s): line %d", icon, severity_name, diag.source or "LSP", diag.lnum + 1)
+    local header = string.format("`[%d/%d]` %s (%s): line %d", i, #diagnostics, severity_name, diag.source or "N/A",
+      diag.lnum + 1)
     table.insert(lines, header)
 
     -- Message (Indented)
     for line in diag.message:gmatch("[^\n]+") do
-      table.insert(lines, "  " .. line)
+      table.insert(lines, line)
     end
 
-    -- Code Snippet & Marker
+    -- Code Snippet & Marker (Indented)
     table.insert(lines, line_content)
     table.insert(lines, marker)
     table.insert(lines, "") -- Spacer
@@ -85,30 +97,38 @@ local function get_formatted_diagnostics()
 end
 
 
---- Copies all formatted diagnostics from the current buffer to the system clipboard.
+--- Copies formatted diagnostics from the current buffer to the system clipboard, optionally filtered by source.
 --- Uses the '+' register to interface with the system clipboard.
+--- @param source string|nil The source to filter by. If nil, copy all.
 --- @return nil
-local function yank_buffer_diagnostics()
-  local lines, count = get_formatted_diagnostics()
+local function yank_buffer_diagnostics(source)
+  local lines, count = get_formatted_diagnostics(source)
 
   if not lines then
-    print("No diagnostics to copy")
+    local msg = source and ("No diagnostics from " .. source .. " to copy") or "No diagnostics to copy"
+    print(msg)
     return
   end
 
   vim.fn.setreg('+', table.concat(lines, '\n'))
 
-  print("Copied " .. count .. " diagnostics to clipboard")
+  local msg = source and ("Copied " .. count .. " " .. source .. " diagnostics to clipboard") or
+      ("Copied " .. count .. " diagnostics to clipboard")
+  print(msg)
 end
 
---- Show all formatted diagnostic in a floating window.
+--- Show formatted diagnostics filtered by source in a floating window.
+--- @param source string|nil The source to filter by (e.g., "ruff", "ty"). If nil, show all.
 --- @return nil
-local function show_buffer_diagnostics_float()
-  local lines = get_formatted_diagnostics()
+local function show_buffer_diagnostics_float(source)
+  local lines, _ = get_formatted_diagnostics(source)
   if not lines then
-    vim.notify("No diagnostics to show", vim.log.levels.INFO)
+    local msg = source and ("No diagnostics from " .. source) or "No diagnostics to show"
+    vim.notify(msg, vim.log.levels.INFO)
     return
   end
+
+  local title = source and (" " .. source .. " Diagnostics ") or " Buffer Diagnostics "
 
   local float_buf = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_lines(float_buf, 0, -1, false, lines)
@@ -130,7 +150,7 @@ local function show_buffer_diagnostics_float()
       row = (vim.o.lines - height) / 2,
       style = "minimal",
       border = "rounded",
-      title = " Buffer Diagnostics ",
+      title = title,
       title_pos = "center",
     }
   )
@@ -139,7 +159,6 @@ local function show_buffer_diagnostics_float()
   vim.keymap.set("n", "q", ":close<CR>", map_opts)
   vim.keymap.set("n", "<Esc>", ":close<CR>", map_opts)
 end
-
 
 --- Configures and applies buffer-local keymaps for LSP interaction.
 --- This function is intended to be called within an LspAttach autocommand.
@@ -197,10 +216,28 @@ local function setup_lsp_keymaps(ev)
   keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
 
   opts.desc = "Copy buffer diagnostics to clipboard"
-  keymap.set("n", "<leader>dc", yank_buffer_diagnostics, opts)
+  keymap.set("n", "<leader>dc", function() yank_buffer_diagnostics() end, opts)
+
+  opts.desc = "Copy buffer diagnostics to clipboard (prompt for source)"
+  keymap.set("n", "<leader>dC", function()
+    vim.ui.input({ prompt = "Diagnostic source: " }, function(input)
+      if input and input ~= "" then
+        yank_buffer_diagnostics(input)
+      end
+    end)
+  end, opts)
 
   opts.desc = "See buffer diagnostics"
-  keymap.set("n", "<leader>ds", show_buffer_diagnostics_float, opts)
+  keymap.set("n", "<leader>ds", function() show_buffer_diagnostics_float() end, opts)
+
+  opts.desc = "See buffer diagnostics (prompt for source)"
+  keymap.set("n", "<leader>dS", function()
+    vim.ui.input({ prompt = "Diagnostic source: " }, function(input)
+      if input and input ~= "" then
+        show_buffer_diagnostics_float(input)
+      end
+    end)
+  end, opts)
 
   -- --------------------------------------------------------------------------
   -- Documentation
@@ -249,6 +286,7 @@ end
 -- ============================================================================
 -- LSP KEYMAPS & LOGIC (BUFFER-LOCAL)
 -- ============================================================================
+
 vim.api.nvim_create_autocmd(
   "LspAttach",
   {
