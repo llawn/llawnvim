@@ -13,7 +13,7 @@ echo "🚀 Starting release process for $TAG_NAME..."
 # 1. Run the generator script we built
 # This ensures all current HEAD changes are captured in docs/changelog/unreleased.md
 echo "Generating latest logs..."
-./scripts/generate_changelogs.sh
+make changelog
 
 # 2. Finalize the Unreleased file into a Version file
 # We move the auto-generated unreleased.md to its permanent version name
@@ -22,10 +22,6 @@ if [ -f "docs/changelog/unreleased.md" ]; then
     # Update the title inside the new file from "Unreleased" to the Tag Name
     sed -i "s/# Unreleased/# Release $TAG_NAME/" "docs/changelog/${TAG_NAME}.md"
 fi
-
-# 3. Refresh the index.md to include the new file
-# Running the generator one last time will pick up the new file and update index.md
-./scripts/generate_changelogs.sh
 
 # 4. Commit the changes
 git add CHANGELOG.md docs/changelog/
