@@ -2,226 +2,197 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+---
 
 ## [0.1.1] - 2026-01-21
-
-### Added
-
-- add a release script for changing changelog
-
-### Fixed
-
-- release.sh
-- frontmatter for mkdocs
-
-### Documentation
-
-- update changelogs
+- docs: update changelogs for 0.1.1 (c12106a)
+- fix: release.sh (5d2d8bd)
+- feat: add a release script for changing changelog (92730c0)
+- fix: frontmatter for mkdocs (b492a44)
+- docs: update changelogs (27733bf)
 
 ## [0.1.0] - 2026-01-21
-
-### Added
-
-- add a LintInfo to mimic ConformInfo
-- complete which-key
-- update and format docs
-- inclusive selection
-- indent file and selection shift
-- add mason binary to path
-- add first linter and first formatter to lualine
-- add category for mason menu previewer
-- enables linting automatically with nvim-lint
-- use mason registry to automatically enable some lsp features
-- add a language filter for the mason menu
-- formatting with confirm
-- add changelog generation in makefile
-- my custom color highlighter and picker plugin
-- change some keymap to match group in which-key
-- organize keymaps better with icon and desc
-- add vim-be-good
-- use dropdown menu for harpoon
-- telescope with several plugins enhancement
-- keymap for render-markdown
-- Add color highlight for color cmp
-- telescope menu for harpoon with deletion action
-- add gitsigns plugin
-- colors.lua
-- change desc and open current work directory keymap
-- factorize mason.lua menu and treesitter.lua menu
-- use colors with lazy instead of locals
-- add LSP configuration and lua_ls settings
-- improve my colors plugin
-- restore categorization of commits in changelog
-- use 'Unreleased' section for pending commits without tags
-- categorize commits in changelog by type (feat, fix, docs, etc.)
-- update script to generate full changelogs from the beginning
-- update changelog script to generate docs/changelog.md automatically
-- update LSP, menu, and plugin configurations
-- add menu system for various Neovim features
-- add "lockfiles" for Mason and Treesitter
-- highlights colors handle # and 0x with virtual hint
-- add a mason telescope menu
-- add lexima for brackets
-- custom config to ignore hover for ruff
-- add alpha to the plugins
-- add treesitter with a better menu
-- alpha on startup
-- custom color picker plugin
-- add color picker functionality for hex colors
-- clean log files on exit
-- undo files in an undodir directory
-- first documentation
-- use mkdocs-material
-- documentation automation with a makefile
-- documentation with mkdocs
-- nvim-cmp support lsp configuration
-- yazi open in full window and can open lazygit
-- lualine support LSP
-- lazygit now open in fullscreen and can open yazi directly
-- plugins for hexcolor picker and highlighter
-- update all my config files
-- better readme description
-- add lsp
-- add plugins
-- nvim custom configuration
-
-### Fixed
-
-- update my lock files
-- place ty after ruff
-- fix generate changelog script header with icon
-- update help for makefile
-- render automatically for md files
-- rendering markdown for mason and treesitter menu
-- correct nil handle
-- change lsp keymap to <leader>p
-- Icon color for LSP and TS
-- harpoon emit the remove to the harpoon save file
-- simplify the call to treesitter
-- reorder keymaps and change some mappings
-- remove menu.lua
-- undodir to default .local/state and remove mode indicator
-- lazy.lua
-- grid_color_picker
-- fix generate changelog script
-- remove empty [Unreleased] section after tag push
-- use echo -e to properly write newlines in changelogs
-- use temp file in generate_entry to preserve trailing newlines
-- correct next tag calculation in changelog script
-- fix treesitter when lang has no parsers available
-- Update links in lsp.md
-- Update links in README.md for lsp
-- markdown links for ruff
-- fix indentation in README.md
-- keymaps overlaps with window menu
-- Update README.md
-- try fixing again ascii character
-- ascii rendering in markdown
-
-### Documentation
-
-- update changelog
-- update documentation for nvim-lint and conform
-- change keymap desc
-- add changelog to toc
-- add a contributing.md
-- update changelog
-- update changelogs
-- update changelogs
-- update documentation
-- update changelogs
-- update changelogs
-- remove undeveloped llawn-ai plugin and update MkDocs color palette
-- remove test note
-- update changelogs
-- add test note for 1.4.1
-- update changelogs
-- update changelogs
-- update changelogs
-- update changelogs
-- update changelogs
-- add changelog link to documentation index
-- update changelogs
-- update changelogs
-- add detailed changelog in docs/ and automation script
-- add changelog for version 1.3.0
-- update menu keymaps and folder structure
-- update docs to account for mason menu, lockfiles and new color highlighter
-- update some badges
-- links in README.md
-- udapte docs, small improvements
-- update documentation for treesitter and alpha and new local colors plugins
-- fix admonitton support
-- simplify documentation
-- add a badge in readme for neovim
-- add custom keymaps desc
-- add inspiration links
-- update desc for after/lsp dir
-- update init to not make info redundant with README
-- forget Mason in readme plugins
-- update readme with better plugins information and new repo structure
-- docs for telescope
-- doc for undotree
-- add readme plugins links in README.md
-- add license and tags for readme
-- add a readme
-
-### Style
-
-- add mdformat formatter for markdown
-- init.lua
-- add selene linter
-- add editorconfig
-- format file
-- format file
-- better header
-- git menu
-- mason header
-- style for lsp cmp plugin
-- format git file and fix sorter
-- better header for yazi plugin
-- better header for undotree
-- update TS file header
-- neogen
-- improve lexima header
-- lazygit
-- alpha.lua
-- correct diff.lua and lockfile.lua style
-- format window.lua
-- change header in globals
-- change header style
-- add 2 blank lines between changelog sections
-- update readme table
-- style for which-key
-- fix style for neogen
-- fix style for harpoon
-- fixing style in header
-- missing space before @brief
-- Update lsp.lua with some section style
-
-### Refactored
-
-- refactorization of entry maker for treesitter.lua and mason.lua
-- diff preview for unsaved and formatting
-- refactor some functions in autocmd
-- reorganize quit logic for better modularity
-
-### Chore
-
-- add palettes to gitignore
-- move changelog to a scripts directory
-- my lazy lockfile update
-- change name of menu functions to ts_symbols
-- change name of my custom color picker plugin and remove ccc
-
-
-- refactor(colors): reorganize color picker files to plugins/local directory and update documentation
-- Add links for missing sections and convert Languages section to table format
-- Update workflow to deploy MkDocs only on tag pushes
-- Rename repository to llawnvim and update documentation links
-- enabling hints in lsp
-- move lsp to after dir
+- docs: update changelog (87763a6)
+- feat: add a LintInfo to mimic ConformInfo (42f6ac7)
+- docs: update documentation for nvim-lint and conform (1404e43)
+- docs: change keymap desc (8de519b)
+- feat: complete which-key (0126305)
+- style: add mdformat formatter for markdown (8ecd2d4)
+- feat: update and format docs (73e7ff2)
+- fix: update my lock files (071e41c)
+- style: init.lua (93f1deb)
+- style: add selene linter (632098c)
+- style: add editorconfig (6ce829e)
+- feat: inclusive selection (9cf2fa3)
+- feat: indent file and selection shift (5676e73)
+- feat: add mason binary to path (ddd2bc7)
+- feat: add first linter and first formatter to lualine (b66b8d0)
+- feat: add category for mason menu previewer (04ded1b)
+- fix: place ty after ruff (4604ee7)
+- feat: enables linting automatically with nvim-lint (efa83d7)
+- feat: use mason registry to automatically enable some lsp features (9213d4a)
+- feat: add a language filter for the mason menu (335b124)
+- feat: formatting with confirm (c12e67f)
+- docs: add changelog to toc (aea3146)
+- fix: fix generate changelog script header with icon (2ce95be)
+- fix: update help for makefile (28b6b2d)
+- docs: add a contributing.md (d628716)
+- fix: render automatically for md files (c2f9b58)
+- fix: rendering markdown for mason and treesitter menu (0a68b78)
+- docs: update changelog (1f1b113)
+- chore: add palettes to gitignore (cc6cb88)
+- feat: add changelog generation in makefile (5f6d6b3)
+- chore: move changelog to a scripts directory (4c92959)
+- style: format file (5b38b5d)
+- style: format file (817ab97)
+- style: better header (ae07089)
+- fix: correct nil handle (8972f5d)
+- style: git menu (6eb0750)
+- style: mason header (a4f925a)
+- style: style for lsp cmp plugin (4e65bbd)
+- chore: my lazy lockfile update (697e6ec)
+- feat: my custom color highlighter and picker plugin (635ab78)
+- style: format git file and fix sorter (4e39e55)
+- feat: change some keymap to match group in which-key (681777b)
+- fix: change lsp keymap to <leader>p (f75c331)
+- feat: organize keymaps better with icon and desc (285fca6)
+- feat: add vim-be-good (86ede1d)
+- style: better header for yazi plugin (ed43d57)
+- style: better header for undotree (dfddb0b)
+- style: update TS file header (a79cbd0)
+- feat: use dropdown menu for harpoon (fe30830)
+- feat: telescope with several plugins enhancement (9d1e875)
+- feat: keymap for render-markdown (9afa605)
+- feat: Add color highlight for color cmp (f3e7ec5)
+- style: neogen (f0ad3b0)
+- fix: Icon color for LSP and TS (9b8d782)
+- fix: harpoon emit the remove to the harpoon save file (941dbc1)
+- style: improve lexima header (2cd8b59)
+- style: lazygit (e34c988)
+- feat: telescope menu for harpoon with deletion action (11938e5)
+- feat: add gitsigns plugin (69abbdc)
+- feat: colors.lua (0917593)
+- style: alpha.lua (2a93896)
+- feat: change desc and open current work directory keymap (c620091)
+- style: correct diff.lua and lockfile.lua style (0726407)
+- chore: change name of menu functions to ts_symbols (37f318f)
+- refactor: refactorization of entry maker for treesitter.lua and mason.lua (7ac6330)
+- feat: factorize mason.lua menu and treesitter.lua menu (8a65340)
+- fix: simplify the call to treesitter (b174330)
+- refactor: diff preview for unsaved and formatting (89b7e99)
+- style: format window.lua (5312bb1)
+- feat: use colors with lazy instead of locals (07adf89)
+- style: change header in globals (e847187)
+- refactor: refactor some functions in autocmd (0b7dc1e)
+- fix: reorder keymaps and change some mappings (60cc58a)
+- fix: remove menu.lua (7110d60)
+- style: change header style (52aec64)
+- fix: undodir to default .local/state and remove mode indicator (43e92e6)
+- feat: add LSP configuration and lua_ls settings (5547e42)
+- fix: lazy.lua (6c54fb6)
+- fix: grid_color_picker (003f4e2)
+- feat: improve my colors plugin (6c26bcf)
+- fix: fix generate changelog script (96a2d9e)
+- docs: update changelogs (e21fd7f)
+- docs: update changelogs (4e62e97)
+- docs: update documentation (6b76109)
+- docs: update changelogs (55399d1)
+- docs: update changelogs (e39c8d1)
+- docs: remove undeveloped llawn-ai plugin and update MkDocs color palette (721aa3a)
+- docs: remove test note (27bdeb4)
+- docs: update changelogs (80626f2)
+- docs: add test note for 1.4.1 (51ecac3)
+- feat: restore categorization of commits in changelog (245679f)
+- docs: update changelogs (a0520f7)
+- docs: update changelogs (0b0dc5c)
+- docs: update changelogs (21c4e27)
+- docs: update changelogs (3334b17)
+- fix: remove empty [Unreleased] section after tag push (717d2b7)
+- docs: update changelogs (99747a6)
+- docs: add changelog link to documentation index (ad36655)
+- style: add 2 blank lines between changelog sections (273c1fa)
+- fix: use echo -e to properly write newlines in changelogs (8027d25)
+- feat: use 'Unreleased' section for pending commits without tags (0ffe5b9)
+- fix: use temp file in generate_entry to preserve trailing newlines (30cd1b6)
+- fix: correct next tag calculation in changelog script (70b76ed)
+- docs: update changelogs (563f990)
+- feat: categorize commits in changelog by type (feat, fix, docs, etc.) (caac1da)
+- docs: update changelogs (944fdaf)
+- feat: update script to generate full changelogs from the beginning (bbbd4cf)
+- feat: update changelog script to generate docs/changelog.md automatically (5de755c)
+- docs: add detailed changelog in docs/ and automation script (ed70b50)
+- docs: add changelog for version 1.3.0 (9236993)
+- feat: update LSP, menu, and plugin configurations (1de7368)
+- refactor: reorganize quit logic for better modularity (95141bf)
+- feat: add menu system for various Neovim features (9e39512)
+- fix: fix treesitter when lang has no parsers available (e9e3cc4)
+- docs: update menu keymaps and folder structure (01654d7)
+- docs: update docs to account for mason menu, lockfiles and new color highlighter (700e6fe)
+- docs: update some badges (b63e9fc)
+- feat: add "lockfiles" for Mason and Treesitter (dea8796)
+- feat: highlights colors handle # and 0x with virtual hint (a7c4995)
+- feat: add a mason telescope menu (85735cb)
+- feat: add lexima for brackets (cccdbb0)
+- feat: custom config to ignore hover for ruff (ebef711)
+- fix: Update links in lsp.md (4bedcff)
+- fix: Update links in README.md for lsp (6cd1a68)
+- fix: markdown links for ruff (0dd9771)
+- docs: links in README.md (b10a97c)
+- docs: udapte docs, small improvements (0dcfb0a)
+- docs: update documentation for treesitter and alpha and new local colors plugins (86c23bb)
+- feat: add alpha to the plugins (5e17ee9)
+- chore: change name of my custom color picker plugin and remove ccc (c9337c6)
+- feat: add treesitter with a better menu (484e958)
+- feat: alpha on startup (3e01741)
+- feat: custom color picker plugin (2bf9393)
+- refactor(colors): reorganize color picker files to plugins/local directory and update documentation (e2aa8a6)
+- feat: add color picker functionality for hex colors (88af3e1)
+- fix: fix indentation in README.md (e151c72)
+- Add links for missing sections and convert Languages section to table format (56b0c6a)
+- Update workflow to deploy MkDocs only on tag pushes (629c017)
+- Rename repository to llawnvim and update documentation links (7d3b3a0)
+- docs: fix admonitton support (b57e1f2)
+- docs: simplify documentation (161e136)
+- fix: keymaps overlaps with window menu (2ac6d54)
+- feat: clean log files on exit (b7ee24b)
+- feat: undo files in an undodir directory (942b04e)
+- feat: first documentation (94f9447)
+- feat: use mkdocs-material (4f4d25e)
+- feat: documentation automation with a makefile (9409b7d)
+- feat: documentation with mkdocs (2b1f94d)
+- docs: add a badge in readme for neovim (e5f36d3)
+- docs: add custom keymaps desc (4ae201d)
+- docs: add inspiration links (1633386)
+- docs: update desc for after/lsp dir (a90ee86)
+- style: update readme table (eec9e36)
+- docs: update init to not make info redundant with README (7a784c1)
+- docs: forget Mason in readme plugins (d496110)
+- docs: update readme with better plugins information and new repo structure (cab8624)
+- feat: nvim-cmp support lsp configuration (ae82bd7)
+- docs: docs for telescope (3ca5bf4)
+- docs: doc for undotree (75b0dab)
+- style: style for which-key (6572e4e)
+- feat: yazi open in full window and can open lazygit (0434a44)
+- style: fix style for neogen (ad67ae8)
+- feat: lualine support LSP (a4e1348)
+- feat: lazygit now open in fullscreen and can open yazi directly (513bf0c)
+- style: fix style for harpoon (991f032)
+- feat: plugins for hexcolor picker and highlighter (be254eb)
+- style: fixing style in header (e49af40)
+- style: missing space before @brief (38b4a8d)
+- enabling hints in lsp (5efcbb9)
+- move lsp to after dir (7455e2b)
+- style: Update lsp.lua with some section style (890a1c6)
+- feat: update all my config files (f7ab971)
+- docs: add readme plugins links in README.md (928d231)
+- fix: Update README.md (a186f12)
+- fix: try fixing again ascii character (775b8da)
+- fix: ascii rendering in markdown (2042a21)
+- feat: better readme description (280dbc0)
+- docs: add license and tags for readme (95f5b69)
+- docs: add a readme (f3471b2)
+- feat: add lsp (9533b8f)
+- feat: add plugins (5b68c34)
+- feat: nvim custom configuration (106f0e1)
 
 

@@ -1,118 +1,83 @@
 #!/bin/bash
-# @description Automatically generates changelogs by parsing Git tags and commit messages.
-# @output CHANGELOG.md (Keep a Changelog format)
-# @output docs/changelog.md (Technical log with stats)²
-# Script to generate full CHANGELOG.md and docs/changelog.md from git history
+# @description: Generates a root CHANGELOG.md and a split docs/changelog/ directory.
+# @usage: Run from project root.
 
-# Header for CHANGELOG.md
-CHANGELOG_HEADER="# Changelog
+CHANGELOG_DIR="docs/changelog"
+mkdir -p "$CHANGELOG_DIR"
 
-All notable changes to this project will be documented in this file.
+# --- Headers ---
+ROOT_HEADER="# Changelog\n\nAll notable changes to this project will be documented in this file.\n\n---\n"
+DOCS_INDEX_HEADER="---\ntitle: Changelog\nicon: material/history\n---\n\n# Version History\n\nBrowse detailed technical logs for each release.\n"
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)."
-
-# Header for docs/changelog.md
-DOCS_HEADER="---
-title: Changelog
-description: Version history and changes for the LLawn Neovim configuration
-icon: material/history
----
-
-# Changelog"
-
-# Get all tags sorted by version
-TAGS=$(git tag --sort=-version:refname | tac)
-
-# Start with the first commit
+# --- State ---
+TAGS=$(git tag --sort=-version:refname)
 PREV_COMMIT=$(git rev-list --max-parents=0 HEAD)
+ROOT_BODY=""
+INDEX_LINKS=""
 
-CHANGELOG_BODY=""
-DOCS_BODY=""
- 
-generate_entry() {
+# Function to extract commits and format as a Markdown Table
+generate_table() {
   local range="$1"
-  local version="$2"
-  local date="$3"
-  local raw_commits=""
-  local feat=""
-  local fixed=""
-  local docs=""
-  local style=""
-  local refactor=""
-  local test=""
-  local chore=""
-  local other=""
+  # Format: | Hash | Type | Subject | Author |
+  # We use sed to extract the conventional commit type (feat, fix, etc.)
+  git log "$range" --pretty=format:"| \`%h\` | %s | %an |" | \
+    sed -E 's/\| ([a-z]+)(\(.*\))?: /| \1 | /'
+  }
 
-  raw_commits=$(git log --pretty=format:"%s" "$range")
+# 1. Process Tags
+# We need to process tags in chronological order to define ranges,
+# but we'll build the strings for the index in reverse (newest first).
+ALL_TAGS_ASC=$(git tag --sort=version:refname)
 
-  while IFS= read -r commit; do
-    case "$commit" in
-      feat:*)
-        feat="$feat\n- ${commit#feat: }"
-        ;;
-      fix:*)
-        fixed="$fixed\n- ${commit#fix: }"
-        ;;
-      docs:*)
-        docs="$docs\n- ${commit#docs: }"
-        ;;
-      style:*)
-        style="$style\n- ${commit#style: }"
-        ;;
-      refactor:*)
-        refactor="$refactor\n- ${commit#refactor: }"
-        ;;
-      test:*)
-        test="$test\n- ${commit#test: }"
-        ;;
-      chore:*)
-        chore="$chore\n- ${commit#chore: }"
-        ;;
-      *)
-        other="$other\n- $commit"
-        ;;
-    esac
-  done <<< "$raw_commits"
-
-  local entry="## [$version] - $date\n\n"
-  [ -n "$feat" ] && entry="$entry### Added\n$feat\n\n"
-  [ -n "$fixed" ] && entry="$entry### Fixed\n$fixed\n\n"
-  [ -n "$docs" ] && entry="$entry### Documentation\n$docs\n\n"
-  [ -n "$style" ] && entry="$entry### Style\n$style\n\n"
-  [ -n "$refactor" ] && entry="$entry### Refactored\n$refactor\n\n"
-  [ -n "$test" ] && entry="$entry### Tests\n$test\n\n"
-  [ -n "$chore" ] && entry="$entry### Chore\n$chore\n\n"
-  [ -n "$other" ] && entry="$entry$other\n\n"
-
-  printf "%s" "$entry"
-}
-
-for TAG in $TAGS; do
+for TAG in $ALL_TAGS_ASC; do
   DATE=$(git log -1 --format=%ai "${TAG}" | cut -d' ' -f1)
-  ENTRY=$(generate_entry "${PREV_COMMIT}..${TAG}" "$TAG" "$DATE")
-  CHANGELOG_BODY="$ENTRY$CHANGELOG_BODY"
-  # Detailed for docs
-  DETAILED_COMMITS=$(git log --stat --pretty=format:"commit %h %s%nAuthor: %an <%ae>%nDate: %ad%n%n%b" "${PREV_COMMIT}".."${TAG}" | sed 's/^/ /')
-  DOCS_ENTRY="## [$TAG] - $DATE\n\n### Details of Changes\n\n\`\`\`\n$DETAILED_COMMITS\n\`\`\`\n\n"
-  DOCS_BODY="$DOCS_ENTRY$DOCS_BODY"
-  PREV_COMMIT=${TAG}
+  RANGE="${PREV_COMMIT}..${TAG}"
+
+    # Generate content for individual file
+    FILE_NAME="${TAG}.md"
+    TABLE_CONTENT=$(generate_table "$RANGE")
+    DIFF_STATS=$(git log --stat "${RANGE}")
+
+    {
+      echo "---"
+      echo "title: Release $TAG"
+      echo "---"
+      echo "# Release $TAG ($DATE)"
+      echo -e "\n### Commit Summary"
+      echo "| Hash | Type | Description | Author |"
+      echo "| :--- | :--- | :--- | :--- |"
+      echo "$TABLE_CONTENT"
+      echo -e "\n### Technical Stats"
+      echo "<details><summary>View File Changes and Statistics</summary>"
+      echo -e "\n\`\`\`text\n$DIFF_STATS\n\`\`\`\n</details>"
+    } > "$CHANGELOG_DIR/$FILE_NAME"
+
+    # Build root CHANGELOG.md entry (Simple list)
+    ROOT_ENTRY="## [$TAG] - $DATE\n$(git log "$RANGE" --pretty=format:"- %s (%h)")\n\n"
+    ROOT_BODY="$ROOT_ENTRY$ROOT_BODY"
+
+    # Build Index links (Newest at top)
+    INDEX_LINKS="- [$TAG]($FILE_NAME) - $DATE\n$INDEX_LINKS"
+
+    PREV_COMMIT=${TAG}
   done
 
-# Commits after the last tag
-DATE=$(date +%Y-%m-%d)
-NEXT_TAG="Unreleased"
-ENTRY=$(generate_entry "${PREV_COMMIT}..HEAD" "$NEXT_TAG" "$DATE")
-CHANGELOG_BODY="$ENTRY$CHANGELOG_BODY"
+# 2. Handle Unreleased Changes
+DATE_NOW=$(date +%Y-%m-%d)
+UNRELEASED_RANGE="${PREV_COMMIT}..HEAD"
 
-DETAILED_COMMITS=$(git log --stat --pretty=format:"commit %h %s%nAuthor: %an <%ae>%nDate: %ad%n%n%b" "${PREV_COMMIT}"..HEAD | sed 's/^/  /')
-DOCS_ENTRY="## [$NEXT_TAG] - $DATE\n\n### Details of Changes\n\n\`\`\`\n$DETAILED_COMMITS\n\`\`\`\n\n"
-DOCS_BODY="$DOCS_ENTRY$DOCS_BODY"
+if [ "$(git rev-parse HEAD)" != "$(git rev-parse "$PREV_COMMIT")" ]; then
+  {
+    echo "# Unreleased"
+    echo "| Hash | Type | Description | Author |"
+    echo "| :--- | :--- | :--- | :--- |"
+    generate_table "$UNRELEASED_RANGE"
+  } > "$CHANGELOG_DIR/unreleased.md"
+INDEX_LINKS="- [Unreleased (Draft)](unreleased.md)\n$INDEX_LINKS"
+fi
 
-# Write CHANGELOG.md
-echo -e "$CHANGELOG_HEADER\n\n$CHANGELOG_BODY" > CHANGELOG.md
+# 3. Finalize Index and Root File
+echo -e "$ROOT_HEADER\n$ROOT_BODY" > CHANGELOG.md
+echo -e "$DOCS_INDEX_HEADER\n\n$INDEX_LINKS" > "$CHANGELOG_DIR/index.md"
 
-# Write docs/changelog.md
-echo -e "$DOCS_HEADER\n\n$DOCS_BODY" > docs/changelog.md
-
-echo "Generated full changelogs"
+echo "✅ Changelogs generated: CHANGELOG.md and $CHANGELOG_DIR/"

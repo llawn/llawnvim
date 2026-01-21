@@ -59,7 +59,7 @@ This documentation provides comprehensive guides for:
 - [Keymaps](keymaps.md) - Complete key binding reference
 - [Installation](installation.md) - Step-by-step setup guide
 - [Folder Structure](structure.md) - Codebase organization
-- [Changelog](changelog.md) - Version history and changes
+- [Changelog](changelog/index.md) - Version history and changes
 
 ## Architecture
 
