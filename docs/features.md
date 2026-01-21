@@ -1,4 +1,4 @@
----
+______________________________________________________________________
 
 title: Features
 
@@ -6,15 +6,18 @@ description: Comprehensive overview of LLawn Neovim configuration features
 
 icon: material/star
 
----
+______________________________________________________________________
 
 # Features
 
-This page provides a comprehensive overview of the key features and capabilities of the Llawn Neovim configuration.
+This page provides a comprehensive overview of the key features and capabilities
+of the Llawn Neovim configuration.
 
 ## Language Server Protocol (LSP)
 
-Comprehensive LSP support for multiple languages with native Neovim 0.11+ integration. See [LSP Configurations](lsp.md) for detailed setup and configuration.
+Comprehensive LSP support for multiple languages with native Neovim 0.11+
+integration. See [LSP Configurations](lsp.md) for detailed setup and
+configuration.
 
 ## User Interface
 
@@ -32,21 +35,23 @@ Comprehensive LSP support for multiple languages with native Neovim 0.11+ integr
 
 ### Menus
 
-All menus use Telescope for interactive selection with previews and keybindings for quick actions.
+All menus use Telescope for interactive selection with previews and keybindings
+for quick actions.
 
-- **Window Menu** (`<C-w>`): Interactive window management
-    
+- **Window Menu** (`<A-w>`): Interactive window management
+
     - Horizontal/vertical splits
     - Navigation between windows
     - Window closing
 
-- **Git Menu** (`<C-g>`): Advanced git operations
+- **Git Menu** (`<A-g>`): Advanced git operations
 
-    - **Log**: Fuzzy-searchable commit history with filtering (author, type, message)
+    - **Log**: Fuzzy-searchable commit history with filtering (author, type,
+      message)
     - **Diff**: File-by-file diff preview for staged/unstaged changes
     - Browser integration for commits on GitHub/GitLab
 
-- **Treesitter Menu** (`<C-t>`): Parser lifecycle management
+- **Treesitter Menu** (`<A-t>`): Parser lifecycle management
 
     - Install/update/uninstall parsers with status indicators
     - Repository URL access
@@ -60,7 +65,8 @@ All menus use Telescope for interactive selection with previews and keybindings 
 
 Additional utility menus accessed via quit operations or keybindings:
 
-- **Unsaved Buffers Menu**: Interactive save/discard for modified files with diff previews
+- **Unsaved Buffers Menu**: Interactive save/discard for modified files with
+  diff previews
 - **Swap Files Menu**: Recovery and cleanup of swap files for closed buffers
 
 ### File Navigation
@@ -71,12 +77,10 @@ Additional utility menus accessed via quit operations or keybindings:
 
 ### Editing Enhancements
 
-- **Visual Line Navigation**: Natural movement with j/k and arrow keys
-- **Line Movement**: Alt+j/k to move lines up/down
 - **Clipboard Integration**: System clipboard support
 - **Undo Tree**: Visual undo history management
-- **List Characters**: Toggle visibility of whitespace and tabs
-- **Automatic Pair Closing**: Lexima for auto-closing brackets, quotes, and customizable pairs
+- **Automatic Pair Closing**: Lexima for auto-closing brackets, quotes, and
+  customizable pairs
 
 ## Development Tools
 
@@ -88,18 +92,20 @@ Additional utility menus accessed via quit operations or keybindings:
 ### Git Integration
 
 - **LazyGit**: Terminal-based git interface
-- **Git Signs**: Inline git status indicators
+- **Git Signs**: Inline git status indicators with hunk navigation
 - **Telescope Git**: Git file and status browsing
 
 ### Productivity
 
 - **Which-Key**: Interactive key binding hints
-- **Color Tools**: Color pickers (HexColors, ColorPick2D), completion, and highlighting with virtual hints for hex codes (# and 0x)
+- **Llawn Colors**: Color pickers (HexColors, ColorPick2D), completion, and
+  highlighting with virtual hints
 
 ### LSP Management
 
 - **Mason**: Automatic LSP server installation
-- **Mason Lockfile**: Version locking for installed LSP servers (mason-lock.json)
+- **Mason Lockfile**: Version locking for installed LSP servers
+  (mason-lock.json)
 - **Mason-LSPConfig**: Bridge between Mason and nvim-lspconfig
 
 ## Configuration Options
@@ -112,13 +118,6 @@ Additional utility menus accessed via quit operations or keybindings:
 - **Wrapping**: Soft wrapping with break indent
 - **Color Column**: 80-character guide line
 
-### UI Preferences
-
-- **True Color**: Full 24-bit color support
-- **Scroll Offset**: 7-line scroll margin
-- **Sign Column**: Always visible for diagnostics
-- **Cursor Line**: Highlighted current line
-
 ### File Handling
 
 - **Persistent Undo**: Undo history survives sessions
@@ -127,8 +126,8 @@ Additional utility menus accessed via quit operations or keybindings:
 
 ## Plugin Ecosystem
 
-The configuration includes carefully selected plugins that enhance productivity without bloat.
-All plugins are lazy-loaded for optimal startup performance.
+The configuration includes carefully selected plugins that enhance productivity
+without bloat. All plugins are lazy-loaded for optimal startup performance.
 
 ### Plugin Manager
 
@@ -136,7 +135,8 @@ All plugins are lazy-loaded for optimal startup performance.
 
 **Repository**: [folke/lazy.nvim](https://github.com/folke/lazy.nvim)
 
-The modern plugin manager for Neovim that provides lazy loading, dependency management, update checking, and performance profiling.
+The modern plugin manager for Neovim that provides lazy loading, dependency
+management, update checking, and performance profiling.
 
 ### Appearance & UI
 
@@ -144,36 +144,49 @@ The modern plugin manager for Neovim that provides lazy loading, dependency mana
 
 **Repository**: [rose-pine/neovim](https://github.com/rose-pine/neovim)
 
-A beautiful, warm dark theme with moon variant, transparent background, and custom highlights for invisible characters.
+A beautiful, warm dark theme with moon variant, transparent background, and
+custom highlights for invisible characters.
 
 #### Alpha Dashboard
 
 **Repository**: [goolord/alpha-nvim](https://github.com/goolord/alpha-nvim)
 
-A fast and fully customizable greeter for Neovim with quick access to recent files, commands, and settings.
+A fast and fully customizable greeter for Neovim with quick access to recent
+files, commands, and settings.
 
 #### Lualine Status Line
 
-**Repository**: [nvim-lualine/lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
+**Repository**:
+[nvim-lualine/lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
 
-Blazing fast status line with git, LSP and treesitter integration,
-file information, and mode indicators.
+Blazing fast status line with git, LSP and treesitter integration, file
+information, and mode indicators.
+
+#### Llawn Colors
+
+**Repository**: [llawn/llawn-colors](https://github.com/llawn/llawn-colors)
+
+Custom color utilities providing color pickers, completion, and highlighting
+with virtual hints for hex codes.
 
 ### Language Server Protocol (LSP)
 
 #### Mason & Mason-LSPConfig
 
-Automatic LSP server management with auto-installation for clangd, fortls, gopls, lua_ls, ty, and ruff.
+Automatic LSP server management with auto-installation for clangd, fortls,
+gopls, lua_ls, ty, and ruff.
 
 #### Nvim-CMP & CMP-Nvim-LSP
 
-Intelligent code completion with LSP integration, multiple sources, and snippet support.
+Intelligent code completion with LSP integration, multiple sources, and snippet
+support.
 
 ### Navigation & Search
 
 #### Telescope
 
-**Repository**: [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+**Repository**:
+[nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 
 Highly extendable fuzzy finder for files, live grep, buffers, and help.
 
@@ -187,11 +200,13 @@ Quick file marking and navigation with persistent lists.
 
 #### Treesitter
 
-**Repository**: [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+**Repository**:
+[nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 
-Advanced syntax highlighting, code navigation, and structural editing with tree-sitter parsers.
-Comprehensive menu for parser management and automatic installation for configured languages.
-Version locking for installed parsers (treesitter-lock.json).
+Advanced syntax highlighting, code navigation, and structural editing with
+tree-sitter parsers. Comprehensive menu for parser management and automatic
+installation for configured languages. Version locking for installed parsers
+(treesitter-lock.json).
 
 ##### Supported Parsers
 
@@ -199,13 +214,21 @@ The following parsers are automatically installed:
 
 !!! info "Supported Languages"
 
-    | Language | Treesitter Parser |
-    |----------|-------------------|
-    | lua      | [lua](https://github.com/tree-sitter-grammars/tree-sitter-lua) |
-    | vim      | [vim](https://github.com/tree-sitter-grammars/tree-sitter-vim), [vimdoc](https://github.com/neovim/tree-sitter-vimdoc) |
-    | markdown | [markdown](https://github.com/tree-sitter-grammars/tree-sitter-markdown), [markdown_inline](https://github.com/tree-sitter-grammars/tree-sitter-markdown) |
-    | json     | [json](https://github.com/tree-sitter/tree-sitter-json) |
-    | tree-sitter query | [query](https://github.com/tree-sitter-grammars/tree-sitter-query) |
+    | Language          | Treesitter Parser                                                                                                                                         |
+    | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | lua               | [lua](https://github.com/tree-sitter-grammars/tree-sitter-lua)                                                                                            |
+    | vim               | [vim](https://github.com/tree-sitter-grammars/tree-sitter-vim), [vimdoc](https://github.com/neovim/tree-sitter-vimdoc)                                    |
+    | markdown          | [markdown](https://github.com/tree-sitter-grammars/tree-sitter-markdown), [markdown_inline](https://github.com/tree-sitter-grammars/tree-sitter-markdown) |
+    | json              | [json](https://github.com/tree-sitter/tree-sitter-json)                                                                                                   |
+    | tree-sitter query | [query](https://github.com/tree-sitter-grammars/tree-sitter-query)                                                                                        |
+
+#### Render Markdown
+
+**Repository**:
+[MeanderingProgrammer/render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim)
+
+Enhanced markdown rendering with syntax highlighting for code blocks and
+improved readability.
 
 ### File Management
 
@@ -217,9 +240,17 @@ Modern terminal file manager with floating windows and LazyGit integration.
 
 ### Git Integration
 
+#### Gitsigns
+
+**Repository**:
+[lewis6991/gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
+
+Git signs in the sign column with hunk staging, navigation, and blame features.
+
 #### LazyGit
 
-**Repository**: [kdheepak/lazygit.nvim](https://github.com/kdheepak/lazygit.nvim)
+**Repository**:
+[kdheepak/lazygit.nvim](https://github.com/kdheepak/lazygit.nvim)
 
 Terminal UI for git commands with full workflow support.
 
@@ -243,11 +274,19 @@ Visual undo history with tree view and persistent storage.
 
 Interactive key binding hints with popup display and grouping.
 
+#### Vim Be Good
+
+**Repository**:
+[ThePrimeagen/vim-be-good](https://github.com/ThePrimeagen/vim-be-good)
+
+A vim practice game to improve your editing skills through fun challenges.
+
 #### Lexima
 
 **Repository**: [cohama/lexima.vim](https://github.com/cohama/lexima.vim)
 
-Auto close parentheses and repeat by dot dot dot... Provides automatic closing of pairs such as (), {}, "", and customizable rules for any context.
+Auto close parentheses and repeat by dot dot dot... Provides automatic closing
+of pairs such as (), {}, "", and customizable rules for any context.
 
 ## Customization
 

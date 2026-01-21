@@ -1,12 +1,13 @@
----
+______________________________________________________________________
 
 title: LLawn Neovim Configuration
 
-description: A modular, feature-rich Neovim configuration optimized for multiple programming languages
+description: A modular, feature-rich Neovim configuration optimized for multiple
+programming languages
 
 icon: material/home
 
----
+______________________________________________________________________
 
 # LLawn Neovim Configuration
 
@@ -25,19 +26,22 @@ icon: material/home
 ![Neovim Version](https://img.shields.io/badge/Neovim-0.11+-57A143)
 [![MkDocs](https://img.shields.io/badge/docs-mkdocs-blue)](https://llawn.github.io/llawnvim/)
 
-A modular, feature-rich Neovim configuration optimized for multiple programming languages including C/C++, Flutter/Dart, Fortran, Go, Lua, and Python.
+A modular, feature-rich Neovim configuration optimized for multiple programming
+languages including C/C++, Flutter/Dart, Fortran, Go, Lua, and Python.
 
 ## Quick Start
 
 1. **Clone the repository:**
-   ```bash
-   git clone git@github.com:llawn/llawnvim.git ~/.config/nvim
-   ```
+
+    ```bash
+    git clone git@github.com:llawn/llawnvim.git ~/.config/nvim
+    ```
 
 2. **Install plugins:**
-   ```vim
-   :Lazy sync
-   ```
+
+    ```vim
+    :Lazy sync
+    ```
 
 3. **Start coding!**
 
@@ -48,7 +52,8 @@ A modular, feature-rich Neovim configuration optimized for multiple programming 
 - **Multi-Language Support**: Comprehensive language server configurations
 - **Custom Keymaps**: Intuitive key bindings with popup menus
 - **Beautiful UI**: Rose Pine theme with custom highlights
-- **Productive Tools**: File navigation, git integration, fuzzy finding, and more
+- **Productive Tools**: File navigation, git integration, fuzzy finding, and
+  more
 
 ## Documentation
 
@@ -65,7 +70,8 @@ This documentation provides comprehensive guides for:
 
 This configuration follows a modular structure with separate concerns:
 
-- **Configuration Configuration**: Editor options, keymaps, LSP setup, UI preferences
+- **Configuration Configuration**: Editor options, keymaps, LSP setup, UI
+  preferences
 - **Plugin Management**: Lazy-loaded plugins with dependency management
 - **Language Support**: Dedicated LSP configurations per language
 
@@ -79,4 +85,5 @@ This configuration draws inspiration from the Neovim community:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/llawn/llawnvim/blob/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the
+[LICENSE](https://github.com/llawn/llawnvim/blob/main/LICENSE) file for details.

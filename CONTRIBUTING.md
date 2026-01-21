@@ -1,20 +1,23 @@
 # Contributing
 
-Thank you for your interest in contributing to LLawn Neovim Configuration! This document provides guidelines for contributing to the project.
+Thank you for your interest in contributing to LLawn Neovim Configuration! This
+document provides guidelines for contributing to the project.
 
 ## Ways to Contribute
 
-- **Bug Reports**: Report bugs via [GitHub Issues](https://github.com/llawn/llawnvim/issues)
-- **Feature Requests**: Suggest new features via [GitHub Issues](https://github.com/llawn/llawnvim/issues)
+- **Bug Reports**: Report bugs via
+  [GitHub Issues](https://github.com/llawn/llawnvim/issues)
+- **Feature Requests**: Suggest new features via
+  [GitHub Issues](https://github.com/llawn/llawnvim/issues)
 - **Code Contributions**: Submit pull requests with improvements
 - **Documentation**: Help improve documentation and guides
 
 ## Development Setup
 
-1. Fork the repository
-2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/llawnvim.git`
-3. Set up the configuration following the [Installation Guide](docs/installation.md)
-4. Create a feature branch: `git checkout -b feature/your-feature`
+1. Clone the repository: `git clone https://github.com/llawn/llawnvim.git`
+2. Set up the configuration following the
+   [Installation Guide](docs/installation.md)
+3. Create a feature branch: `git checkout -b feature/your-feature`
 
 ## Code Style
 
@@ -87,11 +90,13 @@ docs: update installation guide for new prerequisites
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the same MIT License as the project.
+By contributing, you agree that your contributions will be licensed under the
+same MIT License as the project.
 
 ## Getting Help
 
-- Check existing [Issues](https://github.com/llawn/llawnvim/issues) and [Discussions](https://github.com/llawn/llawnvim/discussions)
+- Check existing [Issues](https://github.com/llawn/llawnvim/issues) and
+  [Discussions](https://github.com/llawn/llawnvim/discussions)
 - Ask questions in GitHub Discussions
 - Review the [Documentation](llawn.github.io/llawnvim/) in /docs
 

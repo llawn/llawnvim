@@ -1,16 +1,18 @@
----
+______________________________________________________________________
 
 title: Folder Structure
 
-description: Organization and purpose of each directory and file in the LLawn Neovim configuration
+description: Organization and purpose of each directory and file in the LLawn
+Neovim configuration
 
 icon: material/folder
 
----
+______________________________________________________________________
 
 # Folder Structure
 
-This page explains the organization and purpose of each directory and file in the LLawn Neovim configuration.
+This page explains the organization and purpose of each directory and file in
+the LLawn Neovim configuration.
 
 ## Root Directory Structure
 
@@ -24,6 +26,7 @@ This page explains the organization and purpose of each directory and file in th
 ├── after/
 │   └── lsp/               # LSP server customizations
 ├── docs/                  # Documentation (MkDocs)
+├── scripts/               # Utility scripts
 ├── mkdocs.yml             # MkDocs configuration
 ├── lazy-lock.json         # Plugin lock file
 ├── mason-lock.json        # Mason LSP server lock file
@@ -60,13 +63,15 @@ This page explains the organization and purpose of each directory and file in th
 
 ## Configuration Layer (lua/llawn/config/)
 
-This directory contains the core Neovim configuration, organized by functionality.
+This directory contains the core Neovim configuration, organized by
+functionality.
 
 ### autocmd.lua
 
 **Purpose**: Autocommands for various Neovim events
 
 **Features**:
+
 - File type specific settings
 - Buffer management
 - Session handling
@@ -77,6 +82,7 @@ This directory contains the core Neovim configuration, organized by functionalit
 **Purpose**: Global variables and constants
 
 **Contents**:
+
 - Configuration constants
 - Global settings
 - Environment variables
@@ -86,14 +92,14 @@ This directory contains the core Neovim configuration, organized by functionalit
 **Purpose**: Configuration initialization and loading
 
 **Contents**:
+
 - Loads all config modules in correct order
 - Post-lazy loading setup
 - Module dependencies
 
 ### keymaps.lua
 
-**Purpose**: Custom key mappings and bindings
-**Categories**:
+**Purpose**: Custom key mappings and bindings **Categories**:
 
 - Menu popups
 - Navigation (visual line movement)
@@ -106,6 +112,7 @@ This directory contains the core Neovim configuration, organized by functionalit
 **Purpose**: Language Server Protocol configuration
 
 **Features**:
+
 - Server enablement using `vim.lsp.enable`
 - Language-to-server mapping
 - LSP key bindings (buffer-local)
@@ -121,11 +128,12 @@ This directory contains the core Neovim configuration, organized by functionalit
 **Features**:
 
 - Smart quit logic (checks for unsaved buffers)
+
 - Quit menu with options:
 
-  - **Unsaved Menu**: Interactive handling of unsaved buffers with diff preview
-  - **Force Quit**: Quit without saving (`:qa!`)
-  - **Save All and Quit**: Save all modified buffers and quit (`:wa` then `:qa`)
+    - **Unsaved Menu**: Interactive handling of unsaved buffers with diff preview
+    - **Force Quit**: Quit without saving (`:qa!`)
+    - **Save All and Quit**: Save all modified buffers and quit (`:wa` then `:qa`)
 
 #### unsaved.lua
 
@@ -134,13 +142,15 @@ This directory contains the core Neovim configuration, organized by functionalit
 **Features**:
 
 - Telescope picker listing unsaved buffers
+
 - Diff preview showing changes vs saved file
+
 - Keybindings for operations:
 
-  - `u`: Save selected file
-  - `d`: Discard changes for selected file
-  - `U`: Save all files
-  - `D`: Discard all changes
+    - `u`: Save selected file
+    - `d`: Discard changes for selected file
+    - `U`: Save all files
+    - `D`: Discard all changes
 
 #### swapfiles.lua
 
@@ -151,9 +161,9 @@ This directory contains the core Neovim configuration, organized by functionalit
 - Detection and listing of swap files for closed buffers
 - Diff preview between saved file and swap content
 - Recovery and cleanup options:
-  - `r`: Recover selected file
-  - `x`: Delete selected swap file
-  - `X`: Delete all swap files
+    - `r`: Recover selected file
+    - `x`: Delete selected swap file
+    - `X`: Delete all swap files
 
 #### window.lua
 
@@ -172,7 +182,8 @@ This directory contains the core Neovim configuration, organized by functionalit
 
 **Features**:
 
-- **Log**: Interactive git log with fuzzy search and filtering by author, message, hash, type
+- **Log**: Interactive git log with fuzzy search and filtering by author,
+  message, hash, type
 - **Diff Menu**: Choose unstaged or staged diff with file-by-file preview
 - Async commit data loading
 - Browser integration for GitHub/GitLab commits
@@ -198,7 +209,8 @@ This directory contains the core Neovim configuration, organized by functionalit
 **Features**:
 
 - **Category Selection**: All, LSP, DAP, Linters, Formatters, Other
-- Install/update/uninstall servers with status indicators (✓ installed, ⚠ outdated, ✗ not installed)
+- Install/update/uninstall servers with status indicators (✓ installed, ⚠
+  outdated, ✗ not installed)
 - Package information preview (description, homepage, languages, categories)
 - Asynchronous operations with automatic refresh
 - Version comparison for outdated packages
@@ -223,6 +235,35 @@ This directory contains the core Neovim configuration, organized by functionalit
 - Plugin specifications
 - Lazy loading setup
 - Plugin dependencies
+
+## Utilities Layer (lua/llawn/utils/)
+
+This directory contains utility functions and modules used across the
+configuration.
+
+### diff.lua
+
+**Purpose**: Diff-related utilities
+
+**Features**:
+
+- Diff computation and display functions
+
+### lockfile.lua
+
+**Purpose**: Lock file management utilities
+
+**Features**:
+
+- Lock file operations and handling
+
+### menu.lua
+
+**Purpose**: Menu utility functions
+
+**Features**:
+
+- Menu creation and management helpers
 
 ## Plugin Layer (lua/llawn/plugins/)
 
@@ -267,6 +308,16 @@ Each plugin has its own configuration file for modularity.
 - Custom highlight groups
 - Invisible character styling
 
+#### gitsigns.lua
+
+**Purpose**: Git signs and hunk management
+
+**Features**:
+
+- Git change indicators in sign column
+- Hunk navigation and staging
+- Blame information
+
 #### alpha.lua
 
 **Purpose**: Startup dashboard
@@ -294,6 +345,25 @@ Each plugin has its own configuration file for modularity.
 - Persistent file marks
 - Fast switching
 
+#### lexima.lua
+
+**Purpose**: Auto-pairing plugin
+
+**Features**:
+
+- Automatic bracket and quote pairing
+- Smart pairing logic
+
+#### llawn-colors.lua
+
+**Purpose**: Custom color utilities and database
+
+**Features**:
+
+- Color name to hex mapping
+- Color picker integration
+- Virtual text hints for colors
+
 #### lazygit.lua
 
 **Purpose**: Git integration
@@ -320,8 +390,18 @@ Each plugin has its own configuration file for modularity.
 **Purpose**: Documentation generation
 
 **Dependencies**:
+
 - `nvim-treesitter`
 - `LuaSnip`
+
+#### render-markdown.lua
+
+**Purpose**: Markdown rendering in Neovim
+
+**Features**:
+
+- Syntax highlighting for markdown
+- Code block rendering
 
 #### nvim-cmp.lua
 
@@ -352,6 +432,14 @@ Each plugin has its own configuration file for modularity.
 - Branch visualization
 - Time-based navigation
 
+#### vim-be-good.lua
+
+**Purpose**: Vim practice game
+
+**Features**:
+
+- Interactive Vim training exercises
+
 #### which-key.lua
 
 **Purpose**: Key binding hints
@@ -367,55 +455,10 @@ Each plugin has its own configuration file for modularity.
 **Purpose**: File manager integration
 
 **Features**:
+
 - Floating window
 - Directory replacement
 - Terminal integration
-
-### Local Plugins (local/)
-
-Custom local plugins not managed by Lazy.
-
-#### colors.lua
-
-**Purpose**: Color database with names and hex values
-
-**Contents**:
-- Comprehensive color palette (500+ colors)
-- Name-to-hex mapping for easy lookup
-
-#### colors_highlighter.lua
-
-**Purpose**: Color highlighter for hex codes with virtual hints
-
-**Features**:
-- Highlights # and 0x hex codes with background colors
-- Shows virtual text hints for closest named colors
-- Toggle functionality
-
-#### colors_utils.lua
-
-**Purpose**: Color utility functions
-
-#### telescope_color_picker.lua
-
-**Purpose**: Custom color picker using Telescope
-
-**Features**:
-- Fuzzy search by color name
-- Hex code proximity matching
-- Visual swatches and contrast previews
-- Integration with nvim-cmp for color completion
-- `:HexColors` command for interactive selection
-
-#### grid_color_picker.lua
-
-**Purpose**: 2D grid color picker with HSL sorting
-
-**Features**:
-- Grid display sorted by HSL for perceptual uniformity
-- Hover info for color names and hex codes
-- Enter key to insert selected color
-- `:ColorPick2D` command for interactive selection
 
 ## LSP Customizations (after/lsp/)
 
@@ -424,9 +467,28 @@ Custom local plugins not managed by Lazy.
 **Purpose**: Custom Flutter/Dart LSP configuration
 
 **Features**:
+
 - Custom command using analysis server
 - Enhanced Flutter features
 - Project detection via `pubspec.yaml`
+
+### lua_ls.lua
+
+**Purpose**: Custom Lua LSP configuration
+
+**Features**:
+
+- Lua language server settings
+- Custom diagnostics and hints
+
+### ruff.lua
+
+**Purpose**: Custom Ruff linter configuration
+
+**Features**:
+
+- Python linting with Ruff
+- Integration with LSP
 
 ## Extension Points
 
@@ -444,4 +506,5 @@ Custom local plugins not managed by Lazy.
 - **Theme**: Adjust `colors.lua`
 - **Plugins**: Add new plugin files
 
-This modular structure ensures maintainability, easy navigation, and clear separation of concerns throughout the configuration.
+This modular structure ensures maintainability, easy navigation, and clear
+separation of concerns throughout the configuration.

@@ -1,12 +1,13 @@
----
+______________________________________________________________________
 
 title: LSP Configurations
 
-description: Language Server Protocol setup and configurations for various programming languages
+description: Language Server Protocol setup and configurations for various
+programming languages
 
 icon: material/code-braces
 
----
+______________________________________________________________________
 
 # LSP Configurations
 
@@ -15,7 +16,8 @@ for various programming languages in the LLawn Neovim configuration.
 
 ## LSP Architecture
 
-The configuration leverages Neovim 0.11+'s built-in LSP capabilities with `vim.lsp.enable` for efficient, modern language support.
+The configuration leverages Neovim 0.11+'s built-in LSP capabilities with
+`vim.lsp.enable` for efficient, modern language support.
 
 ### Core Components
 
@@ -52,14 +54,14 @@ The following servers are automatically installed via Mason:
 
 !!! info "Supported Languages"
 
-    | Language | LSP Server |
-    |----------|------------|
-    | C/C++ | [clangd](https://clangd.llvm.org) |
-    | Flutter/Dart | flutter_ls |
-    | Fortran | [fortls](https://fortls.fortran-lang.org) |
-    | Go | [gopls](https://go.dev/gopls/) |
-    | Lua | [lua_ls](https://luals.github.io/) |
-    | Python | [ty](https://docs.astral.sh/ty/) + [ruff](https://docs.astral.sh/ruff/) |
+    | Language     | LSP Server                                                              |
+    | ------------ | ----------------------------------------------------------------------- |
+    | C/C++        | [clangd](https://clangd.llvm.org)                                       |
+    | Flutter/Dart | flutter_ls                                                              |
+    | Fortran      | [fortls](https://fortls.fortran-lang.org)                               |
+    | Go           | [gopls](https://go.dev/gopls/)                                          |
+    | Lua          | [lua_ls](https://luals.github.io/)                                      |
+    | Python       | [ty](https://docs.astral.sh/ty/) + [ruff](https://docs.astral.sh/ruff/) |
 
 ## Language-Specific Configurations
 
@@ -71,9 +73,11 @@ The following servers are automatically installed via Mason:
 
 - **Custom Command**: Uses Flutter SDK's analysis server
 - **Environment**: Requires `FLUTTER_ROOT` environment variable
-- **Enhanced Features**: Outline views, closing labels, Flutter-specific analysis
+- **Enhanced Features**: Outline views, closing labels, Flutter-specific
+  analysis
 
 **Configuration**:
+
 ```lua
 {
   cmd = {
@@ -105,73 +109,29 @@ The following servers are automatically installed via Mason:
 2. Set `FLUTTER_ROOT` environment variable
 3. Ensure Dart analysis server is available
 
+### Lua (lua_ls)
+
+**Location**: `after/lsp/lua_ls.lua`
+
+**Features**:
+
+- Lua language server configuration
+- Custom diagnostics and settings for Neovim Lua development
+
+### Python Linter (ruff)
+
+**Location**: `after/lsp/ruff.lua`
+
+**Features**:
+
+- Ruff linter integration
+- Python code quality and style checking
+
 ## LSP Features
 
-### Code Completion
-- **Source**: LSP server suggestions via nvim-cmp
-- **Capabilities**: Enhanced with cmp-nvim-lsp
-- **File Operations**: Automatic file operations handling
+See @docs/keymaps.md for LSP keymaps and features.
 
-### Diagnostics
-
-- **Signs**: Custom diagnostic signs in sign column
-- **Virtual Text**: Inline error/warning messages
-- **Severity Levels**: Error, warning, hint, info
-
-### Navigation
-
-- **Go to Definition**: `gd` - Jump to symbol definition
-- **Go to References**: `gR` - Find all references (via Telescope)
-- **Go to Implementation**: `gi` - Jump to implementation (via Telescope)
-- **Go to Type Definition**: `gt` - Jump to type definition (via Telescope)
-
-### Code Actions
-
-- **Quick Fix**: `<leader>ca` - Apply code actions
-- **Refactoring**: Rename symbols with `<leader>rn`
-
-### Documentation
-
-- **Hover**: `K` - Show documentation on hover
-- **Signature Help**: Automatic parameter hints
-
-## UI Customization
-
-### Diagnostic Signs
-
-Custom signs for different diagnostic levels:
-
-- **Error**: ``(nf-fa-times_circle)
-- **Warning**: ``(nf-fa-exclamation_triangle)
-- **Hint**: `󰠠`(nf-cod-lightbulb)
-- **Info**: ``(nf-fa-info_circle)
-
-### Inlay Hints
-
-Enabled by default for enhanced code readability:
-
-```lua
-vim.lsp.inlay_hint.enable(true)
-```
-
-## LSP Management
-
-### Server Status
-
-- **Lualine Integration**: Active LSP clients shown in status line
-- **Restart Capability**: `<leader>rs` to restart LSP servers
-- **Client Information**: View attached clients
-
-### Debugging
-
-- **Log Access**: LSP logs available for troubleshooting
-- **Client Inspection**: Query active LSP clients and their capabilities
-
-### Efficient Configuration
-
-- **Native LSP**: Uses Neovim's built-in LSP for better performance
-- **Minimal Setup**: Only essential LSP features enabled
-- **Smart Loading**: Servers start only when needed
+Lualine Integration: Active LSP clients shown in status line
 
 ## Extending LSP Support
 
@@ -201,7 +161,8 @@ vim.lsp.inlay_hint.enable(true)
 
 ### Custom Server Configuration
 
-For servers requiring special setup, create files in `after/lsp/` following the Flutter example. This allows fine-tuning of:
+For servers requiring special setup, create files in `after/lsp/` following the
+Flutter example. This allows fine-tuning of:
 
 - Command arguments
 - Initialization options
@@ -215,12 +176,15 @@ For servers requiring special setup, create files in `after/lsp/` following the 
 
 1. **Server Not Starting**: Check Mason installation status
 2. **No Completion**: Verify cmp-nvim-lsp capabilities setup
-4. **Performance**: Check for conflicting LSP configurations
+3. **Performance**: Check for conflicting LSP configurations
 
 ### Diagnostic Commands
 
 - `:LspInfo` - Show LSP client information
+
 - `:Mason` - Open Mason UI
+
 - `:LspRestart` - Restart all LSP clients
 
-  This LSP setup provides a solid foundation for productive development across multiple languages while remaining lightweight and maintainable.
+    This LSP setup provides a solid foundation for productive development across
+    multiple languages while remaining lightweight and maintainable.

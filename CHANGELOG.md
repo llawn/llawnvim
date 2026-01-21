@@ -89,6 +89,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- update changelog
 - update changelogs
 - update changelogs
 - update documentation
@@ -167,6 +168,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Chore
 
+- add palettes to gitignore
 - move changelog to a scripts directory
 - my lazy lockfile update
 - change name of menu functions to ts_symbols
