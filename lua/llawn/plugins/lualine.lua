@@ -9,7 +9,10 @@ return {
     -- Define highlight groups for icons
     vim.cmd('hi LspIcon guifg=#dbd7d2')
     vim.cmd('hi TsIcon guifg=#00ff7f')
+    vim.cmd('hi FormatterIcon guifg=#87ceeb')
+    vim.cmd('hi LinterIcon guifg=#ffa500')
     vim.cmd('hi NoIcon guifg=#ff0000')
+    vim.cmd('hi YesIcon guifg=#00ff7f')
     vim.cmd('hi Text guifg=#e6e6fa')
 
     -- Custom function to display active LSP client names for the current buffer
@@ -36,7 +39,33 @@ return {
       if not parser then
         text = text .. "%#NoIcon#%*"
       else
-        text = text .. "%#Text#" .. parser:lang() .. "%*"
+        text = text .. "%#YesIcon#%*"
+      end
+      return text
+    end
+
+    -- Custom function to display active formatters for the current buffer
+    local function formatter_status()
+      local ft = vim.bo.filetype
+      local formatters = require("conform").formatters_by_ft[ft] or {}
+      local text = "%#FormatterIcon#󰉶%* "
+      if #formatters == 0 then
+        text = text .. "%#NoIcon#%*"
+      else
+        text = text .. "%#Text#" .. formatters[1] .. "%*"
+      end
+      return text
+    end
+
+    -- Custom function to display active linters for the current buffer
+    local function linter_status()
+      local ft = vim.bo.filetype
+      local linters = require("lint").linters_by_ft[ft] or {}
+      local text = "%#LinterIcon#%* "
+      if #linters == 0 then
+        text = text .. "%#NoIcon#%*"
+      else
+        text = text .. "%#Text#" .. linters[1] .. "%*"
       end
       return text
     end
@@ -68,6 +97,8 @@ return {
         lualine_c = { 'filename' },
         lualine_x = {
           lsp_status,
+          formatter_status,
+          linter_status,
           treesitter_status,
           'filetype',
           'encoding',
