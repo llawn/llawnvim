@@ -5,7 +5,8 @@ All notable changes to this project will be documented in this file.
 ---
 
 ## [0.1.2] - 2026-01-21
-- chore(release): 0.1.2 (5fed56b)
+- fix: fix release sh (cd7b14a)
+- chore(release): 0.1.2 (4561ce1)
 - fix: release sh (27340ea)
 - chore(release): 0.1.2 (9ef52fb)
 - docs: update changelog for 0.1.2 (71b6e0f)
