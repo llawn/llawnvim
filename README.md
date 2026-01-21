@@ -28,6 +28,8 @@ This configuration draws inspiration from:
 This configuration is continuously updated and modular, making it easy to expand
 with new languages or plugins.
 
+![Banner](./assets/header.png)
+
 ## Documentation
 
 Full documentation is available at
