@@ -5,10 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-01-20
+## [Unreleased] - 2026-01-21
 
 ### Added
 
+- add a LintInfo to mimic ConformInfo
+- complete which-key
+- update and format docs
+- inclusive selection
+- indent file and selection shift
+- add mason binary to path
+- add first linter and first formatter to lualine
+- add category for mason menu previewer
+- enables linting automatically with nvim-lint
+- use mason registry to automatically enable some lsp features
+- add a language filter for the mason menu
+- formatting with confirm
 - add changelog generation in makefile
 - my custom color highlighter and picker plugin
 - change some keymap to match group in which-key
@@ -62,6 +74,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- update my lock files
+- place ty after ruff
+- fix generate changelog script header with icon
+- update help for makefile
+- render automatically for md files
+- rendering markdown for mason and treesitter menu
 - correct nil handle
 - change lsp keymap to <leader>p
 - Icon color for LSP and TS
@@ -89,6 +107,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- update documentation for nvim-lint and conform
+- change keymap desc
+- add changelog to toc
+- add a contributing.md
 - update changelog
 - update changelogs
 - update changelogs
@@ -132,6 +154,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Style
 
+- add mdformat formatter for markdown
+- init.lua
+- add selene linter
+- add editorconfig
 - format file
 - format file
 - better header
