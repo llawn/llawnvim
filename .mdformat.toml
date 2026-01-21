@@ -1,0 +1,16 @@
+# .mdformat.toml
+# Configuration for mdformat (Markdown formatter)
+
+wrap = 80
+number = true
+end_of_line = "lf"
+validate = true
+
+extensions = ["gfm", "toc", "mkdocs"]
+
+exclude = ["CHANGELOG.md", "docs/changelog.md"]
+
+[plugin.mkdocs]
+align_semantic_breaks_in_lists = true
+ignore_missing_references = true
+no_mkdocs_math = true
