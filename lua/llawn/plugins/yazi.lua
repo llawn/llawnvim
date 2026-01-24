@@ -38,28 +38,24 @@ return {
 
     -- Overwrite netrw for directory opening
     open_for_directories = true,
-    file_filter = function(entry)
+    file_filter = function(_)
       return true
     end,
     keymaps = {
       show_help = "<f1>",
     },
     hooks = {
-      yazi_opened = function() end,
-      yazi_closed_successfully = function() end,
-      yazi_opened_multiple_files = function() end,
-      -- Hook called when Yazi is fully initialized and ready
-      on_yazi_ready = function()
-        -- Defer execution to ensure Neovim is ready for keymap setup
+      yazi_opened = function()
+        vim.notify("Yazi opened - setting up keymaps", vim.log.levels.INFO)
         vim.schedule(function()
-          -- Check if LazyGit command is available (exists as a user-defined command)
-          if vim.fn.exists(':LazyGit') == 2 then
-            -- Set up terminal keybinding to close Yazi and open LazyGit
-            -- <c-l> in terminal mode: exit insert mode, quit Yazi, then launch LazyGit
-            vim.keymap.set('t', '<c-l>', '<C-\\><C-n>:q<CR>:LazyGit<CR>', { buffer = true, desc = "Open LazyGit" })
-          end
+          vim.keymap.set('t', '<c-l>', '<C-\\><C-n>:q<CR>:LazyGit<CR>', {
+            buffer = true,
+            desc = "Open LazyGit"
+          })
         end)
       end,
+      yazi_closed_successfully = function() end,
+      yazi_opened_multiple_files = function() end,
     },
   },
   init = function()
