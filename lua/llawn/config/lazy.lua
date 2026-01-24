@@ -34,7 +34,7 @@ require("lazy").setup({
   -- The plugins specifications path
   spec = {
     { import = "llawn.plugins" },
-    { import = "llawn.plugins.lsp" },
+    { import = "llawn.plugins.dev" },
   },
   -- (Optional) automatically check for plugin updates
   checker = {
