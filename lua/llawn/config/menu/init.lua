@@ -20,6 +20,7 @@ M.mason      = safe_load('llawn.config.menu.mason', 'mason')
 M.ts_symbols = safe_load('llawn.config.menu.treesitter_symbols', 'ts_symbols')
 M.unsaved    = safe_load('llawn.config.menu.unsaved', 'unsaved')
 M.swapfiles  = safe_load('llawn.config.menu.swapfiles', 'swapfiles')
+M.lint       = safe_load('llawn.config.menu.lint', 'lint')
 M.quit       = safe_load('llawn.config.menu.quit', 'quit')
 
 return M
