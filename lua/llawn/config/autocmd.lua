@@ -98,8 +98,12 @@ vim.api.nvim_create_autocmd(
 --- Setup diagnostic keymaps after Neovim is fully initialized
 --- @return nil
 local function setup_diagnostic_keymaps()
-  local diag = require("llawn.config.diag")
-  diag.setup_global_diagnostic_keymaps()
+  local ok, diag = pcall(require, "llawn.config.diag")
+  if ok and diag.setup_global_diagnostic_keymaps then
+    diag.setup_global_diagnostic_keymaps()
+  else
+    vim.notify("Failed to load diagnostic module", vim.log.levels.ERROR)
+  end
 end
 
 vim.api.nvim_create_autocmd(
