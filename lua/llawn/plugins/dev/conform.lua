@@ -2,7 +2,8 @@
 -- Description: Lightweight yet powerful formatter plugin for Neovim
 --              Automatically checks mason-registry to looks for installed formatters
 -- Note: Custom configuration for individual formatter in config/formatter
---       Trigger formatting in config/lsp.lua (synchronized behaviour)
+--       Trigger formatting in utils/formatting.lua (synchronized behaviour with LSP)
+--       keymap can be found in config/keymaps.lua
 
 local formatter_config = require("llawn.config.formatter")
 
