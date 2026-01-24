@@ -289,3 +289,11 @@ vim.keymap.set("n", "<leader>th", toggle_treesitter_highlight, opts)
 
 opts.desc = "Find Symbols"
 vim.keymap.set("n", "<leader>ts", function() get_menu().ts_symbols.menu() end, opts)
+
+-- ============================================================================
+-- Formatting
+-- ============================================================================
+
+opts.desc = "Format file (y/n)"
+vim.keymap.set("n", "<leader>pf", require("llawn.utils.formatting").format_with_confirmation, opts)
+

@@ -90,3 +90,24 @@ vim.api.nvim_create_autocmd(
     callback = start_alpha_dashboard
   }
 )
+
+-- ============================================================================
+-- Diagnostic Keymaps
+-- ============================================================================
+
+--- Setup diagnostic keymaps after Neovim is fully initialized
+--- @return nil
+local function setup_diagnostic_keymaps()
+  local diag = require("llawn.config.diag")
+  diag.setup_global_diagnostic_keymaps()
+end
+
+vim.api.nvim_create_autocmd(
+  "VimEnter",
+  {
+    desc = "Setup global diagnostic keymaps after initialization",
+    group = vim.api.nvim_create_augroup("setup-diagnostic-keymaps", { clear = true }),
+    callback = setup_diagnostic_keymaps,
+    once = true
+  }
+)
