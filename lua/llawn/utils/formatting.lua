@@ -34,7 +34,7 @@ function M.format_with_confirmation()
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
 
   if has_conform_formatter then
-    conform.format({ async = false, bufnr = bufnr, lsp_format = "prefer" })
+    conform.format({ async = false, bufnr = bufnr, lsp_format = "fallback" })
   else
     vim.lsp.buf.format({ bufnr = bufnr, async = false })
   end
@@ -49,9 +49,11 @@ function M.format_with_confirmation()
   local formatter_used = nil
   if has_conform_formatter then
     formatter_used = "Conform"
-  end
-  if has_lsp_formatter then
-    formatter_used = formatter_used and formatter_used .. " LSP" or "LSP"
+    if has_lsp_formatter and formatter_used then
+      formatter_used = formatter_used .. " (LSP available)"
+    end
+  elseif has_lsp_formatter then
+    formatter_used = "LSP"
   end
 
   -- remove formatting on buffer
