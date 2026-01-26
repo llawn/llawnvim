@@ -38,7 +38,7 @@ return {
             -- Set terminal mode keymap: 'x' to exit lazygit and launch Yazi file manager
             vim.keymap.set(
               't',
-              '<c-x>',
+              '<Esc>',
               '<C-\\><C-n>:q<CR>:Yazi<CR>',
               { buffer = true, desc = "Quit to Yazi" }
             )
