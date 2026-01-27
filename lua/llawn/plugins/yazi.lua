@@ -44,19 +44,6 @@ return {
     keymaps = {
       show_help = "<f1>",
     },
-    hooks = {
-      yazi_opened = function()
-        vim.notify("Yazi opened - setting up keymaps", vim.log.levels.INFO)
-        vim.schedule(function()
-          vim.keymap.set('t', '<c-l>', '<C-\\><C-n>:q<CR>:LazyGit<CR>', {
-            buffer = true,
-            desc = "Open LazyGit"
-          })
-        end)
-      end,
-      yazi_closed_successfully = function() end,
-      yazi_opened_multiple_files = function() end,
-    },
   },
   init = function()
     vim.g.loaded_netrwPlugin = 0

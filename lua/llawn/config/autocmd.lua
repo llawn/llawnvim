@@ -115,3 +115,83 @@ vim.api.nvim_create_autocmd(
     once = true
   }
 )
+
+-- ============================================================================
+-- Yazi Transition Keymaps
+-- ============================================================================
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "yazi",
+  desc = "Setup keymaps for Yazi terminal buffers",
+  group = vim.api.nvim_create_augroup("yazi-keymaps", { clear = true }),
+  callback = function(event)
+    local yazi_buf = event.buf
+    vim.bo[yazi_buf].bufhidden = "hide"
+
+    -- Generic Transition: Just hides Yazi and runs the command
+    local function simple_transition(cmd_func)
+      vim.cmd("stopinsert")
+      vim.api.nvim_win_hide(0)
+      vim.defer_fn(function()
+        cmd_func()
+      end, 100)
+    end
+
+    -- Telescope Transition: Adds the "Return to Yazi on Esc" logic
+    local function telescope_transition(picker_func)
+      vim.cmd("stopinsert")
+      vim.api.nvim_win_hide(0)
+      vim.defer_fn(function()
+        picker_func({
+          attach_mappings = function(prompt_bufnr, map)
+            local actions = require("telescope.actions")
+            local restore_yazi = function()
+              actions.close(prompt_bufnr)
+              vim.schedule(function() vim.cmd("Yazi") end)
+            end
+            map("i", "<Esc>", restore_yazi)
+            map("n", "<Esc>", restore_yazi)
+            return true
+          end,
+        })
+      end, 100)
+    end
+
+    -- Standard Telescope Pickers (With "Esc to Yazi" support)
+    local tele_maps = {
+      ['<A-g>'] = function(opts) require('telescope').extensions.live_grep_args.live_grep_args(opts) end,
+      ['<A-p>'] = function(opts) require('telescope').extensions.project.project(opts) end,
+      ['<A-b>'] = function(opts)
+        local theme = require('telescope.themes').get_dropdown({ previewer = false, initial_mode = "insert" })
+        require('telescope.builtin').buffers(vim.tbl_deep_extend("force", theme, opts))
+      end,
+    }
+
+    for key, func in pairs(tele_maps) do
+      vim.keymap.set('t', key, function() telescope_transition(func) end, { buffer = yazi_buf, silent = true })
+    end
+
+    -- Harpoon
+    vim.keymap.set('t', '<A-e>', function()
+      simple_transition(function()
+        local harpoon = require("harpoon")
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end)
+    end, { buffer = yazi_buf, silent = true, desc = "Harpoon" })
+
+    -- LazyGit
+    vim.keymap.set('t', '<A-l>', function()
+      simple_transition(function() vim.cmd("LazyGit") end)
+    end, { buffer = yazi_buf, silent = true, desc = "LazyGit" })
+
+    -- Unsaved Files
+    vim.keymap.set('t', '<A-u>', function()
+      simple_transition(function() require('llawn.config.menu').unsaved.menu() end)
+    end, { buffer = yazi_buf, silent = true })
+
+    -- Git Status
+    vim.keymap.set('t', '<A-s>', function()
+      simple_transition(function() require('llawn.config.menu').git.status_menu() end)
+    end, { buffer = yazi_buf, silent = true })
+  end,
+})
