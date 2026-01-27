@@ -195,6 +195,16 @@ return {
       { "is", icon = { icon = "󰐅", color = "green" }, mode = { "o", "x" } }, -- Statement Inner
 
       -- TS Textobjects Swap
+      { "<leader>sa", icon = { icon = "󰓡", color = "green" } }, -- Swap Param Next
+      { "<leader>sA", icon = { icon = "󰓡", color = "green" } }, -- Swap Param Prev
+      { "<leader>sb", icon = { icon = "󰓡", color = "green" } }, -- Swap Block Next
+      { "<leader>sB", icon = { icon = "󰓡", color = "green" } }, -- Swap Block Prev
+      { "<leader>sc", icon = { icon = "󰓡", color = "green" } }, -- Swap Class Next
+      { "<leader>sC", icon = { icon = "󰓡", color = "green" } }, -- Swap Class Prev
+      { "<leader>sf", icon = { icon = "󰓡", color = "green" } }, -- Swap Function Next
+      { "<leader>sF", icon = { icon = "󰓡", color = "green" } }, -- Swap Function Prev
+      { "<leader>sm", icon = { icon = "󰓡", color = "green" } }, -- Swap Call Next
+      { "<leader>sM", icon = { icon = "󰓡", color = "green" } }, -- Swap Call Prev
 
       -- TS Incremental Selection
       { "gnn", icon = { icon = "󰐅", color = "green" } }, -- Init Selection
