@@ -32,7 +32,10 @@ local function create_diff_previewer()
       -- Get buffer lines (modified)
       local buffer_lines = vim.api.nvim_buf_get_lines(entry.value.buf, 0, -1, false)
       -- Get file lines (original)
-      local file_lines = vim.fn.readfile(file)
+      local file_lines = {}
+      if vim.fn.filereadable(file) == 1 then
+        file_lines = vim.fn.readfile(file)
+      end
       -- Apply diff to the preview buffer
       local diff_utils = require('llawn.utils.diff')
       diff_utils.apply_diff_to_buffer(
