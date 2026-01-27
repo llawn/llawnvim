@@ -36,7 +36,7 @@ end
 M.git.menu = function()
   local choices = {
     { "Log",  M.git.log },
-    { "Diff", M.git.diff_menu },
+    { "Diff", M.git.status_menu },
   }
 
   vim.ui.select(
@@ -364,29 +364,15 @@ end
 -- GIT DIFF MENU
 ---------------------------------------------------------------------
 
--- Git diff menu between staged / or unstaged change
-M.git.diff_menu = function()
-  local choices = {
-    { "Unstaged Diff", "unstaged" },
-    { "Staged Diff",   "staged" },
-  }
-
-  vim.ui.select(choices, {
-    prompt = "Diff Type:",
-    format_item = function(item)
-      return item[1]
-    end,
-  }, function(choice)
-    if choice then
-      M.git.show_diff(choice[2])
-    end
-  end)
+-- Git diff menu showing all changes
+M.git.status_menu = function()
+  M.git.show_status()
 end
 
 -- Show diff
-M.git.show_diff = function(type)
-  local cached = type == "staged" and "--cached" or ""
-  local cmd = "git diff --name-status " .. cached
+M.git.show_status = function()
+  -- Get all changes: staged, unstaged, and untracked
+  local cmd = "git status --porcelain"
   local diff_handle = io.popen(cmd)
   if not diff_handle then return end
 
@@ -396,15 +382,21 @@ M.git.show_diff = function(type)
   local lines = vim.split(result, "\n", { trimempty = true })
 
   if #lines == 0 then
-    print("No " .. type .. " changes")
+    print("No changes")
     return
   end
 
   local files = {}
   for _, line in ipairs(lines) do
-    local status, file = line:match("^(%w)%s+(.+)")
-    if status and file then
-      table.insert(files, { status = status, file = file })
+    -- Extract status (first 2 chars) and filename (from index 4 onwards)
+    local status = line:sub(1, 2)
+    local file = line:sub(4)
+
+    if file ~= "" then
+      -- Skip directories
+      if vim.fn.isdirectory(file) == 0 then
+        table.insert(files, { status = status, file = file })
+      end
     end
   end
 
@@ -412,17 +404,36 @@ M.git.show_diff = function(type)
   local finders = require("telescope.finders")
   local sorters = require("telescope.sorters")
   local previewers = require("telescope.previewers")
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
 
   local diff_previewer = previewers.new_buffer_previewer({
-    title = "Diff",
+    title = "Status",
     define_preview = function(self, entry, _)
       local bufnr = self.state.bufnr
-      local file_diff_handle = io.popen(
-        "git diff "
-        .. cached
-        .. " -- "
-        .. vim.fn.shellescape(entry.value.file)
-      )
+      local status = entry.status
+      local file = entry.value
+
+      -- Determine the appropriate git diff command based on status
+      local diff_cmd
+      local index_status = status:sub(1, 1)
+      local work_status = status:sub(2, 2)
+
+      if status == "??" then
+        -- Untracked files - show as new file diff
+        diff_cmd = "git diff --no-index -- /dev/null " .. vim.fn.shellescape(file)
+      elseif index_status ~= " " and work_status ~= " " then
+        -- Both staged and unstaged changes - show diff against HEAD
+        diff_cmd = "git diff HEAD -- " .. vim.fn.shellescape(file)
+      elseif index_status ~= " " then
+        -- Only staged changes
+        diff_cmd = "git diff --cached -- " .. vim.fn.shellescape(file)
+      else
+        -- Only unstaged changes
+        diff_cmd = "git diff -- " .. vim.fn.shellescape(file)
+      end
+
+      local file_diff_handle = io.popen(diff_cmd)
       if not file_diff_handle then return end
 
       local content = file_diff_handle:read("*a")
@@ -456,24 +467,29 @@ M.git.show_diff = function(type)
 
   local entry_maker = function(entry)
     return {
-      value = entry,
+      value = entry.file,
+      status = entry.status,
+      path = entry.file,
       display = function(e)
-        local status = e.value.status
-        local file = e.value.file
+        local status = e.status
+        local file = e.value
+        local trimmed_status = status:gsub("%s", "")
 
         local hl_group = ""
-        if status == "M" then
+        if trimmed_status:match("M") then
           hl_group = "DiffChange"
-        elseif status == "A" then
+        elseif trimmed_status:match("A") then
           hl_group = "DiffAdd"
-        elseif status == "D" then
+        elseif trimmed_status:match("D") then
           hl_group = "DiffDelete"
-        elseif status == "R" then
+        elseif trimmed_status:match("R") then
           hl_group = "DiffText"
+        elseif trimmed_status == "??" then
+          hl_group = "DiagnosticWarn"
         end
 
-        return string.format("[%s] %s", status, file), {
-          { { 0, 3 }, hl_group },
+        return string.format("[%s] %s", trimmed_status, file), {
+          { { 0, #trimmed_status + 2 }, hl_group },
         }
       end,
       ordinal = entry.file,
@@ -481,13 +497,23 @@ M.git.show_diff = function(type)
   end
 
   pickers.new({}, {
-    prompt_title = type .. " Diff",
+    prompt_title = "Git Diff",
     finder = finders.new_table({
       results = files,
       entry_maker = entry_maker,
     }),
     sorter = sorters.get_fzf_sorter and sorters.get_fzf_sorter() or sorters.get_generic_fuzzy_sorter(),
     previewer = diff_previewer,
+    attach_mappings = function(prompt_bufnr)
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry()
+        if selection and selection.value then
+          vim.cmd("edit " .. vim.fn.fnameescape(selection.value))
+        end
+      end)
+      return true
+    end,
   }):find()
 end
 

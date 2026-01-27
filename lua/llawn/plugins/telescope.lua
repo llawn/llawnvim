@@ -143,7 +143,7 @@ return {
 
     vim.keymap.set('n', '<leader>fgc', require('llawn.config.menu').git.log, { desc = 'Git Commits' })
     vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'Git Branches' })
-    vim.keymap.set('n', '<leader>fgs', require('llawn.config.menu').git.diff_menu, { desc = 'Git Status' })
+    vim.keymap.set('n', '<leader>fgs', require('llawn.config.menu').git.status_menu, { desc = 'Git Status' })
 
     -- Custom menus
     vim.keymap.set('n', '<leader>fu', require('llawn.config.menu').unsaved.menu, { desc = 'Unsaved Files' })
