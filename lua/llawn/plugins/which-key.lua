@@ -45,6 +45,7 @@ return {
       { "<leader>g", group = "Git", icon = { icon = "󰊢", color = "orange" } },
       { "<leader>h", group = "Harpoon", icon = { icon = "󰛢", color = "purple" } },
       { "<leader>l", group = "Lua", icon = { icon = "", color = "purple" } },
+      { "<leader>n", group = "Notes (Fusen)", icon = { icon = "", color = "yellow" } },
       { "<leader>p", group = "LSP", icon = { icon = "󰒓", color = "blue" } },
       { "<leader>s", group = "TS Swap", icon = { icon = "󰓡", color = "green" } },
       { "<leader>t", group = "TS", icon = { icon = "󰐅", color = "green" } },
@@ -157,6 +158,16 @@ return {
       { "<leader>lx", icon = { icon = " ", color = "purple" }, mode = { "n", "v" } }, -- Execute Lua
       { "<leader>lf", icon = { icon = " ", color = "purple" } }, -- Execute Lua File
 
+      -- Notes (Fusen)
+      { "<leader>nc", icon = { icon = "󱙑", color = "yellow" }, desc = "Clear Line Note" },
+      { "<leader>nC", icon = { icon = "󱙑", color = "orange" }, desc = "Clear Buffer Notes" },
+      { "<leader>nD", icon = { icon = "󰆴", color = "red" }, desc = "Clear All Notes" },
+      { "<leader>ne", icon = { icon = "󱞁", color = "yellow" }, desc = "Add/Edit Notes" },
+      { "<leader>nf", icon = { icon = "󱙓", color = "yellow" }, desc = "Find Notes" },
+      { "<leader>ni", icon = { icon = "", color = "blue" }, desc = "Info Note" },
+      { "<leader>nl", icon = { icon = "󰚸", color = "yellow" }, desc = "List Notes" },
+      { "<leader>nt", desc = "Toggle Notes" },
+
       -- LSP + Neogen
       { "<leader>pa", icon = { icon = "󰌵", color = "green" }, mode = { "n", "v" } }, -- Code Action
       { "<leader>pd", icon = { icon = "󰏫", color = "green" } }, -- Function Doc
@@ -245,6 +256,8 @@ return {
       { "[m", icon = { icon = "󰐅", color = "green" } }, -- Prev Call
       { "]M", icon = { icon = "󰐅", color = "green" } }, -- Next Call End
       { "[M", icon = { icon = "󰐅", color = "green" } }, -- Prev Call End
+      { "]n", icon = { icon = "󰍉", color = "yellow" } }, -- Next Mark
+      { "[n", icon = { icon = "󰍉", color = "yellow" } }, -- Prev Mark
       { "]s", icon = { icon = "󰐅", color = "green" } }, -- Next Statement
       { "[s", icon = { icon = "󰐅", color = "green" } }, -- Prev Statement
       { "]S", icon = { icon = "󰐅", color = "green" } }, -- Next Statement End
