@@ -147,7 +147,9 @@ vim.api.nvim_create_autocmd("FileType", {
             local actions = require("telescope.actions")
             local restore_yazi = function()
               actions.close(prompt_bufnr)
-              vim.schedule(function() vim.cmd("Yazi") end)
+              vim.schedule(function()
+                vim.cmd("Yazi")
+              end)
             end
             map("i", "<Esc>", restore_yazi)
             map("n", "<Esc>", restore_yazi)
@@ -168,7 +170,9 @@ vim.api.nvim_create_autocmd("FileType", {
     }
 
     for key, func in pairs(tele_maps) do
-      vim.keymap.set('t', key, function() telescope_transition(func) end, { buffer = yazi_buf, silent = true })
+      vim.keymap.set('t', key, function()
+        telescope_transition(func)
+      end, { buffer = yazi_buf, silent = true })
     end
 
     -- Harpoon
@@ -181,17 +185,23 @@ vim.api.nvim_create_autocmd("FileType", {
 
     -- LazyGit
     vim.keymap.set('t', '<A-l>', function()
-      simple_transition(function() vim.cmd("LazyGit") end)
+      simple_transition(function()
+        vim.cmd("LazyGit")
+      end)
     end, { buffer = yazi_buf, silent = true, desc = "LazyGit" })
 
     -- Unsaved Files
     vim.keymap.set('t', '<A-u>', function()
-      simple_transition(function() require('llawn.config.menu').unsaved.menu() end)
+      simple_transition(function()
+        require('llawn.config.menu').unsaved.menu()
+      end)
     end, { buffer = yazi_buf, silent = true })
 
     -- Git Status
     vim.keymap.set('t', '<A-s>', function()
-      simple_transition(function() require('llawn.config.menu').git.status_menu() end)
+      simple_transition(function()
+        require('llawn.config.menu').git.status_menu()
+      end)
     end, { buffer = yazi_buf, silent = true })
   end,
 })

@@ -82,7 +82,9 @@ local function show_lint_info()
   local mason_all = mason_utils.get_mason_tools("Linter")[current_ft] or {}
   local available = {}
   for _, name in ipairs(mason_all) do
-    local is_lsp = vim.iter(lsp_linters):any(function(l) return l.name == name end)
+    local is_lsp = vim.iter(lsp_linters):any(function(l)
+      return l.name == name
+    end)
     if not is_lsp and not vim.tbl_contains(configured_linters, name) then
       table.insert(available, name)
     end

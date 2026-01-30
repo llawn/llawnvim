@@ -32,7 +32,9 @@ local function save_treesitter_lock()
     end
   end
 
-  table.sort(data, function(a, b) return a.name < b.name end)
+  table.sort(data, function(a, b)
+    return a.name < b.name
+  end)
   local json_lines = { "[" }
   for i, entry in ipairs(data) do
     local entry_str = vim.fn.json_encode(entry)

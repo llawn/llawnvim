@@ -206,7 +206,9 @@ M.treesitter.menu = function(filter)
 
   for _, lang in ipairs(langs) do
     local info = get_parser_info(lang)
-    if info then table.insert(items, info) end
+    if info then
+      table.insert(items, info)
+    end
   end
 
   local results = menu_utils.build_categorized_list(items, categorize_results, filter)
@@ -246,17 +248,29 @@ M.treesitter.menu = function(filter)
       {
         I = {
           condition = function(i) return not i.is_installed end,
-          action = function(i) pcall(function() vim.cmd("TSInstall " .. i.lang) end) end,
+          action = function(i)
+            pcall(function()
+              vim.cmd("TSInstall " .. i.lang)
+            end)
+          end,
           msg = "Installing "
         },
         X = {
           condition = function(i) return i.is_installed end,
-          action = function(i) pcall(function() vim.cmd("TSUninstall " .. i.lang) end) end,
+          action = function(i)
+            pcall(function()
+              vim.cmd("TSUninstall " .. i.lang)
+            end)
+          end,
           msg = "Uninstalling "
         },
         U = {
           condition = function(i) return i.needs_update end,
-          action = function(i) pcall(function() vim.cmd("TSUpdate " .. i.lang) end) end,
+          action = function(i)
+            pcall(function()
+              vim.cmd("TSUpdate " .. i.lang)
+            end)
+          end,
           msg = "Updating "
         },
         O = {
@@ -277,7 +291,9 @@ M.treesitter.menu = function(filter)
           msg = "Clearing README cache for "
         }
       },
-      function() M.treesitter.menu(filter) end, function(f) M.treesitter.menu(f) end)
+      function() M.treesitter.menu(filter) end, function(f)
+        M.treesitter.menu(f)
+      end)
   })
 end
 

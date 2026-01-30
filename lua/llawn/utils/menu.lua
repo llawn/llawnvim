@@ -51,7 +51,13 @@ end
 M.gen_entry_maker = function(name_key, version_fn, check_fn, hl_prefix)
   return function(entry)
     if type(entry) == "string" then
-      return { value = entry, ordinal = entry, display = function(e) return e.value end }
+      return {
+        value = entry,
+        ordinal = entry,
+        display = function(e)
+          return e.value
+        end
+      }
     end
     return {
       value = entry,
@@ -109,7 +115,9 @@ M.create_base_previewer = function(title, info_extract_fn)
       vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
       vim.bo[self.state.bufnr].filetype = 'markdown'
       pcall(vim.treesitter.start, self.state.bufnr)
-      vim.defer_fn(function() pcall(vim.cmd, 'RenderMarkdown enable') end, 100)
+      vim.defer_fn(function()
+        pcall(vim.cmd, 'RenderMarkdown enable')
+      end, 100)
     end
   })
 end
@@ -174,7 +182,9 @@ M.create_attach_mappings = function(action_table, reload_fn, filter_fn)
         },
         { prompt = "Filter by status:" },
         function(choice)
-          if choice then filter_fn(choice) end
+          if choice then
+            filter_fn(choice)
+          end
         end
       )
     end)
@@ -184,7 +194,9 @@ M.create_attach_mappings = function(action_table, reload_fn, filter_fn)
         local sel = action_state.get_selected_entry()
         local item = sel and type(sel.value) == "table" and sel.value or nil
         if config.condition(item) then
-          if config.msg and item then print(config.msg .. (item.name or item.lang or "")) end
+          if config.msg and item then
+            print(config.msg .. (item.name or item.lang or ""))
+          end
           config.action(item)
           if not config.no_close then
             actions.close(prompt_bufnr)

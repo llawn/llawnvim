@@ -63,7 +63,9 @@ return {
             delete_harpoon_item(selection)
             actions.close(prompt_bufnr)
             -- Re-open to refresh the list
-            vim.schedule(function() toggle_telescope(harpoon:list()) end)
+            vim.schedule(function()
+              toggle_telescope(harpoon:list())
+            end)
           end
 
           map("i", "<C-d>", do_delete) -- Use Ctrl+d in insert mode

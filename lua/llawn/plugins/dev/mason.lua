@@ -15,7 +15,9 @@ local function save_mason_lock()
       })
     end
   end
-  table.sort(data, function(a, b) return a.name < b.name end)
+  table.sort(data, function(a, b)
+    return a.name < b.name
+  end)
   local json_lines = { "[" }
   for i, entry in ipairs(data) do
     local entry_str = string.format(
@@ -54,6 +56,7 @@ return {
       {
         "williamboman/mason.nvim",
         opts = {
+          PATH = "append",
           -- UI configuration for mason
           ui = {
             icons = {

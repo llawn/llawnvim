@@ -73,7 +73,9 @@ local function setup_attach_mappings(unsaved)
       local selection = action_state.get_selected_entry()
       if selection then
         local buf = selection.value.buf
-        vim.api.nvim_buf_call(buf, function() vim.cmd("w") end)
+        vim.api.nvim_buf_call(buf, function()
+          vim.cmd("w")
+        end)
         print("Saved " .. selection.value.name)
         actions.close(prompt_bufnr)
         M.unsaved.menu()
@@ -85,7 +87,9 @@ local function setup_attach_mappings(unsaved)
       local selection = action_state.get_selected_entry()
       if selection then
         local buf = selection.value.buf
-        vim.api.nvim_buf_call(buf, function() vim.cmd("e!") end)
+        vim.api.nvim_buf_call(buf, function()
+          vim.cmd("e!")
+        end)
         print("Discarded changes for " .. selection.value.name)
         actions.close(prompt_bufnr)
         M.unsaved.menu()
@@ -103,7 +107,9 @@ local function setup_attach_mappings(unsaved)
     -- Discard all changes
     map('i', 'D', function()
       for _, entry in ipairs(unsaved) do
-        vim.api.nvim_buf_call(entry.buf, function() vim.cmd("e!") end)
+        vim.api.nvim_buf_call(entry.buf, function()
+          vim.cmd("e!")
+        end)
       end
       print("Discarded all changes")
       actions.close(prompt_bufnr)

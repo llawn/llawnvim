@@ -1,1 +1,5 @@
-std = "vim"
+std="vim"
+
+[lints]
+mixed_table="allow"
+

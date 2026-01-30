@@ -23,7 +23,11 @@ M.window.menu = function()
       prompt = "Window Menu:",
       format_item = function(item) return item[1] end
     },
-    function(choice) if choice then choice[2]() end end
+    function(choice)
+      if choice then
+        choice[2]()
+      end
+    end
   )
 end
 

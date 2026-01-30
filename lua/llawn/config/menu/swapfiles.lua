@@ -26,7 +26,7 @@ M.swapfiles.menu = function()
             table.insert(result, ':')
           else
             table.insert(result, '/')
-            i = i - 1  -- replay the current char
+            i = i - 1 -- replay the current char
           end
         else
           table.insert(result, '/')
@@ -41,7 +41,9 @@ M.swapfiles.menu = function()
 
   -- Find swap files in Neovim's swap directory
   local swap_dir = vim.opt.directory:get()
-  if type(swap_dir) == "table" then swap_dir = swap_dir[1] end
+  if type(swap_dir) == "table" then
+    swap_dir = swap_dir[1]
+  end
   -- Remove trailing // if present
   swap_dir = swap_dir:gsub("//$", "/")
   local swapfiles_list = vim.fn.globpath(swap_dir, "**/*.swp", false, true)
@@ -83,7 +85,7 @@ M.swapfiles.menu = function()
       local original = entry.value.original
 
       if not vim.fn.filereadable(original) then
-        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, {"Original file does not exist, cannot show diff."})
+        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "Original file does not exist, cannot show diff." })
         return
       end
 
@@ -92,7 +94,9 @@ M.swapfiles.menu = function()
 
       -- Recover swap content to temp buffer (silently)
       local temp_buf = vim.api.nvim_create_buf(false, true)
-      vim.api.nvim_buf_call(temp_buf, function() vim.cmd("silent recover! " .. vim.fn.fnameescape(original)) end)
+      vim.api.nvim_buf_call(temp_buf, function()
+        vim.cmd("silent recover! " .. vim.fn.fnameescape(original))
+      end)
       local swap_lines = vim.api.nvim_buf_get_lines(temp_buf, 0, -1, false)
       vim.api.nvim_buf_delete(temp_buf, { force = true })
 
@@ -102,16 +106,18 @@ M.swapfiles.menu = function()
       vim.fn.writefile(saved_lines, temp_saved)
       vim.fn.writefile(swap_lines, temp_swap)
 
-       -- Run diff
-       local cmd = "diff -u '" .. vim.fn.shellescape(temp_saved) .. "' '" .. vim.fn.shellescape(temp_swap) .. "' 2>/dev/null || echo 'No differences'"
-       local handle = io.popen(cmd)
-       local diff_output
-       if handle then
-         diff_output = handle:read("*a")
-         handle:close()
-       else
-         diff_output = "Failed to run diff command"
-       end
+      -- Run diff
+      local cmd = "diff -u '" ..
+          vim.fn.shellescape(temp_saved) ..
+          "' '" .. vim.fn.shellescape(temp_swap) .. "' 2>/dev/null || echo 'No differences'"
+      local handle = io.popen(cmd)
+      local diff_output
+      if handle then
+        diff_output = handle:read("*a")
+        handle:close()
+      else
+        diff_output = "Failed to run diff command"
+      end
       os.remove(temp_saved)
       os.remove(temp_swap)
 
@@ -175,7 +181,9 @@ M.swapfiles.menu = function()
           os.remove(swapfile)
           print("Recovered " .. original)
         end
-        pcall(function() actions.close(prompt_bufnr) end)
+        pcall(function()
+          actions.close(prompt_bufnr)
+        end)
       end)
 
       -- Recover selected swap file (simple recover without merge)
@@ -184,7 +192,9 @@ M.swapfiles.menu = function()
         if selection then
           local original = selection.value.original
           local swapfile = selection.value.swapfile
-          local ok = pcall(function() vim.cmd("recover! " .. vim.fn.fnameescape(original)) end)
+          local ok = pcall(function()
+            vim.cmd("recover! " .. vim.fn.fnameescape(original))
+          end)
           if ok then
             os.remove(swapfile)
           else

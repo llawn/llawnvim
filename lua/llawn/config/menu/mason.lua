@@ -10,7 +10,9 @@ local function read_lockfile()
   local path = vim.fn.stdpath("config") .. "/mason-lock.json"
   local data = lockfile_utils.read_lockfile(path)
   local locked = {}
-  for _, item in ipairs(data) do locked[item.name] = item.version end
+  for _, item in ipairs(data) do
+    locked[item.name] = item.version
+  end
   return locked
 end
 
@@ -95,8 +97,20 @@ M.mason.show_packages = function(cat_name, status_filter, language_filter)
       previewer = previewer,
       attach_mappings = menu_utils.create_attach_mappings(
         {
-          I = { condition = function() return true end, action = function(i) i.pkg:install({ version = i.target }) end, msg = "Installing " },
-          X = { condition = function(i) return i.pkg:is_installed() end, action = function(i) i.pkg:uninstall() end, msg = "Uninstalling " },
+          I = {
+            condition = function() return true end,
+            action = function(i)
+              i.pkg:install({ version = i.target })
+            end,
+            msg = "Installing "
+          },
+          X = {
+            condition = function(i) return i.pkg:is_installed() end,
+            action = function(i)
+              i.pkg:uninstall()
+            end,
+            msg = "Uninstalling "
+          },
           U = {
             condition = function(i) return i.pkg:is_installed() end,
             action = function(i)
@@ -151,7 +165,9 @@ end
 --- @return nil
 M.mason.menu = function(status_filter, language_filter)
   vim.ui.select({ "All", "LSP", "DAP", "Linter", "Formatter" }, { prompt = "Category:" }, function(c)
-    if c then M.mason.show_packages(c, status_filter, language_filter) end
+    if c then
+      M.mason.show_packages(c, status_filter, language_filter)
+    end
   end)
 end
 

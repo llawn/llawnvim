@@ -13,7 +13,9 @@ local function get_merged_linters()
   local mason_linters = mason_utils.get_mason_tools("Linter")
   local disabled = linter_config.disabled_linters or {}
   local is_disabled = {}
-  for _, name in ipairs(disabled) do is_disabled[name] = true end
+  for _, name in ipairs(disabled) do
+    is_disabled[name] = true
+  end
   local lsp_tools = mason_utils.get_mason_tools("LSP")
   local lsp_tools_flat = {}
   for _, names in pairs(lsp_tools) do

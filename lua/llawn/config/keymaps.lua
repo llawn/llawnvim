@@ -177,7 +177,7 @@ local function move_visual_right()
 end
 
 -- Fixed mapping function
-local function set_move_keymaps(desc, key, commands)
+local function set_move_keymaps(_, key, commands)
   vim.keymap.set("n", key, commands.n, opts)
   vim.keymap.set("i", key, commands.i, opts)
   vim.keymap.set("v", key, commands.v, opts)
@@ -244,19 +244,29 @@ local function get_menu()
 end
 
 opts.desc = "Git Popup Menu"
-vim.keymap.set("n", "<A-g>", function() get_menu().git.menu() end, opts)
+vim.keymap.set("n", "<A-g>", function()
+  get_menu().git.menu()
+end, opts)
 
 opts.desc = "Mason Popup Menu"
-vim.keymap.set("n", "<A-m>", function() get_menu().mason.menu() end, opts)
+vim.keymap.set("n", "<A-m>", function()
+  get_menu().mason.menu()
+end, opts)
 
 opts.desc = "Quit Neovim"
-vim.keymap.set("n", "<leader>q", function() get_menu().quit.smart_quit() end, opts)
+vim.keymap.set("n", "<leader>q", function()
+  get_menu().quit.smart_quit()
+end, opts)
 
 opts.desc = "Treesitter Popup Menu"
-vim.keymap.set("n", "<A-t>", function() get_menu().treesitter.menu() end, opts)
+vim.keymap.set("n", "<A-t>", function()
+  get_menu().treesitter.menu()
+end, opts)
 
 opts.desc = "Window Popup Menu"
-vim.keymap.set("n", "<A-w>", function() get_menu().window.menu() end, opts)
+vim.keymap.set("n", "<A-w>", function()
+  get_menu().window.menu()
+end, opts)
 
 -- ============================================================================
 -- Color Picker
@@ -288,7 +298,9 @@ opts.desc = "Toggle TS Highlight"
 vim.keymap.set("n", "<leader>th", toggle_treesitter_highlight, opts)
 
 opts.desc = "Find Symbols"
-vim.keymap.set("n", "<leader>ts", function() get_menu().ts_symbols.menu() end, opts)
+vim.keymap.set("n", "<leader>ts", function()
+  get_menu().ts_symbols.menu()
+end, opts)
 
 -- ============================================================================
 -- Formatting
