@@ -39,6 +39,7 @@ return {
       { "<leader>b", group = "Buffers", icon = { icon = "󰓩 ", color = "purple" } },
       { "<leader>c", group = "Colors", icon = { icon = "󰏘", color = "purple" } },
       { "<leader>d", group = "Diagnostics", icon = { icon = "󰨮", color = "red" } },
+      { "<leader>D", group = "Debug", icon = { icon = "", color = "red" } },
       { "<leader>f", group = "Find", icon = { icon = "󰱼", color = "blue" } },
       { "<leader>fg", group = "Git Find", icon = { icon = "󰊢", color = "orange" } },
       { "<leader>fi", group = "Insert", icon = { icon = "", color = "purple" } },
@@ -49,6 +50,13 @@ return {
       { "<leader>p", group = "LSP", icon = { icon = "󰒓", color = "blue" } },
       { "<leader>s", group = "TS Swap", icon = { icon = "󰓡", color = "green" } },
       { "<leader>t", group = "TS", icon = { icon = "󰐅", color = "green" } },
+
+      -- Function Key
+      { "<F5>", icon = { icon = "", color = "red" } }, -- Debug: Start/Continue
+      { "<F6>", icon = { icon = "", color = "red" } }, -- Debug: Step Over
+      { "<F7>", icon = { icon = "", color = "red" } }, -- Debug: Step Into
+      { "<F8>", icon = { icon = "", color = "red" } }, -- Debug: Step Out
+      { "<F9>", icon = { icon = "", color = "red" } }, -- Run Last
 
       -- Alt Key
       { "<A-g>", icon = { icon = "󰊢", color = "orange" } }, -- Git Menu
@@ -105,6 +113,14 @@ return {
       { "<leader>dd", icon = { icon = "󰨮", color = "red" } }, -- Show line Diagnostic
       { "<leader>ds", icon = { icon = "󰨮", color = "red" } }, -- Show Buffer Diagnostic
       { "<leader>dS", icon = { icon = "󰨮", color = "red" } }, -- Show BUffer Diagnostic (Source)
+
+      -- Debug
+      { "<leader>Dc", icon = { icon = "●", color = "orange" } }, -- Conditional Breakpoint
+      { "<leader>Dd", icon = { icon = "●", color = "red" } }, -- Breakpoint
+      { "<leader>Dl", icon = { icon = "", color = "cyan" } }, -- Log Point
+      { "<leader>Dr", icon = { icon = "", color = "red" } }, -- Open Repl
+      { "<leader>Du", icon = { icon = "", color = "red" } }, -- Toggle UI
+      { "<leader>Dx", icon = { icon = "󰆴", color = "red" } }, -- Remove all breakpoints
 
       -- Find/Telescope
       { "<leader>fb", icon = { icon = "󰓩 ", color = "cyan" } }, -- Buffers

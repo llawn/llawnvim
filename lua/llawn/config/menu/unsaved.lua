@@ -12,7 +12,9 @@ local function get_unsaved_buffers()
   for _, buf in ipairs(bufs) do
     if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].modified then
       local name = vim.api.nvim_buf_get_name(buf)
-      if name ~= '' then
+      local filetype = vim.bo[buf].filetype
+      -- Filter out dap-repl and other special buffers
+      if name ~= '' and filetype ~= 'dap-repl' and filetype ~= 'dapui_watches' and filetype ~= 'dapui_hover' then
         table.insert(unsaved, { buf = buf, name = name })
       end
     end

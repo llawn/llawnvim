@@ -12,9 +12,14 @@ M.quit.smart_quit = function()
     local bufs = vim.api.nvim_list_bufs()
     local has_unsaved = false
     for _, buf in ipairs(bufs) do
-      if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_get_option_value('modified', { buf = buf }) and vim.api.nvim_buf_get_name(buf) ~= '' then
-        has_unsaved = true
-        break
+      if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_get_option_value('modified', { buf = buf }) then
+        local name = vim.api.nvim_buf_get_name(buf)
+        local filetype = vim.bo[buf].filetype
+        -- Filter out dap-repl and other special buffers
+        if name ~= '' and filetype ~= 'dap-repl' and filetype ~= 'dapui_watches' and filetype ~= 'dapui_hover' then
+          has_unsaved = true
+          break
+        end
       end
     end
     if has_unsaved then
@@ -30,8 +35,8 @@ end
 
 M.quit.menu = function()
   local choices = {
-    { "Unsaved Menu",      function() unsaved.unsaved.menu() end },
-    { "Force Quit",        function() vim.cmd("qa!") end },
+    { "Unsaved Menu", function() unsaved.unsaved.menu() end },
+    { "Force Quit",   function() vim.cmd("qa!") end },
     { "Save All and Quit", function()
       vim.cmd("wa")
       vim.cmd("qa")

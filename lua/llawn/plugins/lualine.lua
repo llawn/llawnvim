@@ -8,9 +8,10 @@ return {
   config = function()
     -- Define highlight groups for icons
     vim.cmd('hi LspIcon guifg=#dbd7d2')
+    vim.cmd('hi DapIcon guifg=#ff6347')
     vim.cmd('hi TsIcon guifg=#00ff7f')
     vim.cmd('hi FormatterIcon guifg=#87ceeb')
-    vim.cmd('hi LinterIcon guifg=#ffa500')
+    vim.cmd('hi LinterIcon guifg=#c9a0dc')
     vim.cmd('hi NoIcon guifg=#ff0000')
     vim.cmd('hi YesIcon guifg=#00ff7f')
     vim.cmd('hi Text guifg=#e6e6fa')
@@ -29,6 +30,39 @@ return {
         text = text .. "%#Text#" .. table.concat(names, ", ") .. "%*"
       end
       return text
+    end
+
+    -- Custom function to display DAP debugging status
+    local function dap_status()
+      local dap = package.loaded["dap"]
+      local ok, dap_source = pcall(require,"mason-nvim-dap.mappings.source")
+      if not dap then return "" end
+      local function get_source_name(package_name)
+        if ok and dap_source.nvim_dap_to_package[package_name] then
+          return dap_source.nvim_dap_to_package[package_name]
+        else
+          return package_name
+        end
+      end
+      local ft = vim.bo.filetype
+      local icon = "%#DapIcon#%* "
+
+      -- 1. Check if a debug session is currently active
+      local session = dap.session()
+      if session then
+        return icon .. "%#YesIcon#%*"
+      end
+
+      -- 2. Check if there are any configurations registered for this filetype
+      local configs = dap.configurations[ft]
+      if configs and #configs > 0 then
+        local raw_id = tostring(configs[1].type):lower()
+        local name = get_source_name(raw_id)
+        return icon .. "%#Text#" .. name .. "%*"
+      end
+
+      -- 3. Fallback if nothing is configured
+      return icon .. "%#NoIcon#%*"
     end
 
     -- Custom function to display TS parsers for the current buffer
@@ -97,6 +131,7 @@ return {
         lualine_c = { 'filename' },
         lualine_x = {
           lsp_status,
+          dap_status,
           formatter_status,
           linter_status,
           treesitter_status,
