@@ -1,6 +1,8 @@
 [
   {"name": "bash-language-server", "version": "5.6.0"},
+  {"name": "checkmake", "version": "v0.3.2"},
   {"name": "clangd", "version": "21.1.8"},
+  {"name": "debugpy", "version": "1.8.19"},
   {"name": "fortls", "version": "3.2.2"},
   {"name": "gopls", "version": "v0.21.0"},
   {"name": "json-lsp", "version": "4.10.0"},
@@ -8,9 +10,10 @@
   {"name": "marksman", "version": "2025-12-13"},
   {"name": "mbake", "version": "1.4.4"},
   {"name": "mdformat", "version": "1.0.0"},
-  {"name": "ruff", "version": "0.14.13"},
-  {"name": "selene", "version": "0.29.0"},
+  {"name": "ruff", "version": "0.14.14"},
+  {"name": "selene", "version": "0.30.0"},
   {"name": "taplo", "version": "0.10.0"},
-  {"name": "ty", "version": "0.0.12"},
-  {"name": "yaml-language-server", "version": "1.19.2"}
+  {"name": "ty", "version": "0.0.13"},
+  {"name": "yaml-language-server", "version": "1.19.2"},
+  {"name": "zls", "version": "0.15.1"}
 ]

@@ -3,6 +3,7 @@
   {"name": "c", "commit": "2a265d69a4caf57108a73ad2ed1e6922dd2f998c"},
   {"name": "editorconfig", "commit": "3f2b371537355f6e53cc3af37f79ba450efb5132"},
   {"name": "git_rebase", "commit": "bff4b66b44b020d918d67e2828eada1974a966aa"},
+  {"name": "gitcommit", "commit": "a716678c0f00645fed1e6f1d0eb221481dbd6f6d"},
   {"name": "gitignore", "commit": "f4685bf11ac466dd278449bcfe5fd014e94aa504"},
   {"name": "html", "commit": "cbb91a0ff3621245e890d1c50cc811bffb77a26b"},
   {"name": "json", "commit": "46aa487b3ade14b7b05ef92507fdaa3915a662a3"},
@@ -15,5 +16,6 @@
   {"name": "toml", "commit": "64b56832c2cffe41758f28e05c756a3a98d16f41"},
   {"name": "vim", "commit": "11b688a1f0e97c0c4e3dbabf4a38016335f4d237"},
   {"name": "vimdoc", "commit": "2694c3d27e2ca98a0ccde72f33887394300d524e"},
-  {"name": "yaml", "commit": "1805917414a9a8ba2473717fd69447277a175fae"}
+  {"name": "yaml", "commit": "1805917414a9a8ba2473717fd69447277a175fae"},
+  {"name": "zig", "commit": "b670c8df85a1568f498aa5c8cae42f51a90473c0"}
 ]
