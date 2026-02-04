@@ -11,7 +11,7 @@ return {
       "nvim-neotest/nvim-nio",
       "jay-babu/mason-nvim-dap.nvim",
       "williamboman/mason.nvim",
-      "llawn/save-my-breakpoints.nvim",
+      { dir = "~/Source/save-my-breakpoints.nvim", name = "save-my-breakpoints" },
     },
     config = function()
       local dap = require("dap")
@@ -33,6 +33,14 @@ return {
       dapui.setup()
       require("nvim-dap-virtual-text").setup({
         commented = true, -- Show virtual text as a comment
+      })
+
+      --- Save My Breakpoints Setup ---
+      smb.setup({
+        save_dir = vim.fn.stdpath('data') .. '/breakpoints',
+        load_on_buffer_open = true,
+        save_on_exit = true,
+        telescope_menu = true,
       })
 
       local signs = {
@@ -79,14 +87,7 @@ return {
       set("n", "<Leader>Dr", dap.repl.open, { desc = "Open REPL" })
       set("n", "<Leader>Du", dapui.toggle, { desc = "Toggle UI" })
       set("n", "<Leader>Dx", smb.clear_all_breakpoints, { desc = "Clear All Breakpoints" })
-
-      --- Save My Breakpoints Setup ---
-      require('save-my-breakpoints').setup({
-        save_dir = vim.fn.stdpath('data') .. '/breakpoints',
-        load_on_buffer_open = true,
-        save_on_exit = true,
-        telescope_menu = true,
-      })
+      set("n", "<Leader>Dt", smb.show_breakpoints, { desc = "Telescope Breakpoints" })
 
       --- Load Custom Language Configs ---
       -- Dynamically loads files from lua/llawn/config/dap/*.lua
