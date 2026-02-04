@@ -13,6 +13,7 @@ return {
     'nvim-telescope/telescope-symbols.nvim',
     'nvim-telescope/telescope-github.nvim',
     'kkharji/sqlite.lua',
+    { dir = "~/Source/telescope-gitignore.nvim", name = "telescope-gitignore" },
   },
   config = function()
     local telescope = require('telescope')
@@ -65,6 +66,7 @@ return {
     telescope.load_extension('live_grep_args')
     telescope.load_extension('project')
     telescope.load_extension('gh')
+    telescope.load_extension('gitignore')
 
     -- --- Keybindings ---
 
@@ -80,6 +82,7 @@ return {
     -- Extension Specific Bindings
     vim.keymap.set('n', '<leader>ft', '<cmd>Telescope undo<cr>', { desc = 'Undo Tree' })
     vim.keymap.set('n', '<leader>fp', telescope.extensions.project.project, { desc = 'Projects' })
+    vim.keymap.set('n', '<leader>fgt', telescope.extensions.gitignore.gitignore, { desc = 'Gitignore Templates' })
 
     -- Symbols/Icons by source
     vim.keymap.set(
