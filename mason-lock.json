@@ -3,6 +3,7 @@
   {"name": "checkmake", "version": "v0.3.2"},
   {"name": "clangd", "version": "21.1.8"},
   {"name": "debugpy", "version": "1.8.19"},
+  {"name": "eslint-lsp", "version": "4.10.0"},
   {"name": "fortls", "version": "3.2.2"},
   {"name": "gopls", "version": "v0.21.0"},
   {"name": "json-lsp", "version": "4.10.0"},
@@ -12,8 +13,10 @@
   {"name": "mdformat", "version": "1.0.0"},
   {"name": "ruff", "version": "0.14.14"},
   {"name": "selene", "version": "0.30.0"},
+  {"name": "stylua", "version": "v2.3.1"},
   {"name": "taplo", "version": "0.10.0"},
   {"name": "ty", "version": "0.0.13"},
+  {"name": "vtsls", "version": "0.3.0"},
   {"name": "yaml-language-server", "version": "1.19.2"},
   {"name": "zls", "version": "0.15.1"}
 ]
