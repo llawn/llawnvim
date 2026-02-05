@@ -268,14 +268,7 @@ vim.keymap.set("n", "<A-w>", function()
   get_menu().window.menu()
 end, opts)
 
--- ============================================================================
--- Color Picker
--- ============================================================================
 
-opts.desc = "Pick colors"
-vim.keymap.set("n", "<leader>cc", ":HexColors<CR>", opts)
-opts.desc = "Pick colors 2D"
-vim.keymap.set("n", "<leader>cC", ":ColorPick2D<CR>", opts)
 
 -- ============================================================================
 -- Treesitter

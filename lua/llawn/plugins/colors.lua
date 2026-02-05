@@ -43,14 +43,6 @@ return {
 
       -- Apply the custom colors and highlights
       ColorMyPencils();
-
-      -- Setup color highlighter if available
-      local ok, highlighter = pcall(require, 'llawn.colors.colors_highlighter')
-      if ok then
-        highlighter.setup()
-      else
-        vim.notify('Custom color highlighter not found, skipping setup.', vim.log.levels.WARN)
-      end
     end
   },
 
