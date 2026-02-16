@@ -39,6 +39,11 @@ return {
         styles = {
           italic = false,
         },
+        highlight_groups = {
+          GutterMarksLocal = { fg = "iris" },
+          GutterMarksGlobal = { fg = "rose" },
+          GutterMarksSpecial = { fg = "muted" },
+        },
       })
 
       -- Apply the custom colors and highlights
