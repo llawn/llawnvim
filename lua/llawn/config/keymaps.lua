@@ -58,11 +58,15 @@ local function open_file_explorer()
 end
 
 opts.desc = "Open file explorer"
-vim.keymap.set("n", "<leader>x", open_file_explorer, opts)
+vim.keymap.set("n", "<leader>e", open_file_explorer, opts)
 
 -- Save file
 opts.desc = "Save file"
 vim.keymap.set("n", "<leader>w", vim.cmd.w, opts)
+
+-- Execute file
+opts.desc = "Execute File"
+vim.keymap.set("n", "<leader>x", ":ExecuteFile<CR>", opts)
 
 -- ============================================================================
 -- Navigation
@@ -228,8 +232,6 @@ vim.keymap.set("n", "<C-l>", toggle_list, opts)
 -- ============================================================================
 
 opts.desc = "Execute Lua"
-vim.keymap.set("n", "<leader>lx", "<Cmd>:.lua<CR>", opts)
-opts.desc = "Execute Lua"
 vim.keymap.set("v", "<leader>lx", "<Cmd>:lua<CR>", opts)
 opts.desc = "Execute Lua File"
 vim.keymap.set("n", "<leader>lf", "<Cmd>luafile %<CR>", opts)
@@ -242,11 +244,6 @@ vim.keymap.set("n", "<leader>lf", "<Cmd>luafile %<CR>", opts)
 local function get_menu()
   return require("llawn.config.menu")
 end
-
-opts.desc = "Git Popup Menu"
-vim.keymap.set("n", "<A-g>", function()
-  get_menu().git.menu()
-end, opts)
 
 opts.desc = "Mason Popup Menu"
 vim.keymap.set("n", "<A-m>", function()
@@ -267,8 +264,6 @@ opts.desc = "Window Popup Menu"
 vim.keymap.set("n", "<A-w>", function()
   get_menu().window.menu()
 end, opts)
-
-
 
 -- ============================================================================
 -- Treesitter

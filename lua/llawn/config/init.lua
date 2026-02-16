@@ -1,4 +1,5 @@
 require("llawn.config.autocmd")
+require("llawn.config.cmd")
 require("llawn.config.diag")
 require("llawn.config.globals")
 require("llawn.config.keymaps")
