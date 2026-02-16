@@ -39,7 +39,7 @@ return {
       { "<leader>c", group = "Colors", icon = { icon = "󰏘", color = "purple" } },
       { "<leader>d", group = "Diagnostics", icon = { icon = "󰨮", color = "red" } },
       { "<leader>D", group = "Debug", icon = { icon = "", color = "red" } },
-      { "<leader>f", group = "Find", icon = { icon = "󰱼", color = "blue" } },
+      { "<leader>f", group = "Find", icon = { icon = "", color = "blue" } },
       { "<leader>fg", group = "Git Find", icon = { icon = "󰊢", color = "orange" } },
       { "<leader>fi", group = "Insert", icon = { icon = "", color = "purple" } },
       { "<leader>g", group = "Git", icon = { icon = "󰊢", color = "orange" } },
@@ -85,12 +85,13 @@ return {
 
       -- 1-stroke key
       { "<leader>a", icon = { icon = "󰛢", color = "purple" } }, -- Add to Harpoon
+      { "<leader>e", icon = { icon = "󰙅", color = "blue" } }, -- File Explorer
       { "<leader>q", icon = { icon = "󰈆", color = "red" } }, -- Quit Neovim
       { "<leader>R", icon = { icon = "󰑐", color = "blue" } }, -- Reload Config
       { "<leader>S", icon = { icon = "", color = "green" } }, -- Source File
       { "<leader>u", icon = { icon = "󰕍", color = "red" } }, -- UndoTree
       { "<leader>w", icon = { icon = "󰆓", color = "green" } }, -- Save File
-      { "<leader>x", icon = { icon = "󰙅", color = "blue" } }, -- File Explorer
+      { "<leader>x", icon = { icon = "" }, color = "red"  }, -- Execute File
       { "<leader>y", icon = { icon = "󰙅", color = "blue" } }, -- Yazi CWD
       { "<leader>-", icon = { icon = "󰙅", color = "blue" } }, -- Yazi File
       { "<leader>?", icon = { icon = "󰋖", color = "grey" } }, -- Keymaps
@@ -101,8 +102,11 @@ return {
       { "<leader>bp", icon = { icon = "󰮳 ", color = "cyan" } }, -- Previous Buffer
 
       -- Color
-      { "<leader>cC", icon = { icon = "󰈊", color = "purple" } }, -- Pick Colors 2D
-      { "<leader>ct", icon = { icon = "󰏘", color = "purple" } }, -- Toggle Colors
+      { "<leader>cc", icon = { icon = "", color = "purple" } }, -- Pick Colors Telescope
+      { "<leader>cC", icon = { icon = "󰏘", color = "purple" } }, -- Pick Colors 2D
+      { "<leader>cl", icon = { icon = "󰏘", color = "purple" } }, -- Palette List
+      { "<leader>cs", icon = { icon = "", color = "purple" } }, -- Palette stats
+      { "<leader>ct", icon = { icon = "", color = "purple" } }, -- Toggle Colors
 
       -- Diagnostics
       { "<leader>db", icon = { icon = "󰨮", color = "red" } }, -- Buffer Diagnostics
@@ -302,5 +306,5 @@ return {
       -- { "<A-s>", desc = "Open Git status from Yazi" },
       -- { "<A-u>", desc = "Open Unsaved files from Yazi" },
     })
-  end
+  end,
 }
