@@ -31,7 +31,6 @@ return {
     wk.add({
       -- Groups
       { "g", group = "Go to", icon = { icon = "󰺯 ", color = "blue" } },
-      { "<A-g>", group = "Git" },
       { "<A-m>", group = "Mason" },
       { "<A-t>", group = "Treesitter" },
       { "<A-w>", group = "Window", icon = { icon = "󰖲", color = "blue" } },
@@ -59,7 +58,6 @@ return {
       { "<F9>", icon = { icon = "", color = "red" } }, -- Run Last
 
       -- Alt Key
-      { "<A-g>", icon = { icon = "󰊢", color = "orange" } }, -- Git Menu
       { "<A-h>", icon = { icon = "󰜱", color = "blue" } }, -- Move Left
       { "<A-j>", icon = { icon = "󰜮", color = "blue" } }, -- Move Line Down
       { "<A-k>", icon = { icon = "󰜷", color = "red" } }, -- Move Line Up
@@ -135,11 +133,9 @@ return {
       { "<leader>fw", icon = { icon = "󰈬", color = "yellow" } }, -- Find Word
       { "<leader>fs", icon = { icon = "󰆏", color = "red" } }, -- Swap Files
       { "<leader>fgb", icon = { icon = "󰊢", color = "orange" } }, -- Git Branches
-      { "<leader>fgc", icon = { icon = "󰊢", color = "orange" } }, -- Git Commits
       { "<leader>fgf", icon = { icon = "󰊢", color = "orange" } }, -- Git Files
       { "<leader>fgi", icon = { icon = "󰊢", color = "orange" } }, -- GH Issues
       { "<leader>fgp", icon = { icon = "󰊢", color = "orange" } }, -- GH PR
-      { "<leader>fgs", icon = { icon = "󰊢", color = "orange" } }, -- Git Status
       { "<leader>fgw", icon = { icon = "󰊢", color = "orange" } }, -- GH Runs
       { "<leader>fie", icon = { icon = "󰞅", color = "purple" } }, -- Emoji
       { "<leader>fig", icon = { icon = "", color = "purple" } }, -- Gitmoji

@@ -14,7 +14,6 @@ local function safe_load(path, sub_key)
 end
 
 M.window     = safe_load('llawn.config.menu.window', 'window')
-M.git        = safe_load('llawn.config.menu.git', 'git')
 M.treesitter = safe_load('llawn.config.menu.treesitter', 'treesitter')
 M.mason      = safe_load('llawn.config.menu.mason', 'mason')
 M.ts_symbols = safe_load('llawn.config.menu.treesitter_symbols', 'ts_symbols')
