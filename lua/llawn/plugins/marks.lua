@@ -21,7 +21,7 @@ return {
       desc = "Prev Mark",
     },
     {
-      "m;",
+      "dm",
       function()
         require("guttermarks.actions").delete_mark()
       end,

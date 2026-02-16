@@ -91,7 +91,7 @@ return {
       { "<leader>S", icon = { icon = "", color = "green" } }, -- Source File
       { "<leader>u", icon = { icon = "󰕍", color = "red" } }, -- UndoTree
       { "<leader>w", icon = { icon = "󰆓", color = "green" } }, -- Save File
-      { "<leader>x", icon = { icon = "" }, color = "red"  }, -- Execute File
+      { "<leader>x", icon = { icon = "", color = "red" } }, -- Execute File
       { "<leader>y", icon = { icon = "󰙅", color = "blue" } }, -- Yazi CWD
       { "<leader>-", icon = { icon = "󰙅", color = "blue" } }, -- Yazi File
       { "<leader>?", icon = { icon = "󰋖", color = "grey" } }, -- Keymaps
